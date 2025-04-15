@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/04/15 12:39:41 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:36:59 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,29 @@
 
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <stdbool.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h> //open()
+
+
+typedef enum e_token_type
+{
+    //ajouter les diff types de tokens
+}	t_token_type;
+
+/*
+** Token = élément lexical (commande, argument, opérateur, etc.)
+*/
+typedef struct s_token
+{
+	char			*str;
+	t_token_type	type;
+	struct s_token	*next;
+}	t_token;
+
+
 
 int	main(int argc, char **argv, char **envp);
 

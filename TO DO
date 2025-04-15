@@ -1,0 +1,181 @@
+
+Exécution de commandes simples et avec pipelines
+Gestion des redirections (>, >>, <, <<)
+Builtins (echo, cd, pwd, export, unset, env, exit)
+Parsing avec gestion des quotes, variables d’environnement, etc.
+
+🔹 Parsing & Tokenisation
+
+
+Analyse lexicale (tokenisation de l'entrée utilisateur)
+Gestion des quotes ('', "")
+Expansion de variables ($VAR)
+Création d'une structure de commandes (t_simple_cmds)
+Gestion des redirections et heredoc
+
+
+🔹 Exécution
+Responsable : Binôme
+
+Exécution des commandes simples
+Gestion des pipelines
+Mise en place des redirections
+Appel des fonctions builtins
+Gestion des processus et du parent/child split (fork, execve, wait...)
+🗂️ Arborescence
+
+✅ Étape 1 : La structure partagée (t_data)
+Voici une version documentée de ta structure, à partager dans un fichier commun :
+
+📁 includes/shared_structs.h
+
+#ifndef SHARED_STRUCTS_H
+# define SHARED_STRUCTS_H
+
+# include <stdbool.h>
+
+/*
+** Types de tokens (à adapter selon ton tokenizer)
+*/
+typedef enum e_token_type
+{
+	T_WORD,
+	T_PIPE,
+	T_LESS,
+	T_GREATER,
+	T_DLESS,
+	T_DGREATER
+}	t_token_type;
+
+/*
+** Token = élément lexical (commande, argument, opérateur, etc.)
+*/
+typedef struct s_token
+{
+	char			*str;
+	t_token_type	type;
+	struct s_token	*prev;
+	struct s_token	*next;
+}	t_token;
+
+/*
+** Commande = un maillon d’un pipeline
+*/
+typedef struct s_cmd
+{
+	bool			skip_cmd;     // Indique si cette commande doit être ignorée (ex: && ou erreurs)
+	int				infile;       // FD d’entrée (redirection "<" ou heredoc)
+	int				outfile;      // FD de sortie (redirection ">" ou ">>")
+	char			**cmd_param;  // Arguments de la commande (argv[])
+	struct s_cmd	*prev;
+	struct s_cmd	*next;
+}	t_cmd;
+
+/*
+** Liste chaînée simple (ex: pour l'environnement)
+*/
+typedef struct s_list
+{
+	char			*str;
+	struct s_list	*prev;
+	struct s_list	*next;
+}	t_list;
+
+/*
+** Structure principale du shell — utilisée par tout le monde
+*/
+typedef struct s_data
+{
+	t_list	*env;        // Environnement (envp format)
+	t_token	*token;      // Liste des tokens bruts (produite par le lexer)
+	t_cmd	*cmd;        // Liste des commandes (produite par le parser, utilisée par l'executor)
+	int		exit_code;   // Code de sortie du shell (pour $? et suivi d’état)
+	int		pip[2];      // Pipe courant
+	bool	sq;          // Quote simple ouverte ? (utile pendant le parsing)
+}	t_data;
+
+#endif
+
+
+
+
+SINOOON 
+
+#ifndef SHARED_STRUCTS_H
+# define SHARED_STRUCTS_H
+
+# include <stdbool.h>
+
+typedef enum e_token_type
+{
+	T_WORD,
+	T_PIPE,
+	T_REDIR_IN,
+	T_REDIR_OUT,
+	T_REDIR_APPEND,
+	T_HEREDOC
+}	t_token_type;
+
+typedef struct s_token
+{
+	char			*str;
+	t_token_type	type;
+	struct s_token	*next;
+}	t_token;
+
+typedef struct s_cmd
+{
+	char			**cmd_param;
+	int				infile;
+	int				outfile;
+	struct s_cmd	*next;
+}	t_cmd;
+
+typedef struct s_list
+{
+	char			*str;
+	struct s_list	*next;
+}	t_list;
+
+typedef struct s_data
+{
+	t_list	*env;
+	t_token	*token;
+	t_cmd	*cmd;
+	int		exit_code;
+}	t_data;
+
+#endif
+
+
+✅ Étape 2 : Répartition du travail
+Tu peux maintenant te mettre d’accord avec ton binôme :
+
+🧩 Toi (Parsing)
+Tu écris les fonctions qui vont :
+
+Lire l’entrée utilisateur
+
+Faire une liste chaînée de t_token
+
+Transformer ces t_token en une liste de t_cmd
+
+void lexer(t_data *data);
+void parser(t_data *data);
+
+À la fin de ta partie, data->cmd est prêt à être exécuté.
+
+⚙️ Binôme (Execution)
+Elle s’occupe de :
+
+Lire data->cmd
+
+Gérer les redirections (infile, outfile)
+
+Lancer les commandes avec fork, execve
+
+Gérer les pipes, exit_code, etc.
+
+c
+Copier
+Modifier

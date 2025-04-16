@@ -1,3 +1,21 @@
+malloc, free	Pour construire dynamiquement les tokens, structures
+
+printf	Pour debug/log pendant le parsing
+
+write	Éventuellement pour des erreurs ou debug minimal
+
+access	Pour vérifier si un fichier existe (utile en cas de redirection par exemple)
+
+read	Possiblement utile pour heredoc
+
+open, close	Idem : heredoc ou pour tester des fichiers
+
+getenv	 Pour l expansion des variables d’environnement ($VAR)
+
+strerror, perror	Afficher des erreurs liées au parsing, redirs
+
+
+
 
 Exécution de commandes simples et avec pipelines
 Gestion des redirections (>, >>, <, <<)

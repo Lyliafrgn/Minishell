@@ -6,7 +6,7 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/04/15 16:36:59 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/04/16 19:55:20 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+typedef struct s_command_table
+{
+	
+}	t_command_table;
 
 
 int	main(int argc, char **argv, char **envp);

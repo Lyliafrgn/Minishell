@@ -6,7 +6,7 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/04/16 19:55:20 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/04/16 19:56:51 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ typedef struct s_token
 
 typedef struct s_command_table
 {
-	
+	char **command;
+	//store the commands that will be executed
 }	t_command_table;
 
 

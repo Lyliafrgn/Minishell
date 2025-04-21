@@ -6,7 +6,7 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/04/20 21:07:32 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/04/21 16:26:58 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,12 @@ Each group becomes a command.
 -The 1rst thing the parser does is loop through the lexer list
 until it encounters a pipe. 
 It then takes all the nodes before the pipe as one command, 
-(commande = un maillon d'un pipeline) 
 and creates a node in the t_simple_cmds struct. 
 If it doesn't find a pipe it takes all the (remaining) nodes as one command.*/
-typedef struct s_cmd //PARSER
+typedef struct s_cmd //(commande = un maillon d'un pipeline) 
 {
-	char 	**cmd_param; //store the commands that will be executed (args de la commande (argv[]))
-//	bool	skip_cmd;     // Indique si cette commande doit être ignorée (ex: && ou erreurs)
+	char 	**cmd_param; //contains each args of the command (ex :["ls", "-l", NULL]) (→ as argv[] in execve())
+//	bool	skip_cmd; // Indique si cette commande doit être ignorée (ex: && ou erreurs)
 	t_redir *redirections;
 	int		redir_error;
 	int		status;
@@ -105,16 +104,18 @@ typedef struct s_redir
 }	t_redir;
 
 
-//**COMMON STRUCTURE/ Main shell structure
+//GLOBAL STRUCTURE / (Main shell structure)
+
+/*t_data = global toolbox that contains the current 
+line (tokens + parsed commands + status)*/
 typedef struct s_data
 {
 	t_token			*token_list; //List of raw tokens (produced by the lexer)
-	t_cmd			*command; //List of commands (produced by the parser, used by the executor)
+	t_cmd			*command; //List of commands (each t_cmd represents an individual command, with its arguments, redirections, and FDs)
 	int				exit_code; //shell exit code (for $? and status tracking)
 }	t_data;
 
-
-
+//**PROTOTYPES**/
 int	main(int argc, char **argv, char **envp);
 
 #endif

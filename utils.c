@@ -82,3 +82,27 @@ int	ft_is_in_var(char c)
 		return (YES);
 	return (NO);
 }
+
+static int	ft_get_token_size(char *line)
+{
+	int	type;
+	int	len;
+
+	if (!line)
+		return (FAIL);
+	type = ft_gettype(line);
+	if (type == HD || type == APPEND)
+		return (2);
+	if (type == PIPE || type == RIGHT_TRUNC || type == LT)
+		return (1);
+	len = 0;
+	while (line[len] && !ft_is_space(line[len]) && !ft_isop(&line[len])
+		&& line[len] != '|' && line[len] != '<' && line[len] != '>')
+	{
+		if (ft_isquote(line[len]) && line[len + 1] != '\0')
+			len += ft_strchr(&line[len + 1], line[len]) - &line[len] + 1;
+		else
+			len++;
+	}
+	return (len);
+}

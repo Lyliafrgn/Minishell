@@ -61,3 +61,24 @@ int	ft_isoperator(char *str)
 		return (1);
 	return (NO);
 }
+
+int	ft_is_space(char c)
+{
+	if ((c >= 9 && c <= 13) || c == ' ')
+		return (YES);
+	return (NO);
+}
+
+int	ft_isquote(char c)
+{
+	if (c == DOUBLE_QUOTES || c == SINGLE_QUOTE)
+		return (YES);
+	return (NO);
+}
+
+int	ft_is_in_var(char c)
+{
+	if (ft_isalnum(c) || c == '_')
+		return (YES);
+	return (NO);
+}

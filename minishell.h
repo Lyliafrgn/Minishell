@@ -24,6 +24,25 @@
 # include <unistd.h>
 # include <fcntl.h> //open()
 
+# define DOUBLE_QUOTES '\"'
+# define SINGLE_QUOTE '\''
+
+# define HD 1
+# define APPEND 2
+# define PIPE 3
+# define LT 4
+# define RIGHT_TRUNC 5
+# define WORD 6
+# define NEWLINE_ERROR 7
+# define QUOTES_ERROR 8
+# define SINGLE_QUOTE_ERROR 9
+# define DOUBLE_QUOTE_ERROR 10
+# define QWORD 11
+# define DOUBLE_PIPE_ERROR 12
+# define LIM 13
+# define PIPE_AT_END 14
+# define HDEXEC 15
+
 /*
 ** Token = élément lexical (commande, argument, opérateur, etc.)
 */

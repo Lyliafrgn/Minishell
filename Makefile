@@ -13,6 +13,7 @@
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+LDLIBS = -lreadline
 SRC_DIR = .
 INC_DIR = libft/include
 LIBFT_DIR = libft/

@@ -21,7 +21,7 @@ static int	ft_check_quote_error(char *line)
 	squote = 0;
 	dquote = 0;
 	if (!line)
-		return (FAIL);
+		return (-1);
 	while (*line)
 	{
 		if (ft_isquote(*line) && (line + 1) && ft_strchr(line + 1,
@@ -41,9 +41,9 @@ static int	ft_check_quote_error(char *line)
 	return (SUCCESS);
 }
 
-int	ft_lexer(t_data *data)
+int	ft_tokenizer(t_data *data)
 {
-	if (ft_check_quote_error(data->line) == FAIL)
+	if (ft_check_quote(data->line) == -1)
 	{
 		data->exit_status = 2;
 		return (ft_print_err(QUOTES_ERROR), FAIL);

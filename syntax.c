@@ -1,10 +1,10 @@
 #include "minishell.h"
 
-int syntax_check(t_token *tkn_lst)
+int syntax_check(t_token *token_lst)
 {
     t_token *current;
     
-    current = tkn_lst;
+    current = token_lst;
     while (current)
     {
         if (current->type == 2)

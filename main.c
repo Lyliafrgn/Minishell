@@ -1,9 +1,11 @@
 #include <stdio.h>
+#include "minishell.h"
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdlib.h>
 
-int main(void)
+
+/*int main(void)
 {
     char *rl;
     while ((rl =  readline("minishell> ")) != NULL)
@@ -16,25 +18,42 @@ int main(void)
 		free(rl);
 	}
     return (0);
-}
+}*/
 int	main(void)
 {
-	char	*line;
+	t_data	*data;
 
+	//init(&data); // initialise env, exit_code, etc.
 	while (1)
 	{
-		line = readline("minishell> ");
-		if (!line)
+		data->line = readline(MINIMSG);
+		if (!data->line)
+		{	//free_all(&data, "exit", [exit code])
 			break ;
-		if (*line)
-			add_history(line);
-		ft_lexer(line);
+		}
+		if (data->line[0])
+			add_history(data->line);
+		ft_tokenizer(data);//tokenize & check syntaxe
+		//parsing(&data);         // → data.cmd rempli
+		//exec(&data);       // → exécute data.cmd
+		//clean(&data);     // libère tout
 		free(line);
 	}
-	return (s = data->exit_status, rl_clear_history());
+	rl_clear_history();
+	//free_all(checker avec V les allocations faites)
+	return (0);
 }
 
+/*int	main(void)
+{
+	t_data	data;
 
+	init_data(&data);      // initialise env, exit_code, etc.
+	lexer(&data);          // → data.token rempli
+	parser(&data);         // → data.cmd rempli
+	exec_all(&data);       // → exécute data.cmd
+	clean_data(&data);     // libère tout
+}*/
 
 /*int	main(int ac, char **av, char **env)
 {

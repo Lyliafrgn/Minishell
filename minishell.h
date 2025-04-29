@@ -6,24 +6,24 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/04/29 14:18:32 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/04/29 16:45:55 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "libft/include/libft.h"
-# include "libft/include/ft_printf.h"
-
 # include <readline/readline.h>
 # include <readline/history.h>
+/*# include "libft/include/libft.h"
+# include "libft/include/ft_printf.h"*/
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h> //open()
 
+# define MINIMSG "\001\e[1;36;5;141m\002minishell\001\e[1;33m\002 > \001\033[0m\002"
 
 /*
 ** Token = élément lexical (commande, argument, opérateur, etc.)
@@ -53,14 +53,14 @@ and then adds the token to the following linked list
 
 */
 //Structure représentant un token (élément lexical):
-typedef struct s_lexer // (aka tokenizer) 
+typedef struct s_token
 {
 	char			*content; // value of the token (ex : ls", "|", "file.txt"))
 	t_type			token; //(c.f t_type)
 	//int	i;
 	struct s_lexer	*prev;
 	struct s_lexer	*next;
-}	t_lexer;
+}	t_token;
 
 /*-The lexer then gets sent to 
 
@@ -100,12 +100,13 @@ typedef struct s_redir
 line (tokens + parsed commands + status)*/
 typedef struct s_data
 {
-	t_lexer			*lexer_list; // pointer to the lexer linked list 
+	char			*line;
+	t_token			*token_list; // pointer to the token linked list 
 	t_cmd			*simple_cmd; //pointer to the command linked list
 	int				exit_code; //shell exit code (for $? and status tracking)
 }	t_data;
 
 //**PROTOTYPES**/
-int	main(int argc, char **argv, char **envp);
+int	main(void);
 
 #endif

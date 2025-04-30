@@ -6,7 +6,7 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/04/30 15:59:09 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/04/30 16:49:08 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@
 # include <unistd.h>
 # include <fcntl.h> //open()
 
+# define TRUE 1
+# define FALSE 0
+
+# define S_QUOTE '\''
+# define D_QUOTE '\"'
+
 # define MINIMSG "\001\e[1;36;5;141m\002minishell\001\e[1;33m\002 > \001\033[0m\002"
 
 /*
@@ -31,8 +37,6 @@
 typedef enum e_type
 {
 	T_WORD,
-	T_SQUOTE,
-	T_DQUOTE,
 	T_PIPE,
 	T_REDIRIN, // <
 	T_REDIROUT,// >

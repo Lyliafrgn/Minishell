@@ -6,7 +6,7 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/04/30 16:49:52 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/04/30 16:51:02 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define TRUE 1
 # define FALSE 0
 
-# define S_QUOTE '\''
-# define D_QUOTE '\"'
+# define SQUOTE '\''
+# define DQUOTE '\"'
 
 # define MINIMSG "\001\e[1;36;5;141m\002minishell\001\e[1;33m\002 > \001\033[0m\002"
 

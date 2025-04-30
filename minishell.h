@@ -6,7 +6,7 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/04/30 16:49:08 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/04/30 16:49:52 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ line (tokens + parsed commands + status)*/
 typedef struct s_data
 {
 	char			*line;
-	t_token			*token_list; // pointer to the token linked list 
+	t_token			*tkn_lst; // pointer to the token linked list 
 	t_cmd			*simple_cmd; //pointer to the command linked list
 	int				exit_code; //shell exit code (for $? and status tracking)
 }	t_data;

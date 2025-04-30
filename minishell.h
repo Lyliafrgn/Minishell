@@ -6,7 +6,7 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/04/29 16:45:55 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/04/30 15:59:09 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,11 @@ typedef enum e_type
 	T_SQUOTE,
 	T_DQUOTE,
 	T_PIPE,
-	T_INPUT, // <
-	T_OUTPUT,// >
+	T_REDIRIN, // <
+	T_REDIROUT,// >
 	T_APPEND,// >>
 	T_HEREDOC,// << 
+	LIM,
 }	t_type;
 
 /*

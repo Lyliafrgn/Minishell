@@ -1,38 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_env_copy.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 12:19:09 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/02 12:54:05 by vimazuro         ###   ########.fr       */
+/*   Created: 2025/04/22 12:21:11 by vimazuro          #+#    #+#             */
+/*   Updated: 2025/05/02 12:54:59 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../minishell.h"
 
-int	ft_atoi(const char *nptr)
+t_env	*ft_env_copy(t_env *env)
 {
-	int		result;
-	int		sign;
-	size_t	i;
+	t_env	*copy;
+	t_env	*current;
+	t_env	*new_node;
 
-	i = 0;
-	sign = 1;
-	result = 0;
-	while (nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13))
-		i++;
-	if ((nptr[i] == '-') || (nptr[i] == '+'))
+	copy = NULL;
+	current = NULL;
+	while (env)
 	{
-		if (nptr[i] == '-')
-			sign = (-1);
-		i++;
+		new_node = ft_new_node(env->key, env->value);
+		if (!new_node)
+		{
+			ft_free_env(copy);
+			return (NULL);
+		}
+		if (!copy)
+			copy = new_node;
+		else
+			current->next = new_node;
+		current = new_node;
+		env = env->next;
 	}
-	while (nptr[i] >= '0' && nptr[i] <= '9')
-	{
-		result = (result * 10) + (nptr[i] - '0');
-		i++;
-	}
-	return (sign * result);
+	return (copy);
 }

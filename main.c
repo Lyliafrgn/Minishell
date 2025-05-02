@@ -1,15 +1,18 @@
 #include <stdio.h>
-#include "minishell.h"
+//#include "minishell.h"
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdlib.h>
 
 
-/*int main(void)
+int main(void)
 {
     char *rl;
-    while ((rl =  readline("minishell> ")) != NULL)
+    while (1)
 	{
+		rl =  readline("minishell> ");
+		if (!rl)
+			break;
 		if (*rl)
 		{
 			add_history(rl);
@@ -18,8 +21,8 @@
 		free(rl);
 	}
     return (0);
-}*/
-int	main(void)
+}
+/*int	main(void)
 {
 	t_data	*data;
 
@@ -33,16 +36,16 @@ int	main(void)
 		}
 		if (data->line[0])
 			add_history(data->line);
-		ft_tokenizer(data);//tokenize & check syntaxe
+		ft_tokenizer(data);//checks syntaxe & tokenize 
 		//parsing(&data);         // → data.cmd rempli
 		//exec(&data);       // → exécute data.cmd
 		//clean(&data);     // libère tout
-		free(line);
+		free(data->line);
 	}
 	rl_clear_history();
 	//free_all(checker avec V les allocations faites)
 	return (0);
-}
+}*/
 
 /*int	main(void)
 {

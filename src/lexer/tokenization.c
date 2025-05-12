@@ -1,28 +1,55 @@
+t_token	*init_new_token(char *new_str, int type)
+{
+	t_token	*new_tkn;
+
+	new_tkn = (t_token *)malloc(sizeof(t_token));
+	if (!new_token)
+		return (NULL);
+	new_tkn->content = new_str;
+	new_tkn->type = type;
+	new_tkn->next = NULL;
+	return (new_tkn);
+}
+
+void	ft_addlast_token(t_token **tkn_lst, t_token *new_tkn)
+{
+	t_token	*lst;
+
+	if (!new_tkn)
+		return ;
+	if (*tkn_lst == NULL)
+		*tkn_lst = new_tkn;
+	else
+	{
+		lst = *tkn_lst;
+		while (lst->next != NULL)
+			lst = lst->next;
+		lst->next = new_tkn;
+	}
+}
+
 
 t_token	*create_token_list(char *line)
 {
 	t_token	*tkn_lst;
 	t_token	*new_tkn;
 	char	*str;
-	int		pos;
 
-	pos = 0;
 	tkn_lst = NULL;
 	while (*line)
 	{
-		if (ft_is_space(line) == 1)
+		if (ft_isspace(line) == TRUE)
 			line++;
 		else
 		{
-			str = ft_get_next_str(line);
+			str = get_next_str(line);
 			if (!str)
 				return (ft_free_tokens(&tkn_lst), NULL);
-			new_tkn = ft_new_token(str, ft_gettype(str), pos, true);
+			new_tkn = init_new_token(str, ft_gettype(str));
 			if (!new_tkn)
 				return (free(str), ft_free_tokens(&tkn_lst), NULL);
 			ft_addlast_token(&tkn_lst, new_tkn);
 			line += ft_strlen(str);
-			pos++;
 		}
 	}
 }
@@ -36,11 +63,9 @@ int	ft_tokenizer(t_data *data)
 		return (print_syntax_error(11), -1);
 	}
 	data->tkn_lst = create_token_list(data->line);
-	if (!data->token_list)
+	if (!data->tkn_lst)
 		return (-1);
-	//ft_set_delimiters(&data->token_list);
-	if (ft_check_token_list(data, data->token_list) == FAIL)
-		return (FAIL);
-	ft_expand(data, &data->token_list);
-	return (SUCCESS);
+	if (check_token_list(data, data->tkn_lst) == KO)
+		return (-1);
+	return (1);
 }

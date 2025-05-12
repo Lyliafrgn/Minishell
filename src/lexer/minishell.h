@@ -6,7 +6,7 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/02 17:24:59 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/12 18:57:58 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 # define TRUE 1
 # define FALSE 0
 
+# define OK 1
+# define KO -1
+
 # define SQUOTE '\''
 # define DQUOTE '"'
 
@@ -40,7 +43,6 @@ typedef enum e_type
 	T_REDIROUT,// >
 	T_APPEND,// >>
 	T_HEREDOC,// << 
-	LIM,
 }	t_type;
 
 

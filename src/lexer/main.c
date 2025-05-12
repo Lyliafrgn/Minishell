@@ -12,12 +12,17 @@ int	main(void)
 	{
 		data->line = readline(MINIMSG);
 		if (!data->line)
-		{	
+		{
 			break ;
 		}
 		if (data->line[0])
 			add_history(data->line);
-		ft_tokenizer(data);//checks syntaxe & tokenize 
+		ft_tokenizer(data);
+		/*if (ft_tokenizer(data) == 1)
+		{
+			parsing;
+			execution;       // → exécute data.cmd
+		}*/
 		free(line);
 	}
 	rl_clear_history();

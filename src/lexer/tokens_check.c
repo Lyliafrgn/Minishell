@@ -1,32 +1,18 @@
 #include "minishell.h"
 
-int	check_quote_error(char *line)
+
+static int	ft_first_checks(t_data *data, t_token *token)
 {
-	int	in_squote;
-	int	in_dquote;
-
-    in_squote = 0;
-    in_dquote = 0;
-	while (*line)
-	{
-		if (*line == SQUOTE && !in_dquote)
-			in_squote = !in_squote;
-		else if (*line == DQUOTE && !in_squote)
-			in_dquote = !in_dquote; // inverts the value of in_dquote. If in_dquote was 1, then after running in_dquote = !in_dquote;, the value of in_dquote becomes 0.
-		line++;
-	}
-	if (in_squote || in_dquote)
-		return (KO);
-	return (OK);
+	if (token->next == NULL && ft_isop(token->value) == NO
+		&& token->type != PIPE)
+		return (NO);
+	if (ft_isop(token->value) == YES && token->next
+		&& ft_isop(token->next->value) == YES)
+		return (ft_err(token, token->next->type), ft_status(data), YES);
+	if (ft_isop(token->value) == YES && token->next == NULL)
+		return (ft_err(token, NEWLINE_ERROR), ft_status(data), YES);
+	return (SKIP);
 }
-
-check_token_list;
-
-
-
-
-
-
 
 
 

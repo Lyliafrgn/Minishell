@@ -1,3 +1,17 @@
+
+
+void	ft_err(t_token *token, int err_type)
+{
+	if (err_type == PIPE_AT_END)
+		token->pipe_at_end = true;
+	else
+	{
+		token->error = true;
+		token->err_type = err_type;
+	}
+}
+
+
 void	print_syntax_error(int errno)
 {
 	if (errno == T_APPEND)
@@ -19,3 +33,4 @@ void	print_syntax_error(int errno)
     else if (errno == 12)
 	    printf("unsupported character\n", 2); //';' '\' '\n' '&' '!' '(' ')' '&&'
 }
+

@@ -6,7 +6,7 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/02 17:27:04 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/12 18:06:07 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef enum e_type
 	T_REDIROUT,// >
 	T_APPEND,// >>
 	T_HEREDOC,// << 
-	LIM,
 }	t_type;
 
 /*

@@ -6,7 +6,7 @@
 #    By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/20 16:41:15 by vimazuro          #+#    #+#              #
-#    Updated: 2025/05/02 12:55:33 by vimazuro         ###   ########.fr        #
+#    Updated: 2025/05/12 15:59:21 by vimazuro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,18 @@ SRC_FILES = src/main.c \
 			src/env/ft_free_env.c src/env/ft_env_copy.c \
 			src/env/ft_sort_env.c src/env/ft_update_env.c \
 			src/env/ft_find_env.c src/env/ft_valid_key_env.c \
-			src/env/ft_delete_env_node.c src/env/ft_get_env.c
+			src/env/ft_delete_env_node.c src/env/ft_get_env.c \
+			src/env/ft_env_to_array.c \
+			src/executor/ft_execute_command.c \
+			src/executor/ft_find_full_path.c \
+			src/executor/ft_free_array.c \
+			src/executor/ft_child_process.c \
+			src/executor/ft_count_pipes.c \
+			src/executor/ft_create_pipes.c \
+			src/executor/ft_create_process.c \
+			src/executor/ft_execute_all.c \
+			src/executor/ft_split_by_pipes.c
+
 
 OBJS = $(SRC_FILES:.c=.o)
 

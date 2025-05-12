@@ -1,40 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_create_pipes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 12:11:46 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/12 15:59:18 by vimazuro         ###   ########.fr       */
+/*   Created: 2025/05/09 11:21:27 by vimazuro          #+#    #+#             */
+/*   Updated: 2025/05/12 15:58:53 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+int	**ft_create_pipes(int num_pipes)
 {
-	char	*input;
-	t_env	*my_env;
+	int	**pipe_fd;
+	int	i;
 
-	(void)argc;
-	(void)argv;
-	my_env = ft_init_env(envp);
-	ft_update_env_shlvl(my_env);
-	while (1)
+	pipe_fd = malloc(num_pipes * sizeof(int *));
+	if (!pipe_fd)
+		return (NULL);
+	i = 0;
+	while (i < num_pipes)
 	{
-		input = readline("minishell:~$ ");
-		if (!input)
+		pipe_fd[i] = malloc(2 * sizeof(int));
+		if (!pipe_fd[i])
+			return (NULL);
+		if (pipe(pipe_fd[i]) == -1)
 		{
-			perror("Error: readline\n");
-			break ;
+			perror("pipe");
+			return (NULL);
 		}
-		if (*input)
-		{
-			add_history(input);
-			ft_execute_all(input, my_env);
-		}
-		free(input);
+		i++;
 	}
-	return (0);
+	return (pipe_fd);
 }

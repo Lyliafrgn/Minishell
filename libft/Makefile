@@ -6,7 +6,7 @@
 #    By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 16:23:31 by vimazuro          #+#    #+#              #
-#    Updated: 2025/05/02 12:54:20 by vimazuro         ###   ########.fr        #
+#    Updated: 2025/05/12 12:02:28 by vimazuro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,10 @@ SRC_FILES = \
 	    $(SRC_DIR)/ft_putchar_fd.c $(SRC_DIR)/ft_putendl_fd.c \
 	    $(SRC_DIR)/ft_putnbr_fd.c $(SRC_DIR)/ft_putstr_fd.c \
 	    $(SRC_DIR)/ft_split.c $(SRC_DIR)/ft_strchr.c \
-	    $(SRC_DIR)/ft_strdup.c $(SRC_DIR)/ft_striteri.c \
-	    $(SRC_DIR)/ft_strjoin.c $(SRC_DIR)/ft_strlcat.c \
+	    $(SRC_DIR)/ft_strdup.c $(SRC_DIR)/ft_strndup.c \
+		$(SRC_DIR)/ft_striteri.c \
+	    $(SRC_DIR)/ft_strjoin.c $(SRC_DIR)/ft_strjoin_3.c \
+		$(SRC_DIR)/ft_strlcat.c \
 	    $(SRC_DIR)/ft_strlcpy.c $(SRC_DIR)/ft_strlen.c \
 	    $(SRC_DIR)/ft_strmapi.c \
 		$(SRC_DIR)/ft_strcmp.c $(SRC_DIR)/ft_strncmp.c \

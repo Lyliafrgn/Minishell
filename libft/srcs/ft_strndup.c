@@ -1,40 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 12:11:46 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/12 15:59:18 by vimazuro         ###   ########.fr       */
+/*   Created: 2025/05/12 10:34:24 by vimazuro          #+#    #+#             */
+/*   Updated: 2025/05/12 13:07:34 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+char	*ft_strndup(const char *s, size_t start, size_t len)
 {
-	char	*input;
-	t_env	*my_env;
+	char	*new_str;
+	size_t	i;
 
-	(void)argc;
-	(void)argv;
-	my_env = ft_init_env(envp);
-	ft_update_env_shlvl(my_env);
-	while (1)
+	new_str = malloc(len + 1);
+	if (!new_str)
+		return (NULL);
+	i = 0;
+	while (i < len && s[start + i])
 	{
-		input = readline("minishell:~$ ");
-		if (!input)
-		{
-			perror("Error: readline\n");
-			break ;
-		}
-		if (*input)
-		{
-			add_history(input);
-			ft_execute_all(input, my_env);
-		}
-		free(input);
+		new_str[i] = s[start + i];
+		i++;
 	}
-	return (0);
+	new_str[i] = '\0';
+	return(new_str);
 }

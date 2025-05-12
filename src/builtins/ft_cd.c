@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 10:22:13 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/02 12:54:34 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/07 15:34:52 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	ft_cd(char **args, t_env **my_env)
 {
-	char	*path;
-	char	*oldpwd;
-	char	*newpwd;
+	char		*path;
+	char		*oldpwd;
+	char		*newpwd;
 
 	if (args[1] && args[2])
 	{
@@ -50,9 +50,7 @@ int	ft_cd(char **args, t_env **my_env)
 		return (1);
 	if (chdir(path) == -1)
 	{
-		ft_putstr_fd("cd: ", 2);
-		ft_putstr_fd(path, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
+		perror("cd");
 		free(oldpwd);
 		return (1);
 	}

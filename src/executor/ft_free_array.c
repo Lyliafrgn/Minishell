@@ -1,40 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_free_array.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 12:11:46 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/12 15:59:18 by vimazuro         ###   ########.fr       */
+/*   Created: 2025/05/05 11:36:09 by vimazuro          #+#    #+#             */
+/*   Updated: 2025/05/12 15:59:11 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+void	ft_free_array(char **array)
 {
-	char	*input;
-	t_env	*my_env;
+	int	i;
 
-	(void)argc;
-	(void)argv;
-	my_env = ft_init_env(envp);
-	ft_update_env_shlvl(my_env);
-	while (1)
+	if (!array)
+		return ;
+	i = 0;
+	while (array[i])
 	{
-		input = readline("minishell:~$ ");
-		if (!input)
-		{
-			perror("Error: readline\n");
-			break ;
-		}
-		if (*input)
-		{
-			add_history(input);
-			ft_execute_all(input, my_env);
-		}
-		free(input);
+		free(array[i]);
+		i++;
 	}
-	return (0);
+	free(array);
 }

@@ -9,7 +9,7 @@ t_token	*ft_token_before_last(t_token *list)
 	return (cur_token);
 }
 
-t_token	*ft_findlast_token(t_token *lst)
+t_token	*find_last_token(t_token *lst)
 {
 	if (!lst)
 		return (NULL);
@@ -18,7 +18,7 @@ t_token	*ft_findlast_token(t_token *lst)
 	return (lst);
 }
 
-int	ft_get_type(char *str)
+int	get_type(char *str)
 {
 	if (*str == '|')
 		return (T_PIPE);

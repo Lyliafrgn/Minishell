@@ -1,3 +1,4 @@
+
 void	ft_free_tokens(t_token **tkn_lst)
 {
 	t_token	*curr_token;

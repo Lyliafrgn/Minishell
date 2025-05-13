@@ -43,3 +43,21 @@ int	ft_isspace(char c)
 	else
 		return (FALSE);
 }
+
+int	is_redirop(char *str)
+{
+	int	len;
+
+	len = ft_strlen(str);
+	if (!str)
+		return (FALSE);
+	if (ft_strncmp(str, ">>", len) == 0)
+		return (TRUE);
+	if (ft_strncmp(str, "<<", len) == 0)
+		return (TRUE);
+	if (ft_strncmp(str, ">", len) == 0)
+		return (TRUE);
+	if (ft_strncmp(str, "<", len) == 0)
+		return (TRUE);
+	return (FALSE);
+}

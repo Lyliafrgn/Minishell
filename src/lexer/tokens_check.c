@@ -3,15 +3,15 @@
 
 static int	ft_first_checks(t_data *data, t_token *token)
 {
-	if (token->next == NULL && ft_isop(token->value) == NO
+	if (token->next == NULL && is_redirop(token->content) == FALSE
 		&& token->type != PIPE)
-		return (NO);
-	if (ft_isop(token->value) == YES && token->next
-		&& ft_isop(token->next->value) == YES)
-		return (ft_err(token, token->next->type), ft_status(data), YES);
-	if (ft_isop(token->value) == YES && token->next == NULL)
-		return (ft_err(token, NEWLINE_ERROR), ft_status(data), YES);
-	return (SKIP);
+		return (FALSE);
+	if (is_redirop(token->content) == TRUE && token->next
+		&& is_redirop(token->next->content) == TRUE)
+		return (print_syntax_error(token->next->type), data->exit_code = 2, 1);
+	if (is_redirop(token->content) == TRUE && token->next == NULL)
+		return (print_syntax_error(10), data->exit_code = 2, 1);
+	return (2);
 }
 
 

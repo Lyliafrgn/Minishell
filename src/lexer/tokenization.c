@@ -1,4 +1,4 @@
-t_token	*init_new_token(char *new_str, int type)
+t_token	*init_token_list(char *new_str, int type)
 {
 	t_token	*new_tkn;
 
@@ -45,7 +45,7 @@ t_token	*create_token_list(char *line)
 			str = get_next_str(line);
 			if (!str)
 				return (ft_free_tokens(&tkn_lst), NULL);
-			new_tkn = init_new_token(str, ft_gettype(str));
+			new_tkn = init_token_list(str, ft_gettype(str));
 			if (!new_tkn)
 				return (free(str), ft_free_tokens(&tkn_lst), NULL);
 			ft_addlast_token(&tkn_lst, new_tkn);

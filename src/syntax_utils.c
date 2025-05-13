@@ -1,5 +1,6 @@
+#include "minishell.h"
 
-tatic int	ft_isappend(char *str)
+static int	is_append(char *str)
 {
 	if (!str)
 		return (FALSE);
@@ -8,7 +9,7 @@ tatic int	ft_isappend(char *str)
 	return (FALSE);
 }
 
-static int	ft_isheredoc(char *str)
+static int	is_heredoc(char *str)
 {
 	if (!str)
 		return (FALSE);
@@ -18,23 +19,23 @@ static int	ft_isheredoc(char *str)
 }
 
 
-int	ft_isoperator(char *str)
+int	is_operator(char *str)
 {
 	if (!str)
 		return (FALSE);
-	if (ft_isappend(str) || ft_isheredoc(str))
+	if (is_append(str) || is_heredoc(str))
 		return (2);
 	if (ft_strchr("|><", *str) != NULL)
 		return (1);
 	return (FALSE);
 }
 
-int	ft_isquote(char c)
+/*int	is_quote(char c)
 {
 	if (c == DOUBLE_QUOTES || c == SINGLE_QUOTE)
 		return (TRUE);
 	return (FALSE);
-}
+}*/
 
 int	ft_isspace(char c)
 {

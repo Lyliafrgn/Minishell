@@ -1,3 +1,4 @@
+#include "minishell.h"
 
 void	ft_free_tokens(t_token **tkn_lst)
 {

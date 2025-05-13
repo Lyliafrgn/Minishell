@@ -1,3 +1,5 @@
+#include "minishell.h"
+
 t_token	*init_token_list(char *new_str, int type)
 {
 	t_token	*new_tkn;
@@ -11,7 +13,7 @@ t_token	*init_token_list(char *new_str, int type)
 	return (new_tkn);
 }
 
-void	ft_addlast_token(t_token **tkn_lst, t_token *new_tkn)
+static void	add_last_token(t_token **tkn_lst, t_token *new_tkn)
 {
 	t_token	*lst;
 
@@ -45,10 +47,10 @@ t_token	*create_token_list(char *line)
 			str = get_next_str(line);
 			if (!str)
 				return (ft_free_tokens(&tkn_lst), NULL);
-			new_tkn = init_token_list(str, ft_gettype(str));
+			new_tkn = init_token_list(str, get_type(str));
 			if (!new_tkn)
 				return (free(str), ft_free_tokens(&tkn_lst), NULL);
-			ft_addlast_token(&tkn_lst, new_tkn);
+			add_last_token(&tkn_lst, new_tkn);
 			line += ft_strlen(str);
 		}
 	}
@@ -67,5 +69,5 @@ int	ft_tokenizer(t_data *data)
 		return (-1);
 	if (check_token_list(data, data->tkn_lst) == KO)
 		return (-1);
-	return (1);
+	return (0);
 }

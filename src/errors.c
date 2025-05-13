@@ -1,4 +1,4 @@
-
+#include "minishell.h"
 
 void	print_syntax_error(int errno)
 {

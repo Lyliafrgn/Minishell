@@ -6,13 +6,14 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/12 18:57:58 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/13 20:24:42 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "../libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdbool.h>
@@ -64,11 +65,26 @@ typedef struct s_data
 {
 	char			*line;
 	t_token			*tkn_lst; // pointer to the token linked list 
-	t_cmd			*simple_cmd; //pointer to the command linked list
+	//t_cmd			*simple_cmd; //pointer to the command linked list
 	int				exit_code; //shell exit code (for $? and status tracking)
 }	t_data;
 
 //**PROTOTYPES**/
-int	main(void);
+int		main(void);
+int		ft_tokenizer(t_data *data);
+t_token	*init_token_list(char *new_str, int type);
+t_token	*create_token_list(char *line);
+int		check_token_list(t_data *data, t_token *lst);
+int		check_quote_error(char *line);
+void	print_syntax_error(int errno);
+void	ft_free_tokens(t_token **tkn_lst);
+int		is_operator(char *str);
+int		ft_isspace(char c);
+int		is_redirop(char *str);
+char	*get_next_str(char *line);
+int		get_token_size(char *line);
+int		get_type(char *str);
+t_token	*find_last_token(t_token *lst);
+char	*ft_strndup(char *str, int n);
 
 #endif

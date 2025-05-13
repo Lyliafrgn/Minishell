@@ -8,6 +8,7 @@ int	main(void)
 {
 	t_data	*data;
 
+	data = NULL;
 	while (1)
 	{
 		data->line = readline(MINIMSG);
@@ -23,7 +24,6 @@ int	main(void)
 			parsing;
 			execution;       // → exécute data.cmd
 		}*/
-		free(line);
 	}
 	rl_clear_history();
 	return (0);

@@ -1,4 +1,6 @@
 
+#include "minishell.h"
+
 /*int	ft_pipe_at_end_error_check(t_token *list)
 {
 	t_token	*cur_token;
@@ -16,6 +18,51 @@
 	}
 	return (SUCCESS);
 }*/
+
+int	check_quote_error(char *line)
+{
+	int	in_squote;
+	int	in_dquote;
+
+    in_squote = 0;
+    in_dquote = 0;
+	while (*line)
+	{
+		if (*line == SQUOTE && !in_dquote)
+			in_squote = !in_squote;
+		else if (*line == DQUOTE && !in_squote)
+			in_dquote = !in_dquote; // inverts the value of in_dquote. If in_dquote was 1, then after running in_dquote = !in_dquote;, the value of in_dquote becomes 0.
+		line++;
+	}
+	if (in_squote || in_dquote)
+		return (KO);
+	return (OK);
+}
+
+static int	check_double_pipe(t_data *data, t_token *token)
+{
+	while (token)
+	{
+		if (token->type == T_PIPE && token->next && token->next->type == T_PIPE)
+			return (TRUE);
+		token = token->next;
+	}
+	return (FALSE);
+}
+
+static int	ft_first_checks(t_data *data, t_token *token)
+{
+	if (token->next == NULL && is_redirop(token->content) == FALSE
+		&& token->type != PIPE)
+		return (FALSE);
+	if (is_redirop(token->content) == TRUE && token->next
+		&& is_redirop(token->next->content) == TRUE)
+		return (print_syntax_error(token->next->type), data->exit_code = 2, 1);
+	if (is_redirop(token->content) == TRUE && token->next == NULL)
+		return (print_syntax_error(10), data->exit_code = 2, 1);
+	return (2);
+}
+
 static int	is_error_detected(t_data *data, t_token *lst, t_token *tkn)
 {
 	int	return_value;
@@ -40,20 +87,9 @@ static int	is_error_detected(t_data *data, t_token *lst, t_token *tkn)
 	if (is_redirop(tkn->content) == TRUE && tkn->next != NULL
 		&& tkn->next->type == PIPE)
 		return (print_syntax_error(tkn->next->type), data->exit_code = 2, TRUE);
-	if (ft_isoperator(tkn->content) >= 1 && tkn->next == NULL)
-		return (ft_err(tok, NEWLINE_ERROR), ft_status(data), YES);
-	return (NO);
-}
-
-static int	check_double_pipe(t_data *data, t_token *token)
-{
-	while (token)
-	{
-		if (token->type == T_PIPE && token->next && token->next->type == T_PIPE)
-			return (data->exit_code = 2, TRUE);
-		token = token->next;
-	}
-	return (FALSE);
+	if (is_operator(tkn->content) != 0 && tkn->next == NULL)
+		return (print_syntax_error(10), data->exit_code = 2, TRUE);
+	return (0);
 }
 
 int	check_token_list(t_data *data, t_token *lst)
@@ -80,25 +116,5 @@ int	check_token_list(t_data *data, t_token *lst)
 		if (last_token->type == PIPE)
 			return (print_syntax_error(T_PIPE), data->exit_code = 2, -1);
 	}
-	return (OK);
-}
-
-int	check_quote_error(char *line)
-{
-	int	in_squote;
-	int	in_dquote;
-
-    in_squote = 0;
-    in_dquote = 0;
-	while (*line)
-	{
-		if (*line == SQUOTE && !in_dquote)
-			in_squote = !in_squote;
-		else if (*line == DQUOTE && !in_squote)
-			in_dquote = !in_dquote; // inverts the value of in_dquote. If in_dquote was 1, then after running in_dquote = !in_dquote;, the value of in_dquote becomes 0.
-		line++;
-	}
-	if (in_squote || in_dquote)
-		return (KO);
 	return (OK);
 }

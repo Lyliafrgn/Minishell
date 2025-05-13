@@ -1,5 +1,6 @@
+#include "minishell.h"
 
-t_token	*ft_token_before_last(t_token *list)
+/*t_token	*ft_token_before_last(t_token *list)
 {
 	t_token	*cur_token;
 
@@ -7,6 +8,31 @@ t_token	*ft_token_before_last(t_token *list)
 	while (cur_token->next->next != NULL)
 		cur_token = cur_token->next;
 	return (cur_token);
+}*/
+
+char	*ft_strndup(char *str, int n)
+{
+	char	*copy;
+    int     i;
+
+	i = 0;
+	while (str[i])
+		i++;
+    if (i == 0)
+		return (NULL);
+	copy = (char *)malloc(sizeof(char) * (n + 1));
+	if (copy == NULL)
+	{
+		return (NULL);
+	}
+	i = 0;
+	while (s[i] && i < n)
+	{
+		copy[i] = s[i];
+		i++;
+	}
+	copy[i] = '\0';
+	return (copy);
 }
 
 t_token	*find_last_token(t_token *lst)
@@ -22,9 +48,9 @@ int	get_type(char *str)
 {
 	if (*str == '|')
 		return (T_PIPE);
-	if (ft_isheredoc(str) == TRUE)
+	if (is_heredoc(str) == TRUE)
 		return (T_HEREDOC);
-	if (ft_isappend(str) == TRUE)
+	if (is_append(str) == TRUE)
 		return (T_APPEND);
 	if (*str == '<')
 		return (T_REDIRIN);
@@ -47,10 +73,10 @@ int	get_token_size(char *line)
 	if (type == T_PIPE || type == T_REDIRIN || type == T_REDIROUT)
 		return (1);
 	len = 0;
-	while (line[len] && !ft_isspace(line[len]) && !ft_isop(&line[len])
+	while (line[len] && !ft_isspace(line[len]) && !is_redirop(&line[len])
 		&& line[len] != '|' && line[len] != '<' && line[len] != '>')
 	{
-		if (ft_isquote(line[len]) && line[len + 1] != '\0')
+		if (is_quote(line[len]) && line[len + 1] != '\0')
 			len += (ft_strchr(&line[len + 1], line[len]) - &line[len]) + 1;
 		else
 			len++;

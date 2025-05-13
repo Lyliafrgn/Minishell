@@ -5,7 +5,7 @@ t_token	*init_token_list(char *new_str, int type)
 	t_token	*new_tkn;
 
 	new_tkn = (t_token *)malloc(sizeof(t_token));
-	if (!new_token)
+	if (!new_tkn)
 		return (NULL);
 	new_tkn->content = new_str;
 	new_tkn->type = type;
@@ -40,7 +40,7 @@ t_token	*create_token_list(char *line)
 	tkn_lst = NULL;
 	while (*line)
 	{
-		if (ft_isspace(line) == TRUE)
+		if (ft_isspace(*line) == TRUE)
 			line++;
 		else
 		{
@@ -54,6 +54,7 @@ t_token	*create_token_list(char *line)
 			line += ft_strlen(str);
 		}
 	}
+		return (tkn_lst);
 }
 
 

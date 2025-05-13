@@ -39,7 +39,7 @@ int	check_quote_error(char *line)
 	return (OK);
 }
 
-static int	check_double_pipe(t_data *data, t_token *token)
+static int	check_double_pipe(t_token *token)
 {
 	while (token)
 	{
@@ -53,7 +53,7 @@ static int	check_double_pipe(t_data *data, t_token *token)
 static int	ft_first_checks(t_data *data, t_token *token)
 {
 	if (token->next == NULL && is_redirop(token->content) == FALSE
-		&& token->type != PIPE)
+		&& token->type != T_PIPE)
 		return (FALSE);
 	if (is_redirop(token->content) == TRUE && token->next
 		&& is_redirop(token->next->content) == TRUE)
@@ -72,20 +72,20 @@ static int	is_error_detected(t_data *data, t_token *lst, t_token *tkn)
 	return_value = ft_first_checks(data, tkn);
 	if (return_value != 2)
 		return (return_value);
-	if (tkn->type == PIPE)
+	if (tkn->type == T_PIPE)
 	{
 		if (tkn->next && is_redirop(tkn->next->content) == TRUE)
 		{
-			if (tkn->next->next && tkn->next->next->type == PIPE)
+			if (tkn->next->next && tkn->next->next->type == T_PIPE)
 				return (print_syntax_error(tkn->next->next->type),
 					data->exit_code = 2, TRUE);
-			else if (is_redirop(tkn->next->content) == YES
+			else if (is_redirop(tkn->next->content) == TRUE
 				&& tkn->next->next == NULL)
 				return (print_syntax_error(10), data->exit_code = 2, TRUE);
 		}
 	}
 	if (is_redirop(tkn->content) == TRUE && tkn->next != NULL
-		&& tkn->next->type == PIPE)
+		&& tkn->next->type == T_PIPE)
 		return (print_syntax_error(tkn->next->type), data->exit_code = 2, TRUE);
 	if (is_operator(tkn->content) != 0 && tkn->next == NULL)
 		return (print_syntax_error(10), data->exit_code = 2, TRUE);
@@ -101,7 +101,7 @@ int	check_token_list(t_data *data, t_token *lst)
 	if (!curr_token)
 		return (0);
 	last_token = find_last_token(lst);
-	if (check_double_pipe(data, curr_token) == TRUE)
+	if (check_double_pipe(curr_token) == TRUE)
 		return (print_syntax_error(T_PIPE), data->exit_code = 2, -1);
 	if (curr_token->content && curr_token->content[0] == '|')
 		return (print_syntax_error(T_PIPE), data->exit_code = 2, -1);
@@ -113,7 +113,7 @@ int	check_token_list(t_data *data, t_token *lst)
 	}
 	if (curr_token == NULL)
 	{
-		if (last_token->type == PIPE)
+		if (last_token->type == T_PIPE)
 			return (print_syntax_error(T_PIPE), data->exit_code = 2, -1);
 	}
 	return (OK);

@@ -6,7 +6,7 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/13 20:24:42 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/13 20:41:50 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ typedef enum e_type
 typedef struct s_token
 {
 	char			*content; // value of the token (ex : ls", "|", "file.txt"))
-	t_type			token; //(c.f t_type)
-	struct s_lexer	*prev;
-	struct s_lexer	*next;
+	t_type			type; //(c.f t_type)
+	struct s_token	*prev;
+	struct s_token	*next;
 }	t_token;
 
 
@@ -80,6 +80,9 @@ void	print_syntax_error(int errno);
 void	ft_free_tokens(t_token **tkn_lst);
 int		is_operator(char *str);
 int		ft_isspace(char c);
+int		is_quote(char c);
+int		is_heredoc(char *str);
+int		is_append(char *str);
 int		is_redirop(char *str);
 char	*get_next_str(char *line);
 int		get_token_size(char *line);

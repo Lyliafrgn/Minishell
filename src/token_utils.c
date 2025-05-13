@@ -26,9 +26,9 @@ char	*ft_strndup(char *str, int n)
 		return (NULL);
 	}
 	i = 0;
-	while (s[i] && i < n)
+	while (str[i] && i < n)
 	{
-		copy[i] = s[i];
+		copy[i] = str[i];
 		i++;
 	}
 	copy[i] = '\0';
@@ -67,7 +67,7 @@ int	get_token_size(char *line)
 
 	if (!line)
 		return (KO);
-	type = ft_get_type(line);
+	type = get_type(line);
 	if (type == T_HEREDOC || type == T_APPEND)
 		return (2);
 	if (type == T_PIPE || type == T_REDIRIN || type == T_REDIROUT)

@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static int	is_append(char *str)
+int	is_append(char *str)
 {
 	if (!str)
 		return (FALSE);
@@ -9,7 +9,7 @@ static int	is_append(char *str)
 	return (FALSE);
 }
 
-static int	is_heredoc(char *str)
+int	is_heredoc(char *str)
 {
 	if (!str)
 		return (FALSE);
@@ -30,12 +30,12 @@ int	is_operator(char *str)
 	return (FALSE);
 }
 
-/*int	is_quote(char c)
+int	is_quote(char c)
 {
-	if (c == DOUBLE_QUOTES || c == SINGLE_QUOTE)
+	if (c == SQUOTE || c == DQUOTE)
 		return (TRUE);
 	return (FALSE);
-}*/
+}
 
 int	ft_isspace(char c)
 {

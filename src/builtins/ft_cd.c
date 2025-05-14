@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 10:22:13 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/07 15:34:52 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/14 14:15:46 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_cd(char **args, t_env **my_env)
 		ft_putstr_fd("cd: too many arguments\n", 2);
 		return (1);
 	}
-	if (!args[1] || args[1][0] == '\0')
+	if (!args[1] || args[1][0] == '\0' || (ft_strcmp(args[1], "~") == 0))
 	{
 		path = ft_get_env(*my_env, "HOME");
 		if (!path)

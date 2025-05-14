@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:06:40 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/02 12:54:30 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/14 16:14:45 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_exec_built_command(char **args, t_env *my_env)
 	(void)args;
 	if (ft_strcmp(args[0], "echo") == 0)
 		ft_echo(args);
-	if (ft_strcmp(args[0], "cd") == 0)
+	else if (ft_strcmp(args[0], "cd") == 0)
 		ft_cd(args, &my_env);
 	else if (ft_strcmp(args[0], "pwd") == 0)
 		ft_pwd(args);

@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:11:46 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/12 15:59:18 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/14 16:14:13 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv, char **envp)
 	ft_update_env_shlvl(my_env);
 	while (1)
 	{
-		input = readline("minishell:~$ ");
+		input = readline("minishell:$ ");
 		if (!input)
 		{
 			perror("Error: readline\n");

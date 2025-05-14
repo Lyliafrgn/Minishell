@@ -6,7 +6,7 @@
 #    By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/20 16:41:15 by vimazuro          #+#    #+#              #
-#    Updated: 2025/05/12 15:59:21 by vimazuro         ###   ########.fr        #
+#    Updated: 2025/05/14 12:38:24 by vimazuro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,8 +39,8 @@ SRC_FILES = src/main.c \
 			src/executor/ft_create_pipes.c \
 			src/executor/ft_create_process.c \
 			src/executor/ft_execute_all.c \
-			src/executor/ft_split_by_pipes.c
-
+			src/executor/ft_split_by_pipes.c \
+			src/utils/ft_malloc_list.c 
 
 OBJS = $(SRC_FILES:.c=.o)
 

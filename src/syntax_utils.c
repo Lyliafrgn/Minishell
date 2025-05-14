@@ -31,7 +31,7 @@ int	is_operator(char *str)
 }
 
 int	is_quote(char c)
-{
+{   
 	if (c == SQUOTE || c == DQUOTE)
 		return (TRUE);
 	return (FALSE);

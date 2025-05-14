@@ -19,3 +19,10 @@ void	print_syntax_error(int errno)
     else if (errno == 12)
 	    printf("Syntax error: unsupported character\n"); //';' '\' '\n' '&' '!' '(' ')' '&&'
 }
+
+/*int main(void)
+{
+    print_syntax_error(12);
+    print_syntax_error(11);
+    return (0);
+}*/

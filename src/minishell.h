@@ -6,14 +6,14 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/13 20:41:50 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/14 19:15:09 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../libft/libft.h"
+# include "../libft/include/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdbool.h>
@@ -38,12 +38,12 @@
 */
 typedef enum e_type
 {
-	T_WORD,
-	T_PIPE,
-	T_REDIRIN, // <
-	T_REDIROUT,// >
-	T_APPEND,// >>
-	T_HEREDOC,// << 
+	T_WORD, //1
+	T_PIPE, // 2
+	T_REDIRIN, // < 3
+	T_REDIROUT,// > 4
+	T_APPEND,// >> 5
+	T_HEREDOC,// << 6
 }	t_type;
 
 
@@ -71,23 +71,37 @@ typedef struct s_data
 
 //**PROTOTYPES**/
 int		main(void);
+
+/*		TOKEN		*/
 int		ft_tokenizer(t_data *data);
 t_token	*init_token_list(char *new_str, int type);
 t_token	*create_token_list(char *line);
-int		check_token_list(t_data *data, t_token *lst);
-int		check_quote_error(char *line);
-void	print_syntax_error(int errno);
-void	ft_free_tokens(t_token **tkn_lst);
-int		is_operator(char *str);
-int		ft_isspace(char c);
-int		is_quote(char c);
-int		is_heredoc(char *str);
-int		is_append(char *str);
-int		is_redirop(char *str);
+
+/*		TOKEN UTILS	*/
 char	*get_next_str(char *line);
 int		get_token_size(char *line);
 int		get_type(char *str);
 t_token	*find_last_token(t_token *lst);
 char	*ft_strndup(char *str, int n);
+
+/*	TOKEN_CHECK		*/
+int		check_token_list(t_data *data, t_token *lst);
+int		check_quote_error(char *line);
+void	print_syntax_error(int errno);
+
+
+/*	TOKEN CHECK UTILS	*/
+int		ft_isspace(char c);
+int		is_quote(char c);
+int		is_heredoc(char *str);
+int		is_append(char *str);
+int		is_redirop(char *str);
+int		is_operator(char *str);
+
+void	ft_free_tokens(t_token **tkn_lst);
+
+/*		EXPAND		*/
+/*	EXPAND_UTILS	*/
+/*		ERRORS		*/
 
 #endif

@@ -5,7 +5,9 @@ int	is_append(char *str)
 	if (!str)
 		return (FALSE);
 	if (str[0] == '>' && str[1] && str[1] == '>')
+	{
 		return (TRUE);
+	}
 	return (FALSE);
 }
 
@@ -14,10 +16,9 @@ int	is_heredoc(char *str)
 	if (!str)
 		return (FALSE);
 	if (str[0] == '<' && str[1] && str[1] == '<')
-		return (FALSE);
-	return (TRUE);
+		return (TRUE);
+	return (FALSE);
 }
-
 
 int	is_operator(char *str)
 {

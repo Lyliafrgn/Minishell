@@ -68,6 +68,7 @@ int	get_token_size(char *line)
 	if (!line)
 		return (KO);
 	type = get_type(line);
+	printf("type is %d\n", type);
 	if (type == T_HEREDOC || type == T_APPEND)
 		return (2);
 	if (type == T_PIPE || type == T_REDIRIN || type == T_REDIROUT)
@@ -90,9 +91,11 @@ char	*get_next_str(char *line)
 	int		len;
 
 	len = get_token_size(line);
-	if (len == 0)
+	//printf("get_token_size result %d\n", len);
+	if (len == KO)
 		return (NULL);
 	str = ft_strndup(line, len);
+	//printf("le res de strndup %s\n", str);
 	if (!str)
 		return (NULL);
 	return (str);

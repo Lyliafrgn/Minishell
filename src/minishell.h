@@ -6,7 +6,7 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/14 19:15:09 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/14 20:53:37 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@
 */
 typedef enum e_type
 {
-	T_WORD, //1
-	T_PIPE, // 2
-	T_REDIRIN, // < 3
-	T_REDIROUT,// > 4
-	T_APPEND,// >> 5
-	T_HEREDOC,// << 6
+	T_WORD, //0
+	T_PIPE, // 1
+	T_REDIRIN, // < 2
+	T_REDIROUT,// > 3
+	T_APPEND,// >> 4
+	T_HEREDOC,// << 5
 }	t_type;
 
 

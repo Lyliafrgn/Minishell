@@ -30,7 +30,6 @@ static void	add_last_token(t_token **tkn_lst, t_token *new_tkn)
 	}
 }
 
-
 t_token	*create_token_list(char *line)
 {
 	t_token	*tkn_lst;
@@ -58,7 +57,7 @@ t_token	*create_token_list(char *line)
 }
 
 
-static void print_tokens(char *line, t_token *tkn_lst)
+/*static void print_tokens(char *line, t_token *tkn_lst)
 {
     t_token *curr_tkn = tkn_lst;
 
@@ -74,8 +73,7 @@ static void print_tokens(char *line, t_token *tkn_lst)
     }
 
     printf("===================\n");
-}
-
+}*/
 int	ft_tokenizer(t_data *data)
 {
 	if (check_quote_error(data->line) == KO)
@@ -86,7 +84,7 @@ int	ft_tokenizer(t_data *data)
 	data->tkn_lst = create_token_list(data->line);
 	if (!data->tkn_lst)
 		return (-1);
-	print_tokens(data->tkn_lst); // VERIFICATION (Debug)
+	//print_tokens(data->line, data->tkn_lst); // VERIFICATION (Debug)
 	if (check_token_list(data, data->tkn_lst) == KO)
 		return (-1);
 	return (0);

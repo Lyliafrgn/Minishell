@@ -29,7 +29,21 @@ static void print_token_list(t_token *list)
     }
 }
 
+int	main(void)
+{
+	int	ret;
 
+	ret = is_heredoc(">");
+	if (ret == TRUE)
+	{
+		printf("true");
+	}
+	else
+	{
+		printf("not hd");
+	}
+	return (0);
+}
 
 void print_tokens(char *line, t_token *tkn_lst)
 {

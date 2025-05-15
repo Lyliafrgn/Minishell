@@ -68,7 +68,7 @@ int	get_token_size(char *line)
 	if (!line)
 		return (KO);
 	type = get_type(line);
-	printf("type is %d\n", type);
+	//printf("type is %d\n", type);
 	if (type == T_HEREDOC || type == T_APPEND)
 		return (2);
 	if (type == T_PIPE || type == T_REDIRIN || type == T_REDIROUT)

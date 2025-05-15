@@ -6,7 +6,7 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/14 20:53:37 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/15 19:06:49 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef enum e_type
 typedef struct s_token
 {
 	char			*content; // value of the token (ex : ls", "|", "file.txt"))
-	t_type			type; //(c.f t_type)
+	t_type			type;
 	struct s_token	*prev;
 	struct s_token	*next;
 }	t_token;

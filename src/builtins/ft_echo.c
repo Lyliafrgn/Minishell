@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 12:58:26 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/14 14:35:50 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:09:26 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	ft_is_n_flag(const char *str)
 		i++;
 	}
 	return (1);
-}	
+}
 
 int	ft_echo(char **args)
 {

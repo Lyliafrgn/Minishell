@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:27:33 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/02 12:55:13 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/16 12:52:44 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,39 @@ t_env	*new_env_node(char *str)
 t_env	*ft_init_env(char **envp)
 {
 	int		i;
-	t_env	*head;
-	t_env	*current;
+	char	*cwd;
+	t_env	*my_env;
+	t_env	*tmp;
 	t_env	*new_node;
 
-	i = 0;
-	head = NULL;
-	current = NULL;
-	while (envp[i])
+	my_env = NULL;
+	if (!envp || !envp[0])
 	{
-		new_node = new_env_node(envp[i]);
-		if (!new_node)
+		ft_update_env_add(&my_env, "SHLVL", "0");
+		ft_update_env_add(&my_env, "OLDPWD", NULL);
+		cwd = getcwd(NULL, 0);
+		if (!cwd)
 			return (NULL);
-		if (!head)
-			head = new_node;
-		else
-			current->next = new_node;
-		current = new_node;
-		i++;
+		ft_update_env_add(&my_env, "PWD", cwd);
+		free(cwd);
+		ft_update_env_add(&my_env, "_", "/usr/bin/env");
 	}
-	return (head);
+	else
+	{
+		i = 0;
+		tmp = NULL;
+		while (envp[i])
+		{
+			new_node = new_env_node(envp[i]);
+			if (!new_node)
+				return (NULL);
+			if (!my_env)
+				my_env = new_node;
+			else
+				tmp->next = new_node;
+			tmp = new_node;
+			i++;
+		}
+	}
+	return (my_env);
 }

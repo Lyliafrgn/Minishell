@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/14 12:38:49 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/16 12:47:18 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	ft_child_process_f(char *command, int pipe_fd[2], t_env *my_env);
 void	ft_child_process_l(char *command, int pipe_fd[2], t_env *my_env);
 void	ft_child_process_m(char *command, int prev_pipe[2], int next_pipe[2], t_env *my_env);
 void    ft_add_malloc_list(void *ptr, t_list **malloc_list);
+void    ft_print_array(char **array);
 pid_t	ft_create_f_process(char *command, int pipe_fd[2], t_env *my_env);
 pid_t	ft_create_m_process(char *command, int prev_pipe[2], int next_pipe[2], t_env *my_env);
 pid_t	ft_create_l_process(char *command, int pipe_fd[2], t_env *my_env);

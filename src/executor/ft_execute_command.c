@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 11:34:38 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/14 16:12:38 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:09:04 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ void	ft_execute_command(char *command, t_env *my_env)
 	else
 	{
 		if (ft_strchr(args[0], '/') != NULL)
+		{
 			full_path = ft_strdup(args[0]);
+		}
 		else
 			full_path = ft_find_full_path(args[0], my_env);
 		env_array = ft_env_to_array(my_env);

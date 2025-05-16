@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:34:24 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/12 13:07:34 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/16 14:16:09 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ char	*ft_strndup(const char *s, size_t start, size_t len)
 		i++;
 	}
 	new_str[i] = '\0';
-	return(new_str);
+	return (new_str);
 }

@@ -1,13 +1,13 @@
 #include "minishell.h"
 
-t_token	*init_token_list(char *new_str, int type)
+t_token	*init_token_list(char *value, int type)
 {
 	t_token	*new_tkn;
 
 	new_tkn = (t_token *)malloc(sizeof(t_token));
 	if (!new_tkn)
 		return (NULL);
-	new_tkn->content = new_str;
+	new_tkn->content = value;
 	new_tkn->type = type;
 	new_tkn->next = NULL;
 	return (new_tkn);
@@ -39,11 +39,11 @@ t_token	*create_token_list(char *line)
 	tkn_lst = NULL;
 	while (*line)
 	{
-		if (ft_isspace(*line) == TRUE)
+		if (is_space(*line) == TRUE)
 			line++;
 		else
 		{
-			str = get_next_str(line);
+			str = extract_str_val(line);
 			if (!str)
 				return (ft_free_tokens(&tkn_lst), NULL);// suppr de ft_free_tokens(&tkn_lst)
 			new_tkn = init_token_list(str, get_type(str));
@@ -66,6 +66,11 @@ int	ft_tokenizer(t_data *data)
 	data->tkn_lst = create_token_list(data->line);
 	if (!data->tkn_lst)
 		return (-1);
+	if (is_invalidop(data->tkn_lst) == TRUE)
+	{
+		data->exit_code = 2;
+		return (-1);
+	}
 	if (check_token_list(data, data->tkn_lst) == KO)
 		return (-1);
 	return (0);

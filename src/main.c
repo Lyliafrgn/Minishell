@@ -35,7 +35,8 @@ int	main(void)
 	while (1)
 	{
 		data->line = readline(MINIMSG);
-		if (!data->line)
+		data->exit_code = 0;
+		if (!data->line) //EOF -> (signal CTRL-D)
 		{
 			break;
 		}

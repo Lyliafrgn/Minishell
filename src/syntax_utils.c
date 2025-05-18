@@ -1,32 +1,16 @@
 #include "minishell.h"
 
-int	is_append(char *str)
-{
-	if (!str)
-		return (FALSE);
-	if (str[0] == '>' && str[1] && str[1] == '>')
-	{
-		return (TRUE);
-	}
-	return (FALSE);
-}
-
-int	is_heredoc(char *str)
-{
-	if (!str)
-		return (FALSE);
-	if (str[0] == '<' && str[1] && str[1] == '<')
-		return (TRUE);
-	return (FALSE);
-}
-
 int	is_operator(char *str)
-{
+{	
+	int len;
+
+	len = ft_strlen (str);
 	if (!str)
 		return (FALSE);
-	if (is_append(str) || is_heredoc(str))
+	if ((ft_strncmp(str, ">>", len) == 0 && str[2] == '\0') ||
+    (ft_strncmp(str, "<<", len) == 0 && str[2] == '\0'))
 		return (2);
-	if (ft_strchr("|><", *str) != NULL)
+	if (ft_strchr("|><", *str) != NULL && str[1] == '\0')
 		return (1);
 	return (FALSE);
 }
@@ -38,12 +22,39 @@ int	is_quote(char c)
 	return (FALSE);
 }
 
-int	ft_isspace(char c)
+int	is_space(char c)
 {
 	if ((c >= 9 && c <= 13) || c == ' ')
 		return (TRUE);
 	else
 		return (FALSE);
+}
+// checks for [& \ ; () ]
+int	is_invalidop(t_token *tkn)
+{
+	char *str;
+	int	i;
+
+	while (tkn)
+	{
+		str = tkn->content;
+		i = 0;
+		while(str[i])
+		{
+			if (str[i] == 59 || str[i] == 92 
+			|| (str[i] >= 40 && str[i] <=  41) || str[i] == 38)
+			{
+				if (!(str[0] == DQUOTE))
+				{			
+					printf("Syntax error: unsupported character '%c'\n", str[i]);
+					return (TRUE);
+				}	
+			}
+			i++;
+		}
+		tkn = tkn->next;
+	}
+	return (FALSE);
 }
 
 int	is_redirop(char *str)

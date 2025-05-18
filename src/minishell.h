@@ -6,7 +6,7 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/15 19:06:49 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/18 20:31:02 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,15 @@ typedef struct s_data
 int		main(void);
 
 /*		TOKEN		*/
-int		ft_tokenizer(t_data *data);
-t_token	*init_token_list(char *new_str, int type);
+int		ft_tokenizer(t_data *data); //TKN Main
+t_token	*init_token_list(char *value, int type);
 t_token	*create_token_list(char *line);
 
 /*		TOKEN UTILS	*/
-char	*get_next_str(char *line);
+char	*extract_str_val(char *line);
 int		get_token_size(char *line);
 int		get_type(char *str);
-t_token	*find_last_token(t_token *lst);
+t_token	*ft_last_token(t_token *lst);
 char	*ft_strndup(char *str, int n);
 
 /*	TOKEN_CHECK		*/
@@ -89,12 +89,10 @@ int		check_token_list(t_data *data, t_token *lst);
 int		check_quote_error(char *line);
 void	print_syntax_error(int errno);
 
-
 /*	TOKEN CHECK UTILS	*/
-int		ft_isspace(char c);
+int		is_space(char c);
 int		is_quote(char c);
-int		is_heredoc(char *str);
-int		is_append(char *str);
+int		is_invalidop(t_token *tkn);
 int		is_redirop(char *str);
 int		is_operator(char *str);
 

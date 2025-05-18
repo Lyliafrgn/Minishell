@@ -52,6 +52,8 @@ static int	check_double_pipe(t_token *token)
 
 static int	ft_first_checks(t_data *data, t_token *token)
 {
+	//if (is_invalidop(token->content) == TRUE)
+	//	return (print_syntax_error(12), data->exit_code = 2, 1);
 	if (token->next == NULL && is_redirop(token->content) == FALSE
 		&& token->type != T_PIPE)
 		return (FALSE);
@@ -100,7 +102,7 @@ int	check_token_list(t_data *data, t_token *lst)
 	curr_token = lst;
 	if (!curr_token)
 		return (0);
-	last_token = find_last_token(lst);
+	last_token = ft_last_token(lst);
 	if (check_double_pipe(curr_token) == TRUE)
 		return (print_syntax_error(T_PIPE), data->exit_code = 2, -1);
 	if (curr_token->content && curr_token->content[0] == '|')

@@ -16,8 +16,8 @@ void	print_syntax_error(int errno)
         printf("Syntax error near unexpected token 'newline'\n");
     else if (errno == 11)
 	    printf("Syntax error: unclosed single or double quote\n");
-    else if (errno == 12)
-	    printf("Syntax error: unsupported character\n"); //';' '\' '\n' '&' '!' '(' ')' '&&'
+   // else if (errno == 12)
+	//    printf("Syntax error: unsupported character\n"); // (& \ ; () )
 }
 
 /*int main(void)

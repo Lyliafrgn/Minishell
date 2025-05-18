@@ -35,7 +35,7 @@ char	*ft_strndup(char *str, int n)
 	return (copy);
 }
 
-t_token	*find_last_token(t_token *lst)
+t_token	*ft_last_token(t_token *lst)
 {
 	if (!lst)
 		return (NULL);
@@ -48,9 +48,9 @@ int	get_type(char *str)
 {
 	if (*str == '|')
 		return (T_PIPE);
-	if (is_heredoc(str) == TRUE)
+	if (str[0] == '<' && str[1] && str[1] == '<')
 		return (T_HEREDOC);
-	if (is_append(str) == TRUE)
+	if (str[0] == '>' && str[1] && str[1] == '>')
 		return (T_APPEND);
 	if (*str == '<')
 		return (T_REDIRIN);
@@ -58,7 +58,6 @@ int	get_type(char *str)
 		return (T_REDIROUT);
 	return (T_WORD);
 }
-
 
 int	get_token_size(char *line)
 {
@@ -74,7 +73,7 @@ int	get_token_size(char *line)
 	if (type == T_PIPE || type == T_REDIRIN || type == T_REDIROUT)
 		return (1);
 	len = 0;
-	while (line[len] && !ft_isspace(line[len]) && !is_redirop(&line[len])
+	while (line[len] && !is_space(line[len]) && !is_redirop(&line[len])
 		&& line[len] != '|' && line[len] != '<' && line[len] != '>')
 	{
 		if (is_quote(line[len]) && line[len + 1] != '\0')
@@ -85,7 +84,7 @@ int	get_token_size(char *line)
 	return (len);
 }
 
-char	*get_next_str(char *line)
+char	*extract_str_val(char *line)
 {
 	char	*str;
 	int		len;

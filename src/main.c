@@ -3,33 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:11:46 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/19 16:08:02 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:40:01 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_datavic	*ft_init_datavic(char **envp)
+t_data	*ft_init_data(char **envp)
 {
-	t_datavic	*datavic;
+	t_data	*data;
 
-	datavic = malloc(sizeof(t_datavic));
-	if (!datavic)
+	data = malloc(sizeof(t_data));
+	if (!data)
 	{
 		perror("malloc failed");
 		return (NULL);
 	}
-	datavic->line = NULL;
-	datavic->commands = NULL;
-	datavic->malloc_list = NULL;
-	datavic->my_env = ft_init_env(envp);
-	return (datavic);
+	data->line = NULL;
+	data->tkn_lst = NULL;
+	data->commands = NULL;
+	data->malloc_list = NULL;
+	data->my_env = ft_init_env(envp);
+	return (data);
 }
 
-void	ft_parse_commands(t_datavic *datavic)
+/*void	ft_parse_commands(t_datavic *datavic)
 {
 	int		i;
 	char	**commands;
@@ -76,44 +77,35 @@ void	ft_parse_commands(t_datavic *datavic)
 	}
 	datavic->commands[i] = NULL;
 	ft_free_array(commands);
-}
+}*/
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*input;
-	t_datavic	*datavic;
+	t_data	*data;
 
 	(void)argc;
 	(void)argv;
-	datavic = ft_init_datavic(envp);
-	if (!datavic)
+	data = ft_init_datavic(envp);
+	if (!data)
 		return (1);
-	ft_update_env_shlvl(datavic->my_env);
+	ft_update_env_shlvl(data->my_env);
 	while (1)
 	{
-		input = readline("minishell:$ ");
-		if (!input)
+		data->line = readline("minishell:$ ");
+		if (!data->line)
 		{
 			perror("Error: readline\n");
 			break ;
 		}
-		if (*input)
+		if (data->line[0])
 		{
-			add_history(input);
-			if (datavic->line)
-				free(datavic->line);
-			datavic->line = input;
-			ft_parse_commands(datavic);
-			ft_execute_all(datavic);
+			add_history(data->line);
 		}
-		else
-			free(input);
-		if (datavic->commands)
+		if (ft_tokenizer(data) == OK /* && parsing == OK*/)
 		{
-			ft_free_commands(datavic->commands);
-			datavic->commands = NULL;
-		}	
+			ft_execute_all(data);
+		}
+		ft_free_datavic(data);
 	}
-	ft_free_datavic(datavic);
 	return (0);
 }

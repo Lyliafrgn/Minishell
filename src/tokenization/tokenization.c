@@ -73,5 +73,5 @@ int	ft_tokenizer(t_data *data)
 	}
 	if (check_token_list(data, data->tkn_lst) == KO)
 		return (-1);
-	return (0);
+	return (1);
 }

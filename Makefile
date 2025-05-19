@@ -6,7 +6,7 @@
 #    By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/20 16:41:15 by vimazuro          #+#    #+#              #
-#    Updated: 2025/05/16 12:48:43 by vimazuro         ###   ########.fr        #
+#    Updated: 2025/05/19 14:45:04 by vimazuro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,6 @@ SRC_FILES = src/main.c \
 			src/env/ft_env_to_array.c \
 			src/executor/ft_execute_command.c \
 			src/executor/ft_find_full_path.c \
-			src/executor/ft_free_array.c \
 			src/executor/ft_child_process.c \
 			src/executor/ft_count_pipes.c \
 			src/executor/ft_create_pipes.c \
@@ -41,7 +40,9 @@ SRC_FILES = src/main.c \
 			src/executor/ft_execute_all.c \
 			src/executor/ft_split_by_pipes.c \
 			src/utils/ft_malloc_list.c \
-			src/utils/ft_print_array.c
+			src/utils/ft_print_array.c \
+			src/utils/ft_print_list.c \
+			src/utils/ft_free.c \
 
 OBJS = $(SRC_FILES:.c=.o)
 

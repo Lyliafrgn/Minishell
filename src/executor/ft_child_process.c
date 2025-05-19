@@ -6,13 +6,13 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:01:31 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/12 16:32:33 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/16 16:38:13 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ft_child_process_f(char *command, int pipe_fd[2], t_env *my_env)
+void	ft_child_process_f(char **cmd_args, int pipe_fd[2], t_env *my_env)
 {
 	int		file_in;
 
@@ -24,11 +24,11 @@ void	ft_child_process_f(char *command, int pipe_fd[2], t_env *my_env)
 		exit(EXIT_FAILURE);
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
-	ft_execute_command(command, my_env);
+	ft_execute_command(cmd_args[0], cmd_args, my_env);
 	exit(EXIT_SUCCESS);
 }
 
-void	ft_child_process_l(char *command, int pipe_fd[2], t_env *my_env)
+void	ft_child_process_l(char **cmd_args, int pipe_fd[2], t_env *my_env)
 {
 	int	file_out;
 
@@ -40,12 +40,12 @@ void	ft_child_process_l(char *command, int pipe_fd[2], t_env *my_env)
 	// ft_execute_command(command, my_env); 
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
-	ft_execute_command(command, my_env);
+	ft_execute_command(cmd_args[0], cmd_args, my_env);
 	//close(file_out);
 	exit(EXIT_SUCCESS);
 }
 
-void	ft_child_process_m(char *command, int prev_pipe[2], int next_pipe[2], \
+void	ft_child_process_m(char **cmd_args, int prev_pipe[2], int next_pipe[2], \
 t_env *my_env)
 {
 	if (dup2(prev_pipe[0], STDIN_FILENO) == -1)
@@ -56,6 +56,6 @@ t_env *my_env)
 	close(prev_pipe[1]);
 	close(next_pipe[0]);
 	close(next_pipe[1]);
-	ft_execute_command(command, my_env);
+	ft_execute_command(cmd_args[0], cmd_args, my_env);
 	exit(EXIT_SUCCESS);
 }

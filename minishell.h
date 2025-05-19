@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/16 12:47:18 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/19 14:37:14 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,24 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+typedef struct s_cmd
+{
+	int					id;
+	int					exit_code;
+	char				*cmd;
+	char				**cmd_args;
+	struct s_datavic	*datavic;
+}	t_cmd;
+
+typedef struct s_datavic
+{
+	char	*line;
+	t_cmd	**commands;
+	t_env	*my_env;
+	t_list	*malloc_list;
+}	t_datavic;
+
+
 int		main(int argc, char **argv, char **envp);
 int		ft_is_built_command(char *command);
 int		ft_echo(char **args);
@@ -51,23 +69,28 @@ char	*ft_find_full_path(const char *command, t_env *my_env);
 char    **ft_split_by_pipes(char *input);
 void	ft_exec_built_command(char **args, t_env *my_env);
 void	ft_print_env(t_env *env);
-void	ft_free_env(t_env *env);
 void	ft_sort_env(t_env *env);
 void	ft_print_export(t_env *my_env);
 void	ft_update_env_shlvl(t_env *my_env);
 void	ft_update_env_add(t_env **my_env, char *key, char *value);
 void	ft_delete_env_node(t_env **my_env, char *key);
-void	ft_execute_command(char *command, t_env *my_env);
-void	ft_free_array(char **array);
-void	ft_execute_all(char *input, t_env *my_env);
-void	ft_child_process_f(char *command, int pipe_fd[2], t_env *my_env);
-void	ft_child_process_l(char *command, int pipe_fd[2], t_env *my_env);
-void	ft_child_process_m(char *command, int prev_pipe[2], int next_pipe[2], t_env *my_env);
+void	ft_execute_command(char *cmd, char **cmd_args, t_env *my_env);
+void	ft_execute_all(t_datavic *datavic);
+void	ft_child_process_f(char **cmd_args, int pipe_fd[2], t_env *my_env);
+void	ft_child_process_l(char **cmd_args, int pipe_fd[2], t_env *my_env);
+void	ft_child_process_m(char **cmd_args, int prev_pipe[2], int next_pipe[2], t_env *my_env);
 void    ft_add_malloc_list(void *ptr, t_list **malloc_list);
 void    ft_print_array(char **array);
-pid_t	ft_create_f_process(char *command, int pipe_fd[2], t_env *my_env);
-pid_t	ft_create_m_process(char *command, int prev_pipe[2], int next_pipe[2], t_env *my_env);
-pid_t	ft_create_l_process(char *command, int pipe_fd[2], t_env *my_env);
+void    ft_print_list(t_list *list);
+void	ft_free_env(t_env *env);
+void	ft_free_array(char **array);
+void    ft_free_commands(t_cmd **cmds);
+void    ft_free_datavic(t_datavic *datavic);
+void    ft_free_malloc_list(t_list *malloc_list);
+void    ft_print_commands(t_datavic *datavic);
+pid_t	ft_create_f_process(char **cmd_args, int pipe_fd[2], t_env *my_env);
+pid_t	ft_create_m_process(char **cmd_args, int prev_pipe[2], int next_pipe[2], t_env *my_env);
+pid_t	ft_create_l_process(char **cmd_args, int pipe_fd[2], t_env *my_env);
 t_env	*ft_init_env(char **envp);
 t_env	*new_env_node(char *str);
 t_env	*ft_env_copy(t_env *env);

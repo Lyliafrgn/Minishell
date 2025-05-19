@@ -1,119 +1,53 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 12:11:46 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/19 16:08:02 by vimazuro         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#define RED     "\033[31m"   // Code couleur ANSI
+#define GREEN	"\033[32m"
+#define RESET   "\033[0m" 
+#include <stdio.h>
+#include "minishell.h"
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <stdlib.h>
 
-#include "../minishell.h"
-
-t_datavic	*ft_init_datavic(char **envp)
+static void print_tokens(char *line, t_token *tkn_lst)
 {
-	t_datavic	*datavic;
+    t_token *curr_tkn = tkn_lst;
 
-	datavic = malloc(sizeof(t_datavic));
-	if (!datavic)
-	{
-		perror("malloc failed");
-		return (NULL);
-	}
-	datavic->line = NULL;
-	datavic->commands = NULL;
-	datavic->malloc_list = NULL;
-	datavic->my_env = ft_init_env(envp);
-	return (datavic);
+    printf("\n=== Input Line ===\n");
+    printf("%s\n", line);
+    printf("=== Tokens ===\n");
+
+    while (curr_tkn)
+    {
+        printf("Token value: *%s*\n", curr_tkn->content);
+         printf("  - Type: %u\n", curr_tkn->type);
+        curr_tkn = curr_tkn->next;
+    }
+
+    printf("===================\n");
 }
 
-void	ft_parse_commands(t_datavic *datavic)
+int	main(void)
 {
-	int		i;
-	char	**commands;
-	t_cmd	*cmd;
+	t_data	*data;
+	int	r_code;
 
-	commands = ft_split_by_pipes(datavic->line);
-	if (!commands)
-		return ;
-	i = 0;
-	while (commands[i])
-		i++;
-	datavic->commands = malloc(sizeof(t_cmd *) * (i + 1));
-	if (!datavic->commands)
-	{
-		ft_free_array(commands);
-		datavic->commands = NULL;
-		return ;
-	}
-	i = 0;
-	while (commands[i])
-	{
-		cmd = malloc(sizeof(t_cmd));
-		if (!cmd)
-		{
-			ft_free_commands(datavic->commands);
-			ft_free_array(commands);
-			datavic->commands = NULL;
-			return ;
-		}
-		cmd->cmd_args = ft_split(commands[i], ' ');
-		if (!cmd->cmd_args || !cmd->cmd_args[0])
-		{
-			ft_free_array(cmd->cmd_args);
-			free(cmd);
-			datavic->commands[i] = NULL;
-			i++;
-			continue ;
-		}
-		cmd->cmd = ft_strdup(cmd->cmd_args[0]);
-		cmd->id = i + 1;
-		cmd->exit_code = 0;
-		datavic->commands[i] = cmd;
-		i++;
-	}
-	datavic->commands[i] = NULL;
-	ft_free_array(commands);
-}
-
-int	main(int argc, char **argv, char **envp)
-{
-	char	*input;
-	t_datavic	*datavic;
-
-	(void)argc;
-	(void)argv;
-	datavic = ft_init_datavic(envp);
-	if (!datavic)
-		return (1);
-	ft_update_env_shlvl(datavic->my_env);
+	r_code = 4;
+	data = malloc(sizeof(t_data));
 	while (1)
 	{
-		input = readline("minishell:$ ");
-		if (!input)
+		data->line = readline(MINIMSG);
+		data->exit_code = 0;
+		if (!data->line) //EOF -> (signal CTRL-D)
 		{
-			perror("Error: readline\n");
-			break ;
+			break;
 		}
-		if (*input)
-		{
-			add_history(input);
-			if (datavic->line)
-				free(datavic->line);
-			datavic->line = input;
-			ft_parse_commands(datavic);
-			ft_execute_all(datavic);
-		}
-		else
-			free(input);
-		if (datavic->commands)
-		{
-			ft_free_commands(datavic->commands);
-			datavic->commands = NULL;
-		}	
+		if (data->line[0])
+			add_history(data->line);
+		r_code = 
+		ft_tokenizer(data);
+		print_tokens(data->line, data->tkn_lst); // VERIFICATION (Debug)
+		printf(RED"return code %d\n"RESET, r_code);
+		printf(GREEN"exit code %d\n"RESET, data->exit_code);
 	}
-	ft_free_datavic(datavic);
+	rl_clear_history();
 	return (0);
 }

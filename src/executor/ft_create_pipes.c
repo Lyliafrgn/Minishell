@@ -1,38 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_create_pipes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 12:19:09 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/02 12:54:05 by vimazuro         ###   ########.fr       */
+/*   Created: 2025/05/09 11:21:27 by vimazuro          #+#    #+#             */
+/*   Updated: 2025/05/12 15:58:53 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../minishell.h"
 
-int	ft_atoi(const char *nptr)
+int	**ft_create_pipes(int num_pipes)
 {
-	int		result;
-	int		sign;
-	size_t	i;
+	int	**pipe_fd;
+	int	i;
 
+	pipe_fd = malloc(num_pipes * sizeof(int *));
+	if (!pipe_fd)
+		return (NULL);
 	i = 0;
-	sign = 1;
-	result = 0;
-	while (nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13))
-		i++;
-	if ((nptr[i] == '-') || (nptr[i] == '+'))
+	while (i < num_pipes)
 	{
-		if (nptr[i] == '-')
-			sign = (-1);
+		pipe_fd[i] = malloc(2 * sizeof(int));
+		if (!pipe_fd[i])
+			return (NULL);
+		if (pipe(pipe_fd[i]) == -1)
+		{
+			perror("pipe");
+			return (NULL);
+		}
 		i++;
 	}
-	while (nptr[i] >= '0' && nptr[i] <= '9')
-	{
-		result = (result * 10) + (nptr[i] - '0');
-		i++;
-	}
-	return (sign * result);
+	return (pipe_fd);
 }

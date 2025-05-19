@@ -1,38 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_sort_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 12:19:09 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/02 12:54:05 by vimazuro         ###   ########.fr       */
+/*   Created: 2025/04/22 12:42:06 by vimazuro          #+#    #+#             */
+/*   Updated: 2025/05/02 12:55:20 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../minishell.h"
 
-int	ft_atoi(const char *nptr)
+void	ft_sort_env(t_env *env)
 {
-	int		result;
-	int		sign;
-	size_t	i;
+	t_env	*i;
+	t_env	*j;
+	char	*tmp_key;
+	char	*tmp_value;
 
-	i = 0;
-	sign = 1;
-	result = 0;
-	while (nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13))
-		i++;
-	if ((nptr[i] == '-') || (nptr[i] == '+'))
+	i = env;
+	while (i)
 	{
-		if (nptr[i] == '-')
-			sign = (-1);
-		i++;
+		j = i->next;
+		while (j)
+		{
+			if (ft_strcmp(i->key, j->key) > 0)
+			{
+				tmp_key = i->key;
+				tmp_value = i->value;
+				i->key = j->key;
+				i->value = j->value;
+				j->key = tmp_key;
+				j->value = tmp_value;
+			}
+			j = j->next;
+		}
+		i = i->next;
 	}
-	while (nptr[i] >= '0' && nptr[i] <= '9')
-	{
-		result = (result * 10) + (nptr[i] - '0');
-		i++;
-	}
-	return (sign * result);
 }

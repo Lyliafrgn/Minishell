@@ -6,7 +6,7 @@
 #    By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/20 16:41:15 by vimazuro          #+#    #+#              #
-#    Updated: 2025/04/15 12:48:23 by vimazuro         ###   ########.fr        #
+#    Updated: 2025/05/19 14:45:04 by vimazuro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,29 @@ LIBFT_LIB = $(LIBFT_DIR)libft.a
 HEADER = minishell.h
 
 SRC_FILES = src/main.c \
+			src/builtins/ft_built_command.c \
+			src/builtins/ft_echo.c src/builtins/ft_cd.c \
+			src/builtins/ft_pwd.c \
+			src/builtins/ft_export.c src/builtins/ft_unset.c \
+			src/builtins/ft_env.c src/builtins/ft_exit.c \
+			src/env/ft_init_env.c src/env/ft_print_env.c \
+			src/env/ft_free_env.c src/env/ft_env_copy.c \
+			src/env/ft_sort_env.c src/env/ft_update_env.c \
+			src/env/ft_find_env.c src/env/ft_valid_key_env.c \
+			src/env/ft_delete_env_node.c src/env/ft_get_env.c \
+			src/env/ft_env_to_array.c \
+			src/executor/ft_execute_command.c \
+			src/executor/ft_find_full_path.c \
+			src/executor/ft_child_process.c \
+			src/executor/ft_count_pipes.c \
+			src/executor/ft_create_pipes.c \
+			src/executor/ft_create_process.c \
+			src/executor/ft_execute_all.c \
+			src/executor/ft_split_by_pipes.c \
+			src/utils/ft_malloc_list.c \
+			src/utils/ft_print_array.c \
+			src/utils/ft_print_list.c \
+			src/utils/ft_free.c \
 
 OBJS = $(SRC_FILES:.c=.o)
 
@@ -31,7 +54,7 @@ libft:
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -I$(INC_DIR) -o $(NAME) $(OBJS) $(LIBFT_LIB) -lreadline
 
-%.o: $(SRC_DIR)/%.c $(HEADER) Makefile
+%.o: %.c $(HEADER) Makefile
 	$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@
 
 clean:

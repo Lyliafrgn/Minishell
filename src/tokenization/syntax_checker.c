@@ -1,37 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   syntax_checker.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/19 18:50:18 by lylfergu          #+#    #+#             */
+/*   Updated: 2025/05/19 19:00:16 by lylfergu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
-/*int	ft_pipe_at_end_error_check(t_token *list)
-{
-	t_token	*cur_token;
-
-	cur_token = list;
-	while (cur_token->next != NULL)
-	{
-		if (cur_token->pipe_at_end == true && cur_token->next->type == PIPE
-			&& cur_token->next->next == NULL)
-		{
-			ft_print_err(PIPE);
-			return (FAIL);
-		}
-		cur_token = cur_token->next;
-	}
-	return (SUCCESS);
-}*/
-
+/*inverts the value of in_dquote. 
+If in_dquote was 1, 
+then after running in_dquote = !in_dquote;
+the value of in_dquote becomes 0 */
 int	check_quote_error(char *line)
 {
 	int	in_squote;
 	int	in_dquote;
 
-    in_squote = 0;
-    in_dquote = 0;
+	in_squote = 0;
+	in_dquote = 0;
 	while (*line)
 	{
 		if (*line == SQUOTE && !in_dquote)
 			in_squote = !in_squote;
 		else if (*line == DQUOTE && !in_squote)
-			in_dquote = !in_dquote; // inverts the value of in_dquote. If in_dquote was 1, then after running in_dquote = !in_dquote;, the value of in_dquote becomes 0.
+			in_dquote = !in_dquote;
 		line++;
 	}
 	if (in_squote || in_dquote)
@@ -52,8 +49,6 @@ static int	check_double_pipe(t_token *token)
 
 static int	ft_first_checks(t_data *data, t_token *token)
 {
-	//if (is_invalidop(token->content) == TRUE)
-	//	return (print_syntax_error(12), data->exit_code = 2, 1);
 	if (token->next == NULL && is_redirop(token->content) == FALSE
 		&& token->type != T_PIPE)
 		return (FALSE);

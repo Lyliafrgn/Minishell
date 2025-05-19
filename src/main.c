@@ -6,7 +6,7 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:11:46 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/19 18:40:01 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:42:33 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	data = ft_init_datavic(envp);
+	data = ft_init_data(envp);
 	if (!data)
 		return (1);
 	ft_update_env_shlvl(data->my_env);

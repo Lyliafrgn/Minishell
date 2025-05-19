@@ -6,7 +6,7 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/19 17:31:33 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:43:38 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ t_env	*new_env_node(char *str);
 t_env	*ft_env_copy(t_env *env);
 t_env	*ft_new_node(char *key, char *value);
 t_env	*ft_find_env(t_env *env, char *key);
+
 /*		TOKEN		*/
 int		ft_tokenizer(t_data *data);
 t_token	*init_token_list(char *value, int type);

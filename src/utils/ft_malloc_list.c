@@ -1,38 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_malloc_list.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 12:19:09 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/02 12:54:05 by vimazuro         ###   ########.fr       */
+/*   Created: 2025/05/14 12:13:41 by vimazuro          #+#    #+#             */
+/*   Updated: 2025/05/16 14:06:24 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../minishell.h"
 
-int	ft_atoi(const char *nptr)
+void	ft_add_malloc_list(void *ptr, t_list **malloc_list)
 {
-	int		result;
-	int		sign;
-	size_t	i;
+	t_list	*tmp;
+	t_list	*new_node;
 
-	i = 0;
-	sign = 1;
-	result = 0;
-	while (nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13))
-		i++;
-	if ((nptr[i] == '-') || (nptr[i] == '+'))
+	if (!ptr || !malloc_list)
+		return ;
+	tmp = *malloc_list;
+	while (tmp)
 	{
-		if (nptr[i] == '-')
-			sign = (-1);
-		i++;
+		if (tmp->content == ptr)
+			return ;
+		tmp = tmp->next;
 	}
-	while (nptr[i] >= '0' && nptr[i] <= '9')
-	{
-		result = (result * 10) + (nptr[i] - '0');
-		i++;
-	}
-	return (sign * result);
+	new_node = ft_lstnew(ptr);
+	ft_lstadd_back(malloc_list, new_node);
 }

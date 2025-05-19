@@ -1,38 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 12:19:09 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/02 12:54:05 by vimazuro         ###   ########.fr       */
+/*   Created: 2025/05/12 10:34:24 by vimazuro          #+#    #+#             */
+/*   Updated: 2025/05/16 14:16:09 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *nptr)
+char	*ft_strndup(const char *s, size_t start, size_t len)
 {
-	int		result;
-	int		sign;
+	char	*new_str;
 	size_t	i;
 
+	new_str = malloc(len + 1);
+	if (!new_str)
+		return (NULL);
 	i = 0;
-	sign = 1;
-	result = 0;
-	while (nptr[i] == ' ' || (nptr[i] >= 9 && nptr[i] <= 13))
-		i++;
-	if ((nptr[i] == '-') || (nptr[i] == '+'))
+	while (i < len && s[start + i])
 	{
-		if (nptr[i] == '-')
-			sign = (-1);
+		new_str[i] = s[start + i];
 		i++;
 	}
-	while (nptr[i] >= '0' && nptr[i] <= '9')
-	{
-		result = (result * 10) + (nptr[i] - '0');
-		i++;
-	}
-	return (sign * result);
+	new_str[i] = '\0';
+	return (new_str);
 }

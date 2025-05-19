@@ -6,13 +6,14 @@
 #    By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/20 16:41:15 by vimazuro          #+#    #+#              #
-#    Updated: 2025/05/19 14:45:04 by vimazuro         ###   ########.fr        #
+#    Updated: 2025/05/19 16:07:01 by vimazuro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -I -lreadline #-fsanitize=address
+LDLIBS = -lreadline
 SRC_DIR = .
 INC_DIR = libft/include
 LIBFT_DIR = libft/
@@ -43,6 +44,7 @@ SRC_FILES = src/main.c \
 			src/utils/ft_print_array.c \
 			src/utils/ft_print_list.c \
 			src/utils/ft_free.c \
+			src/errors.c src/free.c src/syntax_checker.c src/token_utils.c src/tokenization.c src/syntax_utils.c \\
 
 OBJS = $(SRC_FILES:.c=.o)
 
@@ -52,7 +54,7 @@ libft:
 	$(MAKE) -C $(LIBFT_DIR)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -I$(INC_DIR) -o $(NAME) $(OBJS) $(LIBFT_LIB) -lreadline
+	$(CC) $(CFLAGS) -I$(INC_DIR) -o $(NAME) $(OBJS) $(LIBFT_LIB)
 
 %.o: %.c $(HEADER) Makefile
 	$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@

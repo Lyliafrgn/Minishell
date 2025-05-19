@@ -34,17 +34,19 @@ int	is_invalidop(t_token *tkn)
 {
 	char *str;
 	int	i;
+	int j;
 
 	while (tkn)
 	{
 		str = tkn->content;
 		i = 0;
+		j = ft_strlen(str);
 		while(str[i])
 		{
 			if (str[i] == 59 || str[i] == 92 
 			|| (str[i] >= 40 && str[i] <=  41) || str[i] == 38)
 			{
-				if (!(str[0] == DQUOTE))
+				if (!(str[0] == DQUOTE)) //&& !(str[j] == DQUOTE))
 				{			
 					printf("Syntax error: unsupported character '%c'\n", str[i]);
 					return (TRUE);

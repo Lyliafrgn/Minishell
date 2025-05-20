@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/19 18:50:29 by lylfergu          #+#    #+#             */
+/*   Updated: 2025/05/19 19:05:16 by lylfergu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*t_token	*ft_token_before_last(t_token *list)
@@ -13,12 +25,12 @@
 char	*ft_strndup(char *str, int n)
 {
 	char	*copy;
-    int     i;
+	int		i;
 
 	i = 0;
 	while (str[i])
 		i++;
-    if (i == 0)
+	if (i == 0)
 		return (NULL);
 	copy = (char *)malloc(sizeof(char) * (n + 1));
 	if (copy == NULL)
@@ -67,7 +79,6 @@ int	get_token_size(char *line)
 	if (!line)
 		return (KO);
 	type = get_type(line);
-	//printf("type is %d\n", type);
 	if (type == T_HEREDOC || type == T_APPEND)
 		return (2);
 	if (type == T_PIPE || type == T_REDIRIN || type == T_REDIROUT)
@@ -90,11 +101,9 @@ char	*extract_str_val(char *line)
 	int		len;
 
 	len = get_token_size(line);
-	//printf("get_token_size result %d\n", len);
 	if (len == KO)
 		return (NULL);
 	str = ft_strndup(line, len);
-	//printf("le res de strndup %s\n", str);
 	if (!str)
 		return (NULL);
 	return (str);

@@ -6,7 +6,7 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/18 20:31:02 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/19 17:30:53 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,26 +76,22 @@ int		main(void);
 int		ft_tokenizer(t_data *data); //TKN Main
 t_token	*init_token_list(char *value, int type);
 t_token	*create_token_list(char *line);
-
 /*		TOKEN UTILS	*/
 char	*extract_str_val(char *line);
 int		get_token_size(char *line);
 int		get_type(char *str);
 t_token	*ft_last_token(t_token *lst);
 char	*ft_strndup(char *str, int n);
-
 /*	TOKEN_CHECK		*/
 int		check_token_list(t_data *data, t_token *lst);
 int		check_quote_error(char *line);
 void	print_syntax_error(int errno);
-
 /*	TOKEN CHECK UTILS	*/
 int		is_space(char c);
 int		is_quote(char c);
 int		is_invalidop(t_token *tkn);
 int		is_redirop(char *str);
 int		is_operator(char *str);
-
 void	ft_free_tokens(t_token **tkn_lst);
 
 /*		EXPAND		*/

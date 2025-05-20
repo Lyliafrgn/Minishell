@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenization.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/19 18:50:35 by lylfergu          #+#    #+#             */
+/*   Updated: 2025/05/19 18:59:58 by lylfergu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 t_token	*init_token_list(char *value, int type)
@@ -45,7 +57,7 @@ t_token	*create_token_list(char *line)
 		{
 			str = extract_str_val(line);
 			if (!str)
-				return (ft_free_tokens(&tkn_lst), NULL);// suppr de ft_free_tokens(&tkn_lst)
+				return (ft_free_tokens(&tkn_lst), NULL);
 			new_tkn = init_token_list(str, get_type(str));
 			if (!new_tkn)
 				return (free(str), ft_free_tokens(&tkn_lst), NULL);
@@ -53,7 +65,7 @@ t_token	*create_token_list(char *line)
 			line += ft_strlen(str);
 		}
 	}
-		return (tkn_lst);
+	return (tkn_lst);
 }
 
 int	ft_tokenizer(t_data *data)
@@ -73,5 +85,5 @@ int	ft_tokenizer(t_data *data)
 	}
 	if (check_token_list(data, data->tkn_lst) == KO)
 		return (-1);
-	return (0);
+	return (1);
 }

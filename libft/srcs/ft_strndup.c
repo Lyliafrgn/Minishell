@@ -3,29 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:34:24 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/16 14:16:09 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/21 18:52:52 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strndup(const char *s, size_t start, size_t len)
+char	*ft_strndup(char *str, int n)
 {
-	char	*new_str;
-	size_t	i;
+	char	*copy;
+	int		i;
 
-	new_str = malloc(len + 1);
-	if (!new_str)
-		return (NULL);
 	i = 0;
-	while (i < len && s[start + i])
+	while (str[i])
+		i++;
+	if (i == 0)
+		return (NULL);
+	copy = (char *)malloc(sizeof(char) * (n + 1));
+	if (copy == NULL)
 	{
-		new_str[i] = s[start + i];
+		return (NULL);
+	}
+	i = 0;
+	while (str[i] && i < n)
+	{
+		copy[i] = str[i];
 		i++;
 	}
-	new_str[i] = '\0';
-	return (new_str);
+	copy[i] = '\0';
+	return (copy);
 }

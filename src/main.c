@@ -6,10 +6,12 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:11:46 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/19 18:42:33 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/21 19:07:11 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <readline/history.h>
+#include <stdlib.h>
 #include "../minishell.h"
 
 t_data	*ft_init_data(char **envp)
@@ -91,7 +93,7 @@ int	main(int argc, char **argv, char **envp)
 	ft_update_env_shlvl(data->my_env);
 	while (1)
 	{
-		data->line = readline("minishell:$ ");
+		data->line = readline(MINIMSG);
 		if (!data->line)
 		{
 			perror("Error: readline\n");

@@ -6,13 +6,13 @@
 #    By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/20 16:41:15 by vimazuro          #+#    #+#              #
-#    Updated: 2025/05/19 18:45:39 by lylfergu         ###   ########.fr        #
+#    Updated: 2025/05/21 19:11:48 by lylfergu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -I -lreadline #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -I #-fsanitize=address
 LDLIBS = -lreadline
 SRC_DIR = .
 INC_DIR = libft/include
@@ -56,7 +56,7 @@ libft:
 	$(MAKE) -C $(LIBFT_DIR)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -I$(INC_DIR) -o $(NAME) $(OBJS) $(LIBFT_LIB)
+	$(CC) $(CFLAGS) -I$(INC_DIR) -o $(NAME) $(OBJS) $(LIBFT_LIB) $(LDLIBS)
 
 %.o: %.c $(HEADER) Makefile
 	$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@

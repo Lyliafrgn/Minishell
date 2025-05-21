@@ -6,11 +6,11 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:50:24 by lylfergu          #+#    #+#             */
-/*   Updated: 2025/05/19 19:04:40 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/21 19:01:04 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 int	is_operator(char *str)
 {

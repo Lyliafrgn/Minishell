@@ -6,7 +6,7 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/19 18:43:38 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/21 19:04:50 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	ft_update_env_shlvl(t_env *my_env);
 void	ft_update_env_add(t_env **my_env, char *key, char *value);
 void	ft_delete_env_node(t_env **my_env, char *key);
 void	ft_execute_command(char *cmd, char **cmd_args, t_env *my_env);
-void	ft_execute_all(t_datavic *datavic);
+void	ft_execute_all(t_data *datavic);
 void	ft_child_process_f(char **cmd_args, int pipe_fd[2], t_env *my_env);
 void	ft_child_process_l(char **cmd_args, int pipe_fd[2], t_env *my_env);
 void	ft_child_process_m(char **cmd_args, int prev_pipe[2], int next_pipe[2], t_env *my_env);
@@ -117,9 +117,9 @@ void    ft_print_list(t_list *list);
 void	ft_free_env(t_env *env);
 void	ft_free_array(char **array);
 void    ft_free_commands(t_cmd **cmds);
-void    ft_free_datavic(t_datavic *datavic);
+void    ft_free_datavic(t_data *datavic);
 void    ft_free_malloc_list(t_list *malloc_list);
-void    ft_print_commands(t_datavic *datavic);
+void    ft_print_commands(t_data *datavic);
 pid_t	ft_create_f_process(char **cmd_args, int pipe_fd[2], t_env *my_env);
 pid_t	ft_create_m_process(char **cmd_args, int prev_pipe[2], int next_pipe[2], t_env *my_env);
 pid_t	ft_create_l_process(char **cmd_args, int pipe_fd[2], t_env *my_env);
@@ -138,7 +138,8 @@ char	*extract_str_val(char *line);
 int		get_token_size(char *line);
 int		get_type(char *str);
 t_token	*ft_last_token(t_token *lst);
-char	*ft_strndup(char *str, int n);
+char	*lex_strndup(char *str, int n);
+
 /*	TOKEN_CHECK		*/
 int		check_token_list(t_data *data, t_token *lst);
 int		check_quote_error(char *line);

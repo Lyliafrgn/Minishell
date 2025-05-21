@@ -6,11 +6,11 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:50:18 by lylfergu          #+#    #+#             */
-/*   Updated: 2025/05/19 19:00:16 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/21 19:00:58 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 /*inverts the value of in_dquote. 
 If in_dquote was 1, 

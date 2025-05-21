@@ -6,11 +6,11 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:50:29 by lylfergu          #+#    #+#             */
-/*   Updated: 2025/05/19 19:05:16 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/21 19:04:29 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 /*t_token	*ft_token_before_last(t_token *list)
 {
@@ -22,7 +22,7 @@
 	return (cur_token);
 }*/
 
-char	*ft_strndup(char *str, int n)
+char	*lex_strndup(char *str, int n)
 {
 	char	*copy;
 	int		i;
@@ -103,7 +103,7 @@ char	*extract_str_val(char *line)
 	len = get_token_size(line);
 	if (len == KO)
 		return (NULL);
-	str = ft_strndup(line, len);
+	str = lex_strndup(line, len);
 	if (!str)
 		return (NULL);
 	return (str);

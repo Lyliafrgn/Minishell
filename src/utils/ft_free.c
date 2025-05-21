@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:08:54 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/19 14:21:12 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/21 19:00:10 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void    ft_free_commands(t_cmd **cmds)
     free(cmds);
 }
 
-void    ft_free_datavic(t_datavic *datavic)
+void    ft_free_datavic(t_data *datavic)
 {
     if (!datavic)
         return ;

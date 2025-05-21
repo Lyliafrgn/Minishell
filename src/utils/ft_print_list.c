@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 14:26:11 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/19 14:39:15 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/21 18:59:54 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void    ft_print_list(t_list *list)
     }
 }
 
-void    ft_print_commands(t_datavic *datavic)
+void    ft_print_commands(t_data *datavic)
 {
     int     i;
     int     j;

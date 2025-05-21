@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_all.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:45:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/16 17:16:50 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/21 18:57:13 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ft_execute_all(t_datavic *datavic)
+void	ft_execute_all(t_data *datavic)
 {
 	int		status;
 	int		i;

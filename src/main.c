@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:11:46 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/19 18:42:33 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/21 14:21:28 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,55 +29,6 @@ t_data	*ft_init_data(char **envp)
 	data->my_env = ft_init_env(envp);
 	return (data);
 }
-
-/*void	ft_parse_commands(t_datavic *datavic)
-{
-	int		i;
-	char	**commands;
-	t_cmd	*cmd;
-
-	commands = ft_split_by_pipes(datavic->line);
-	if (!commands)
-		return ;
-	i = 0;
-	while (commands[i])
-		i++;
-	datavic->commands = malloc(sizeof(t_cmd *) * (i + 1));
-	if (!datavic->commands)
-	{
-		ft_free_array(commands);
-		datavic->commands = NULL;
-		return ;
-	}
-	i = 0;
-	while (commands[i])
-	{
-		cmd = malloc(sizeof(t_cmd));
-		if (!cmd)
-		{
-			ft_free_commands(datavic->commands);
-			ft_free_array(commands);
-			datavic->commands = NULL;
-			return ;
-		}
-		cmd->cmd_args = ft_split(commands[i], ' ');
-		if (!cmd->cmd_args || !cmd->cmd_args[0])
-		{
-			ft_free_array(cmd->cmd_args);
-			free(cmd);
-			datavic->commands[i] = NULL;
-			i++;
-			continue ;
-		}
-		cmd->cmd = ft_strdup(cmd->cmd_args[0]);
-		cmd->id = i + 1;
-		cmd->exit_code = 0;
-		datavic->commands[i] = cmd;
-		i++;
-	}
-	datavic->commands[i] = NULL;
-	ft_free_array(commands);
-}*/
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -103,9 +54,12 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (ft_tokenizer(data) == OK /* && parsing == OK*/)
 		{
+			ft_print_tokens(data->tkn_lst);
+			data->commands = ft_parse_commands(data->tkn_lst);
 			ft_execute_all(data);
 		}
-		ft_free_datavic(data);
+		ft_free_data(data);
 	}
+	ft_free_env_malloc(data);
 	return (0);
 }

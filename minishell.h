@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/19 18:43:38 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/21 14:02:13 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ typedef struct s_cmd
 {
 	int					id;
 	int					exit_code;
-	char				*cmd;
 	char				**cmd_args;
 	struct s_datavic	*datavic;
 }	t_cmd;
@@ -93,8 +92,10 @@ int		ft_unset(char **args, t_env *my_env);
 int		ft_env(char **args, t_env *my_env);
 int		ft_valid_key_env(char *str);
 int		ft_exit(char **args);
-int     ft_count_pipes(char *input);
+int		ft_count_pipes(t_token *tokens);
 int		**ft_create_pipes(int num_pipes);
+int		ft_count_cmds(t_token *tkn_lst);
+int		ft_count_args(t_token *start);
 char	*ft_get_env(t_env *env, char *key);
 char    **ft_env_to_array(t_env *my_env);
 char	*ft_find_full_path(const char *command, t_env *my_env);
@@ -107,7 +108,7 @@ void	ft_update_env_shlvl(t_env *my_env);
 void	ft_update_env_add(t_env **my_env, char *key, char *value);
 void	ft_delete_env_node(t_env **my_env, char *key);
 void	ft_execute_command(char *cmd, char **cmd_args, t_env *my_env);
-void	ft_execute_all(t_datavic *datavic);
+void	ft_execute_all(t_data *data);
 void	ft_child_process_f(char **cmd_args, int pipe_fd[2], t_env *my_env);
 void	ft_child_process_l(char **cmd_args, int pipe_fd[2], t_env *my_env);
 void	ft_child_process_m(char **cmd_args, int prev_pipe[2], int next_pipe[2], t_env *my_env);
@@ -117,9 +118,11 @@ void    ft_print_list(t_list *list);
 void	ft_free_env(t_env *env);
 void	ft_free_array(char **array);
 void    ft_free_commands(t_cmd **cmds);
-void    ft_free_datavic(t_datavic *datavic);
+void    ft_free_data(t_data *datavic);
 void    ft_free_malloc_list(t_list *malloc_list);
-void    ft_print_commands(t_datavic *datavic);
+void    ft_free_env_malloc(t_data *data);
+void    ft_print_commands(t_data *data);
+void    ft_print_tokens(t_token *tkn_lst);
 pid_t	ft_create_f_process(char **cmd_args, int pipe_fd[2], t_env *my_env);
 pid_t	ft_create_m_process(char **cmd_args, int prev_pipe[2], int next_pipe[2], t_env *my_env);
 pid_t	ft_create_l_process(char **cmd_args, int pipe_fd[2], t_env *my_env);
@@ -128,6 +131,7 @@ t_env	*new_env_node(char *str);
 t_env	*ft_env_copy(t_env *env);
 t_env	*ft_new_node(char *key, char *value);
 t_env	*ft_find_env(t_env *env, char *key);
+t_cmd	**ft_parse_commands(t_token *tkn_list);
 
 /*		TOKEN		*/
 int		ft_tokenizer(t_data *data);
@@ -138,7 +142,6 @@ char	*extract_str_val(char *line);
 int		get_token_size(char *line);
 int		get_type(char *str);
 t_token	*ft_last_token(t_token *lst);
-char	*ft_strndup(char *str, int n);
 /*	TOKEN_CHECK		*/
 int		check_token_list(t_data *data, t_token *lst);
 int		check_quote_error(char *line);

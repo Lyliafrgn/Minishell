@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:50:35 by lylfergu          #+#    #+#             */
-/*   Updated: 2025/05/19 18:59:58 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/20 11:23:22 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 t_token	*init_token_list(char *value, int type)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:50:14 by lylfergu          #+#    #+#             */
-/*   Updated: 2025/05/19 19:00:20 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/21 14:13:16 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 void	ft_free_tokens(t_token **tkn_lst)
 {

@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_count_pipes.c                                   :+:      :+:    :+:   */
+/*   ft_strndup_shift.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/09 11:49:59 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/16 14:08:35 by vimazuro         ###   ########.fr       */
+/*   Created: 2025/05/20 11:16:40 by vimazuro          #+#    #+#             */
+/*   Updated: 2025/05/20 11:17:49 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "libft.h"
 
-int	ft_count_pipes(char *input)
+char	*ft_strndup_shift(const char *s, size_t start, size_t len)
 {
-	int	count;
+	char	*new_str;
+	size_t	i;
 
-	count = 0;
-	while (*input)
+	new_str = malloc(len + 1);
+	if (!new_str)
+		return (NULL);
+	i = 0;
+	while (i < len && s[start + i])
 	{
-		if (*input == '|')
-			count++;
-		input++;
+		new_str[i] = s[start + i];
+		i++;
 	}
-	return (count);
+	new_str[i] = '\0';
+	return (new_str);
 }

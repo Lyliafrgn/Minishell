@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:51:46 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/16 14:05:53 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/21 14:13:05 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	**ft_split_by_pipes(char *input)
 			i++;
 		if (i > start)
 		{
-			commands[j] = ft_strndup(input, start, i - start);
+			commands[j] = ft_strndup_shift(input, start, i - start);
 			if (!commands[j])
 			{
 				while (j > 0)

@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+         #
+#    By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/20 16:41:15 by vimazuro          #+#    #+#              #
-#    Updated: 2025/05/19 18:45:39 by lylfergu         ###   ########.fr        #
+#    Updated: 2025/05/21 14:15:20 by vimazuro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -I -lreadline #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -I -fsanitize=address
 LDLIBS = -lreadline
 SRC_DIR = .
 INC_DIR = libft/include
@@ -35,11 +35,11 @@ SRC_FILES = src/main.c \
 			src/executor/ft_execute_command.c \
 			src/executor/ft_find_full_path.c \
 			src/executor/ft_child_process.c \
-			src/executor/ft_count_pipes.c \
+			src/executor/ft_count.c \
 			src/executor/ft_create_pipes.c \
 			src/executor/ft_create_process.c \
 			src/executor/ft_execute_all.c \
-			src/executor/ft_split_by_pipes.c \
+			src/executor/ft_parse_commands.c \
 			src/utils/ft_malloc_list.c \
 			src/utils/ft_print_array.c \
 			src/utils/ft_print_list.c \
@@ -56,7 +56,7 @@ libft:
 	$(MAKE) -C $(LIBFT_DIR)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -I$(INC_DIR) -o $(NAME) $(OBJS) $(LIBFT_LIB)
+	$(CC) $(CFLAGS) -I$(INC_DIR) -o $(NAME) $(OBJS) $(LIBFT_LIB) -lreadline
 
 %.o: %.c $(HEADER) Makefile
 	$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@

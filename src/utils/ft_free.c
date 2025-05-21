@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:08:54 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/19 14:21:12 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/21 14:10:23 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,39 @@ void    ft_free_commands(t_cmd **cmds)
     while (cmds[i])
     {
         ft_free_array(cmds[i]->cmd_args);
-        free(cmds[i]->cmd);
         free(cmds[i]);
         i++;
     }
     free(cmds);
 }
 
-void    ft_free_datavic(t_datavic *datavic)
+void    ft_free_data(t_data *data)
 {
-    if (!datavic)
+    if (!data)
         return ;
-    if (datavic->line)
-        free(datavic->line);
-    if (datavic->commands)
-        ft_free_commands(datavic->commands);
-    if (datavic->malloc_list)
-        ft_free_malloc_list(datavic->malloc_list);
-    if (datavic->my_env)
-        ft_free_env(datavic->my_env);
-    free(datavic);
+    if (data->line)
+    {
+        free(data->line);
+    }
+    if (data->commands)
+    {
+        ft_free_commands(data->commands);
+    }
+}
+
+void    ft_free_env_malloc(t_data *data)
+{
+    if (!data)
+        return ;
+    if (data->malloc_list)
+    {
+        ft_free_malloc_list(data->malloc_list);
+    }
+    if (data->my_env)
+    {
+        ft_free_env(data->my_env);
+    }
+    free(data);  
 }
 
 void    ft_free_malloc_list(t_list *malloc_list)

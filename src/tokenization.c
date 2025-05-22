@@ -87,5 +87,6 @@ int	ft_tokenizer(t_data *data)
 	//ft_set_delimiters(&data->tkn_lst);
 	if (check_token_list(data, data->tkn_lst) == KO)
 		return (-1);
+	//ft_expand(data, &data->tkn_lst);
 	return (0);
 }

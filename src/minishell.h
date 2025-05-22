@@ -6,7 +6,7 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/22 17:53:07 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/22 21:12:32 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,17 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+typedef struct s_expand
+{
+    char    *pre_and_exp;
+    char    *finished;
+    char    *exp_var;
+    char    *pre_exp;
+    char    *var;
+    int     pos;
+    int     start;
+    int     status;
+}   t_expand;
 
 //GLOBAL STRUCTURE / (Main shell structure)
 

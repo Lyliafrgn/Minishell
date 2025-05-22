@@ -1,5 +1,18 @@
 #include "minishell.h"
 
+/*static void	ft_set_delimiters(t_token **tkn_lst)
+{
+	t_token	*token;
+
+	token = *tkn_lst;
+	while (token)
+	{
+		if (token->type == T_HEREDOC && token->next && token->next->type == T_WORD)
+			token->next->type = LIM;
+		token = token->next;
+	}
+}*/
+
 t_token	*init_token_list(char *value, int type)
 {
 	t_token	*new_tkn;
@@ -45,7 +58,7 @@ t_token	*create_token_list(char *line)
 		{
 			str = extract_str_val(line);
 			if (!str)
-				return (ft_free_tokens(&tkn_lst), NULL);// suppr de ft_free_tokens(&tkn_lst)
+				return (ft_free_tokens(&tkn_lst), NULL);
 			new_tkn = init_token_list(str, get_type(str));
 			if (!new_tkn)
 				return (free(str), ft_free_tokens(&tkn_lst), NULL);
@@ -71,6 +84,7 @@ int	ft_tokenizer(t_data *data)
 		data->exit_code = 2;
 		return (-1);
 	}
+	//ft_set_delimiters(&data->tkn_lst);
 	if (check_token_list(data, data->tkn_lst) == KO)
 		return (-1);
 	return (0);

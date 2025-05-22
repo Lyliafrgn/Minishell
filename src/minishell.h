@@ -6,7 +6,7 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/18 20:31:02 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/22 17:53:07 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,11 @@
 # define KO -1
 
 # define SQUOTE '\''
-# define DQUOTE '"'
+# define DQUOTE '\"'
 
 # define MINIMSG "\001\e[1;36;5;141m\002minishell\001\e[1;33m\002 > \001\033[0m\002"
 
-/*
-** Token = élément lexical (commande, argument, opérateur, etc.)
-*/
+
 typedef enum e_type
 {
 	T_WORD, //0
@@ -44,10 +42,12 @@ typedef enum e_type
 	T_REDIROUT,// > 3
 	T_APPEND,// >> 4
 	T_HEREDOC,// << 5
+	IN_FILE,// 6
+	OUT_FILE, // 7
 }	t_type;
 
 
-//Structure représentant un token (élément lexical):
+
 typedef struct s_token
 {
 	char			*content; // value of the token (ex : ls", "|", "file.txt"))
@@ -95,6 +95,7 @@ int		is_quote(char c);
 int		is_invalidop(t_token *tkn);
 int		is_redirop(char *str);
 int		is_operator(char *str);
+//void	add_redir_type(t_token *cur);
 
 void	ft_free_tokens(t_token **tkn_lst);
 

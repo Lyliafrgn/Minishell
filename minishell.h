@@ -6,7 +6,7 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/21 18:26:10 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/22 18:21:12 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef enum e_type
 	T_REDIROUT,// > 3
 	T_APPEND,// >> 4
 	T_HEREDOC,// << 5
+	IN_FILE,// 6
+	OUT_FILE, // 7
 }	t_type;
 
 typedef struct s_token

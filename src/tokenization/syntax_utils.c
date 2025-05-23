@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:50:24 by lylfergu          #+#    #+#             */
-/*   Updated: 2025/05/21 14:13:22 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/22 20:14:08 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,23 +47,18 @@ int	is_invalidop(t_token *tkn)
 {
 	char	*str;
 	int		i;
-	int		j;
 
 	while (tkn)
 	{
 		str = tkn->content;
 		i = 0;
-		j = ft_strlen(str);
 		while (str[i])
 		{
 			if (str[i] == 59 || str[i] == 92 
 			|| (str[i] >= 40 && str[i] <=  41) || str[i] == 38)
 			{
-				if (!(str[0] == DQUOTE)) //&& !(str[j] == DQUOTE))
-				{			
 					printf("Syntax error: unsupported character '%c'\n", str[i]);
 					return (TRUE);
-				}
 			}
 			i++;
 		}

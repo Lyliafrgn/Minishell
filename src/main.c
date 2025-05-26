@@ -6,7 +6,7 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:11:46 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/26 17:10:57 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/26 20:02:49 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		data->exit_code = 0;
-		data->line = readline("minishell:$ ");
+		data->line = readline(MINIMSG);
 		if (!data->line)
 		{
 			perror("Error: readline\n");

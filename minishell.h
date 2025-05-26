@@ -6,7 +6,7 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/22 18:21:12 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/26 20:08:55 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef struct s_cmd
 	int					id;
 	int					exit_code;
 	char				**cmd_args;
-	struct s_datavic	*datavic;
+	struct s_data		*data;
 }	t_cmd;
 
 typedef struct s_data
@@ -146,6 +146,8 @@ char	*extract_str_val(char *line);
 int		get_token_size(char *line);
 int		get_type(char *str);
 t_token	*ft_last_token(t_token *lst);
+char	*lex_strndup(char *str, int n);
+
 /*	TOKEN_CHECK		*/
 int		check_token_list(t_data *data, t_token *lst);
 int		check_quote_error(char *line);
@@ -157,4 +159,17 @@ int		is_invalidop(t_token *tkn);
 int		is_redirop(char *str);
 int		is_operator(char *str);
 void	ft_free_tokens(t_token **tkn_lst);
+
+/*		EXPAND		*/
+void	ft_expandizer(t_data *data, t_token **tkn_lst);
+char	*ft_get_expanded_str(t_data *data, char *str);
+
+/*	EXPAND_UTILS	*/
+char	*ft_remove_quotes(char *str);
+char	*ft_grab_str(char *str, char *limset);
+char	*ft_grab_var_name(char *str);
+char	*ft_get_expand(t_data *data, char *var_name, char *str);
+char	*ft_grab_next_quotes(t_data *data, char *str);
+char	*ft_super_strjoin(char *new_str, char *toadd);
+int		ft_is_in_var(char c);
 #endif

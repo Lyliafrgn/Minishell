@@ -5,10 +5,10 @@
 ## 🔹 I. Tokenisation (Lexer)
 
 ### 🔸 Lecture et préparation
-- [ ] Lire la ligne d'entrée (`readline`)
-- [ ] Sauter les espaces inutiles (hors quotes)
-- [ ] Initialiser une structure de token (`t_token`)
-- [ ] Garder les quotes pour traitement interne
+- [x ] Lire la ligne d'entrée (`readline`)
+- [x ] Sauter les espaces inutiles (hors quotes)
+- [x ] Initialiser une structure de token (`t_token`)
+- [x ] Garder les quotes pour traitement interne
 
 ### 🔸 Quotes
 - [ ] Gérer les quotes simples `'...'` (pas d’expansion)
@@ -16,9 +16,9 @@
 - [ ] Détecter les quotes non fermées (erreur de syntaxe)
 
 ### 🔸 Caractères spéciaux
-- [ ] Détecter : `|`, `<`, `>`, `<<`, `>>`
-- [ ] Couper les tokens correctement
-- [ ] Ne pas confondre `>>>`, `><`, etc. (erreurs)
+- [x ] Détecter : `|`, `<`, `>`, `<<`, `>>`
+- [x ] Couper les tokens correctement
+- [x ] Ne pas confondre `>>>`, `><`, etc. (erreurs)
 
 ### 🔸 Expansion `$`
 - [ ] Expansion `$VAR`, `$?`
@@ -27,9 +27,9 @@
 - [ ] Variables inexistantes → remplacées par chaîne vide
 
 ### 🔸 Construction des tokens
-- [ ] Créer un token pour chaque mot ou symbole
-- [ ] Attribuer le bon type (`WORD`, `PIPE`, `REDIR_IN`, etc.)
-- [ ] Ajouter à une liste chaînée (ou tableau dynamique)
+- [x ] Créer un token pour chaque mot ou symbole
+- [x ] Attribuer le bon type (`WORD`, `PIPE`, `REDIR_IN`, etc.)
+- [x ] Ajouter à une liste chaînée (ou tableau dynamique)
 
 ---
 
@@ -40,9 +40,9 @@
 - [ ] Identifier les blocs de commande séparés par `|`
 
 ### 🔸 Vérifications syntaxiques
-- [ ] Pas de pipe seul au début ou à la fin
+- [x ] Pas de pipe seul au début ou à la fin
 - [ ] Pas de redirection sans mot derrière
-- [ ] Pas de doubles pipes (`||`) ou redirections invalides
+- [x ] Pas de doubles pipes (`||`) ou redirections invalides
 - [ ] Redirections bien formées : `> fichier`, `<< limiter`, etc.
 
 ### 🔸 Commandes

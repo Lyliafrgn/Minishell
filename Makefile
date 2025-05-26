@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+         #
+#    By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/20 16:41:15 by vimazuro          #+#    #+#              #
-#    Updated: 2025/05/21 14:15:20 by vimazuro         ###   ########.fr        #
+#    Updated: 2025/05/26 20:39:06 by lylfergu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,9 +44,9 @@ SRC_FILES = src/main.c \
 			src/utils/ft_print_array.c \
 			src/utils/ft_print_list.c \
 			src/utils/ft_free.c \
-			src/tokenization/errors.c src/tokenization/free.c \
-			src/tokenization/syntax_checker.c src/tokenization/token_utils.c \
-			src/tokenization/tokenization.c src/tokenization/syntax_utils.c \
+			src/tokenization/*.c \
+			src/expand/*.c \
+			src/tokenization/errors.c src/tokenization/free.c src/tokenization/syntax_checker.c src/tokenization/token_utils.c src/tokenization/tokenization.c src/tokenization/syntax_utils.c src/expand/expand_utils.c src/expand/expand.c src/expand/expand_utils2.c
 
 OBJS = $(SRC_FILES:.c=.o)
 

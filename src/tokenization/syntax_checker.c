@@ -6,7 +6,7 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:50:18 by lylfergu          #+#    #+#             */
-/*   Updated: 2025/05/26 17:09:33 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/26 19:58:19 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,13 @@ static int	is_error_detected(t_data *data, t_token *lst, t_token *tkn)
 
 static void	add_redir_type(t_token *cur)
 {
-	if (!cur || !cur->next)
+	if (!cur->next)
 		return;
-	if ((cur->type == T_APPEND || cur->type == T_REDIROUT) && cur->next != NULL)
+	if ((cur->type == T_APPEND || cur->type == T_REDIROUT) && cur->next && cur->next->type == T_WORD)
 	{
 		cur->next->type = OUT_FILE;
 	}
-	if ((cur->type == T_HEREDOC || cur->type == T_REDIRIN) && cur->next != NULL)
+	if ((cur->type == T_HEREDOC || cur->type == T_REDIRIN) && cur->next && cur->next->type == T_WORD)
 	{
 		cur->next->type = IN_FILE;
 	}

@@ -124,7 +124,7 @@ int	check_token_list(t_data *data, t_token *lst)
 	while (curr_token != NULL)
 	{
 		if (is_error_detected(data, lst, curr_token) == TRUE)
-			break ;
+			return (-1);
 		if (is_redirop(curr_token->content) == TRUE)
 		{
 			add_redir_type(curr_token);

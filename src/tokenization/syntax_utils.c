@@ -6,7 +6,7 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:50:24 by lylfergu          #+#    #+#             */
-/*   Updated: 2025/05/22 20:14:08 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/05/26 16:44:34 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ int	is_redirop(char *str)
 {
 	int	len;
 
-	len = ft_strlen(str);
 	if (!str)
 		return (FALSE);
+	len = ft_strlen(str);
 	if (ft_strncmp(str, ">>", len) == 0)
 		return (TRUE);
 	if (ft_strncmp(str, "<<", len) == 0)

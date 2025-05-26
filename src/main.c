@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:11:46 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/21 14:21:28 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/26 17:10:57 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,18 @@ t_data	*ft_init_data(char **envp)
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
-
+	int rcode;
+	
 	(void)argc;
 	(void)argv;
 	data = ft_init_data(envp);
+	rcode = 4;
 	if (!data)
 		return (1);
 	ft_update_env_shlvl(data->my_env);
 	while (1)
 	{
+		data->exit_code = 0;
 		data->line = readline("minishell:$ ");
 		if (!data->line)
 		{
@@ -52,14 +55,15 @@ int	main(int argc, char **argv, char **envp)
 		{
 			add_history(data->line);
 		}
-		if (ft_tokenizer(data) == OK /* && parsing == OK*/)
+		rcode = ft_tokenizer(data);
+		ft_print_tokens(data->tkn_lst);
+		printf("return code %d\n", rcode);
+		printf("exit code %d\n", data->exit_code);
+		if (rcode == OK /* && parsing == OK*/)
 		{
-			ft_print_tokens(data->tkn_lst);
 			data->commands = ft_parse_commands(data->tkn_lst);
 			ft_execute_all(data);
 		}
-		ft_free_data(data);
 	}
-	ft_free_env_malloc(data);
 	return (0);
 }

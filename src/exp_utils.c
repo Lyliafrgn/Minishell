@@ -1,4 +1,4 @@
-
+#include "minishell.h"
 
 static int	ft_get_next_step(char *str, char *new_str)
 {
@@ -7,7 +7,7 @@ static int	ft_get_next_step(char *str, char *new_str)
 
 	if (!str || *str == '\0')
 		return (0);
-	if ((*str == DOUBLE_QUOTES || *str == SINGLE_QUOTE) && (str + 1))
+	if ((*str == SQUOTE || *str == DQUOTE) && (str + 1))
 		return (ft_strchr(str + 1, *str) - str + 1);
 	if (*str == '$')
 	{
@@ -42,7 +42,6 @@ static char	*ft_grab_next_str(t_data *data, char *str)
 		res = ft_grab_str(str, " \t\n\r\v\f$\'\"");
 	return (res);
 }
-
 
 static int	ft_count_quotes(char *str)
 {
@@ -127,19 +126,17 @@ char	*ft_get_expand(t_data *data, char *var_name, char *str)
 
 	if (var_name == NULL)
 	{
-		if (ft_is_in_var(*(str + 1)) == NO && ft_isquote(*(str + 1)) == NO)
+		if (ft_is_in_var(*(str + 1)) == KO && ft_isquote(*(str + 1)) == KO)
 			return (ft_strdup("$"));
 		return (NULL);
 	}
 	if (*var_name == '?')
 		return (ft_itoa(data->exit_status));
-	var_content = ft_getenv(data->env_list, var_name);
+	var_content = ft_get_env(data->my_env, var_name);
 	if (!var_content)
 		return (NULL);
 	return (var_content);
 }
-
-
 
 static char	*ft_get_next_str_in_double_quotes(t_data *data, char *str)
 {
@@ -177,9 +174,9 @@ char	*ft_grab_next_quotes(t_data *data, char *str)
 
 	grab = NULL;
 	res = NULL;
-	if (str && *str == SINGLE_QUOTE && (str + 1))
+	if (str && *str == SQUOTE && (str + 1))
 		res = ft_grab_str(str + 1, "\'");
-	else if (str && *str == DOUBLE_QUOTES && (str + 1))
+	else if (str && *str == DQUOTE && (str + 1))
 	{
 		grab = ft_grab_str(str + 1, "\"");
 		res = ft_get_next_str_in_double_quotes(data, grab);

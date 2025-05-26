@@ -15,15 +15,15 @@
 
 t_token	*init_token_list(char *value, int type)
 {
-	t_token	*new_tkn;
+	t_token	*tkn;
 
-	new_tkn = (t_token *)malloc(sizeof(t_token));
-	if (!new_tkn)
+	tkn = (t_token *)malloc(sizeof(t_token));
+	if (!tkn)
 		return (NULL);
-	new_tkn->content = value;
-	new_tkn->type = type;
-	new_tkn->next = NULL;
-	return (new_tkn);
+	tkn->content = value;
+	tkn->type = type;
+	tkn->next = NULL;
+	return (tkn);
 }
 
 static void	add_last_token(t_token **tkn_lst, t_token *new_tkn)
@@ -84,9 +84,8 @@ int	ft_tokenizer(t_data *data)
 		data->exit_code = 2;
 		return (-1);
 	}
-	//ft_set_delimiters(&data->tkn_lst);
 	if (check_token_list(data, data->tkn_lst) == KO)
 		return (-1);
-	//ft_expand(data, &data->tkn_lst);
+	ft_expandizer(data, &data->tkn_lst);
 	return (0);
 }

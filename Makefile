@@ -6,7 +6,7 @@
 #    By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/20 16:41:15 by vimazuro          #+#    #+#              #
-#    Updated: 2025/05/14 18:19:31 by lylfergu         ###   ########.fr        #
+#    Updated: 2025/05/26 19:21:19 by lylfergu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ LIBFT_DIR = libft/
 LIBFT_LIB = $(LIBFT_DIR)libft.a
 HEADER = minishell.h
 
-SRC_FILES = src/main.c src/errors.c src/free.c src/syntax_checker.c src/token_utils.c src/tokenization.c src/syntax_utils.c
+SRC_FILES = src/main.c src/errors.c src/free.c src/syntax_checker.c src/token_utils.c src/tokenization.c src/syntax_utils.c src/exp_utils.c src/expand_utils.c src/expvmm.c
 
 OBJS = $(SRC_FILES:.c=.o)
 

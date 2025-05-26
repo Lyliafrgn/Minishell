@@ -10,7 +10,7 @@
 	return (cur_token);
 }*/
 
-char	*ft_strndup(char *str, int n)
+char	*lex_strndup(char *str, int n)
 {
 	char	*copy;
     int     i;
@@ -90,11 +90,9 @@ char	*extract_str_val(char *line)
 	int		len;
 
 	len = get_token_size(line);
-	//printf("get_token_size result %d\n", len);
 	if (len == KO)
 		return (NULL);
-	str = ft_strndup(line, len);
-	//printf("le res de strndup %s\n", str);
+	str = lex_strndup(line, len);
 	if (!str)
 		return (NULL);
 	return (str);

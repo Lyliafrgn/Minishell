@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/02 15:19:05 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/02 16:16:49 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int		ft_tmp_write(const char *limitador, const char *tmp_file);
 int		ft_tmp_open_redirect(const char *tmp_file);
 int		ft_open_redirect(const char *file, int flags, int std_fd);
 int		ft_process_heredoc(int heredoc_count, t_redirect *heredoc_last,
-    		const char *tmp_file);
+			const char *tmp_file);
 int		ft_process_last_input(t_redirect *last, const char *tmp_file);
 char	*ft_get_env(t_env *env, char *key);
 char	**ft_env_to_array(t_env *my_env);
@@ -148,10 +148,10 @@ void	ft_print_tokens(t_token *tkn_lst);
 void	ft_add_redirect(t_redirect **head, int type, const char *file);
 void	ft_free_redirect(t_redirect *redir);
 void	ft_print_redirect(t_redirect *redir, const char *label);
-void	ft_find_last_and_heredoc(t_redirect *input, t_redirect **last_input, 
-    		t_redirect **heredoc_last, int	*heredoc_count);
-void    ft_close_pipes(int **pipe, int num_pipes);
-void    ft_wait_and_free_pipes(pid_t *pid, int **pipe, int num_cmds);
+void	ft_find_last_and_heredoc(t_redirect *input, t_redirect **last_input,
+			t_redirect **heredoc_last, int	*heredoc_count);
+void	ft_close_pipes(int **pipe, int num_pipes);
+void	ft_wait_and_free_pipes(pid_t *pid, int **pipe, int num_cmds);
 pid_t	ft_create_f_process(t_cmd *cmd, int pipe_fd[2],
 			t_env *my_env);
 pid_t	ft_create_m_process(t_cmd *cmd, int prev_pipe[2],

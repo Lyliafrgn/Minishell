@@ -6,7 +6,7 @@
 #    By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/20 16:41:15 by vimazuro          #+#    #+#              #
-#    Updated: 2025/05/21 14:15:20 by vimazuro         ###   ########.fr        #
+#    Updated: 2025/06/02 15:04:27 by vimazuro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,21 +22,29 @@ HEADER = minishell.h
 
 SRC_FILES = src/main.c \
 			src/builtins/ft_built_command.c \
-			src/builtins/ft_echo.c src/builtins/ft_cd.c \
+			src/builtins/ft_echo.c \
+			src/builtins/ft_cd.c \
 			src/builtins/ft_pwd.c \
-			src/builtins/ft_export.c src/builtins/ft_unset.c \
-			src/builtins/ft_env.c src/builtins/ft_exit.c \
-			src/env/ft_init_env.c src/env/ft_print_env.c \
-			src/env/ft_free_env.c src/env/ft_env_copy.c \
-			src/env/ft_sort_env.c src/env/ft_update_env.c \
-			src/env/ft_find_env.c src/env/ft_valid_key_env.c \
-			src/env/ft_delete_env_node.c src/env/ft_get_env.c \
+			src/builtins/ft_export.c \
+			src/builtins/ft_unset.c \
+			src/builtins/ft_env.c \
+			src/builtins/ft_exit.c \
+			src/env/ft_init_env.c \
+			src/env/ft_print_env.c \
+			src/env/ft_free_env.c \
+			src/env/ft_env_copy.c \
+			src/env/ft_sort_env.c \
+			src/env/ft_update_env.c \
+			src/env/ft_find_env.c \
+			src/env/ft_valid_key_env.c \
+			src/env/ft_delete_env_node.c \
+			src/env/ft_get_env.c \
 			src/env/ft_env_to_array.c \
 			src/executor/ft_execute_command.c \
 			src/executor/ft_find_full_path.c \
 			src/executor/ft_child_process.c \
 			src/executor/ft_count.c \
-			src/executor/ft_create_pipes.c \
+			src/executor/ft_pipes_utils.c \
 			src/executor/ft_create_process.c \
 			src/executor/ft_execute_all.c \
 			src/executor/ft_parse_commands.c \
@@ -44,9 +52,18 @@ SRC_FILES = src/main.c \
 			src/utils/ft_print_array.c \
 			src/utils/ft_print_list.c \
 			src/utils/ft_free.c \
-			src/tokenization/errors.c src/tokenization/free.c \
-			src/tokenization/syntax_checker.c src/tokenization/token_utils.c \
-			src/tokenization/tokenization.c src/tokenization/syntax_utils.c \
+			src/tokenization/errors.c \
+			src/tokenization/free.c \
+			src/tokenization/syntax_checker.c \
+			src/tokenization/token_utils.c \
+			src/tokenization/tokenization.c \
+			src/tokenization/syntax_utils.c \
+			src/redirection/ft_add_redirect.c \
+			src/redirection/ft_free_redirect.c \
+			src/redirection/ft_print_redirect.c \
+			src/redirection/ft_apply_redirect.c \
+			src/redirection/ft_tmp_utils.c \
+			src/redirection/ft_redirect_utils.c \
 
 OBJS = $(SRC_FILES:.c=.o)
 

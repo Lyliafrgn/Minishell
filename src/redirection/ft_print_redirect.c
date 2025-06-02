@@ -1,37 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create_pipes.c                                  :+:      :+:    :+:   */
+/*   ft_print_redirect.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/09 11:21:27 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/12 15:58:53 by vimazuro         ###   ########.fr       */
+/*   Created: 2025/05/26 11:52:23 by vimazuro          #+#    #+#             */
+/*   Updated: 2025/05/26 16:39:07 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	**ft_create_pipes(int num_pipes)
+void	ft_print_redirect(t_redirect *redir, const char *label)
 {
-	int	**pipe_fd;
-	int	i;
-
-	pipe_fd = malloc(num_pipes * sizeof(int *));
-	if (!pipe_fd)
-		return (NULL);
-	i = 0;
-	while (i < num_pipes)
+	printf("Redirection (%s):\n", label);
+	while (redir)
 	{
-		pipe_fd[i] = malloc(2 * sizeof(int));
-		if (!pipe_fd[i])
-			return (NULL);
-		if (pipe(pipe_fd[i]) == -1)
-		{
-			perror("pipe");
-			return (NULL);
-		}
-		i++;
+		printf("  [type = %d] file = %s\n", redir->type, redir->file);
+		redir = redir->next;
 	}
-	return (pipe_fd);
 }

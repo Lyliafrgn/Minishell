@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 12:19:28 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/02 12:55:24 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/30 12:15:21 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,11 @@ t_env	*ft_new_node(char *key, char *value)
 	return (node);
 }
 
-void	ft_update_env_add(t_env **my_env, char *key, char *value)
+static int	ft_update_env_exist(t_env *my_env, char *key, char *value)
 {
 	t_env	*tmp;
-	t_env	*new;
 
-	if (!key || !my_env)
-		return ;
-	tmp = *my_env;
+	tmp = my_env;
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->key, key) == 0)
@@ -48,22 +45,34 @@ void	ft_update_env_add(t_env **my_env, char *key, char *value)
 				tmp->value = ft_strdup(value);
 			else
 				tmp->value = NULL;
-			return ;
+			return (1);
 		}
 		tmp = tmp->next;
 	}
+	return (0);
+}
+
+void	ft_update_env_add(t_env **my_env, char *key, char *value)
+{
+	t_env	*tmp;
+	t_env	*new;
+
+	if (!key || !my_env)
+		return ;
+	if (ft_update_env_exist(*my_env, key, value))
+		return ;
 	new = ft_new_node(key, value);
 	if (!new)
 		return ;
 	if (!*my_env)
-		*my_env = new;
-	else
 	{
-		tmp = *my_env;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
+		*my_env = new;
+		return ;
 	}
+	tmp = *my_env;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = new;
 }
 
 void	ft_update_env_shlvl(t_env *my_env)
@@ -77,7 +86,10 @@ void	ft_update_env_shlvl(t_env *my_env)
 	{
 		if (current->key && ft_strcmp(current->key, "SHLVL") == 0)
 		{
-			lvl = ft_atoi(current->value);
+			if (current->value)
+				lvl = ft_atoi(current->value);
+			else
+				lvl = 0;
 			lvl++;
 			free(current->value);
 			new_val = ft_itoa(lvl);

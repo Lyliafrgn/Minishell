@@ -6,7 +6,7 @@
 #    By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/09 16:23:31 by vimazuro          #+#    #+#              #
-#    Updated: 2025/05/21 14:12:48 by vimazuro         ###   ########.fr        #
+#    Updated: 2025/05/28 14:44:51 by vimazuro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,11 @@ PRINTF_DIR = $(SRC_DIR)/printf
 INC_DIR = include
 SRC_FILES = \
 	    $(SRC_DIR)/ft_atoi.c $(SRC_DIR)/ft_bzero.c \
+	    $(SRC_DIR)/ft_atof.c \
 	    $(SRC_DIR)/ft_calloc.c $(SRC_DIR)/ft_isalnum.c \
 	    $(SRC_DIR)/ft_isalpha.c $(SRC_DIR)/ft_isascii.c \
 	    $(SRC_DIR)/ft_isdigit.c $(SRC_DIR)/ft_isprint.c \
+	    $(SRC_DIR)/ft_isfloatpoint.c \
 	    $(SRC_DIR)/ft_itoa.c $(SRC_DIR)/ft_memchr.c \
 	    $(SRC_DIR)/ft_memcmp.c $(SRC_DIR)/ft_memcpy.c \
 	    $(SRC_DIR)/ft_memmove.c $(SRC_DIR)/ft_memset.c \
@@ -41,7 +43,7 @@ SRC_FILES = \
 	    $(SRC_DIR)/ft_lstclear.c $(SRC_DIR)/ft_lstdelone.c \
 	    $(SRC_DIR)/ft_lstiter.c $(SRC_DIR)/ft_lstlast.c \
 	    $(SRC_DIR)/ft_lstmap.c $(SRC_DIR)/ft_lstnew.c \
-	    $(SRC_DIR)/ft_lstsize.c
+	    $(SRC_DIR)/ft_lstsize.c $(SRC_DIR)/get_next_line.c
 PRINTF_FILES = \
 	       $(PRINTF_DIR)/ft_printf.c \
 	       $(PRINTF_DIR)/ft_print_format_c.c \

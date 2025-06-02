@@ -6,18 +6,83 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:45:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/21 14:12:59 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/02 15:21:15 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
+static void	ft_handle_single_builtin(t_cmd *cmd, t_env *my_env, pid_t *pid)
+{
+	int	stdin_backup;
+	int	stdout_backup;
+
+	stdin_backup = dup(STDIN_FILENO);
+	stdout_backup = dup(STDOUT_FILENO);
+	if (ft_apply_redirect(cmd->input, cmd->output))
+	{
+		dup2(stdin_backup, STDIN_FILENO);
+		dup2(stdout_backup, STDOUT_FILENO);
+		close(stdin_backup);
+		close(stdout_backup);
+		free(pid);
+		return ;
+	}
+	ft_exec_built_command(cmd->cmd_args, my_env);
+	dup2(stdin_backup, STDIN_FILENO);
+	dup2(stdout_backup, STDOUT_FILENO);
+	close(stdin_backup);
+	close(stdout_backup);
+	free(pid);
+}
+
+static void	ft_handle_single_external(t_cmd *cmd, t_env *my_env, pid_t *pid)
+{
+	pid[0] = fork();
+	if (pid[0] == -1)
+	{
+		ft_putstr_fd("Error with fork\n", 2);
+		free(pid);
+		return ;
+	}
+	if (pid[0] == 0)
+	{
+		if (ft_apply_redirect(cmd->input, cmd->output))
+			exit(EXIT_FAILURE);
+		ft_execute_command(cmd->cmd_args[0], cmd->cmd_args, my_env);
+	}
+	else
+		waitpid(pid[0], NULL, 0);
+	free(pid);
+}
+
+static void	ft_handle_multiple(t_cmd **cmds, int num_cmds,
+	t_env *my_env, pid_t *pid)
+{
+	int	i;
+	int	**pipe;
+
+	pipe = ft_create_pipes(num_cmds - 1);
+	if (!pipe)
+	{
+		free(pid);
+		return ;
+	}
+	pid[0] = ft_create_f_process(cmds[0], pipe[0], my_env);
+	i = 1;
+	while (i < num_cmds - 1)
+	{
+		pid[i] = ft_create_m_process(cmds[i], pipe[i - 1], pipe[i], my_env);
+		i++;
+	}
+	pid[i] = ft_create_l_process(cmds[i], pipe[i - 1], my_env);
+	ft_close_pipes(pipe, num_cmds - 1);
+	ft_wait_and_free_pipes(pid, pipe, num_cmds);
+}
+
 void	ft_execute_all(t_data *data)
 {
-	int		status;
-	int		i;
 	int		num_cmds;
-	int		**pipe;
 	pid_t	*pid;
 	t_cmd	**cmds;
 
@@ -30,43 +95,12 @@ void	ft_execute_all(t_data *data)
 		return ;
 	if (num_cmds == 1)
 	{
-		if (ft_is_built_command(cmds[0]->cmd_args[0]))
-		{
-			ft_exec_built_command(cmds[0]->cmd_args, data->my_env);
-			free(pid);
-			return ;
-		}
-		pid[0] = fork();
-		if (pid[0] == -1)
-			ft_putstr_fd("Error with fork\n", 2);
-		if (pid[0] == 0)
-			ft_execute_command(cmds[0]->cmd_args[0], cmds[0]->cmd_args, data->my_env);
+		if (cmds[0]->cmd_args[0] && ft_is_built_command(cmds[0]->cmd_args[0]))
+			ft_handle_single_builtin(cmds[0], data->my_env, pid);
 		else
-			waitpid(pid[0], &status, 0);
-		free(pid);
+			ft_handle_single_external(cmds[0], data->my_env, pid);
 		return ;
 	}
-	pipe = ft_create_pipes(num_cmds - 1);
-	pid[0] = ft_create_f_process(cmds[0]->cmd_args, pipe[0], data->my_env);
-	i = 1;
-	while (i < num_cmds - 1)
-	{
-		pid[i] = ft_create_m_process(cmds[i]->cmd_args, pipe[i - 1], pipe[i], data->my_env);
-		i++;
-	}
-	pid[i] = ft_create_l_process(cmds[i]->cmd_args, pipe[i - 1], data->my_env);
-	i = 0;
-	while (i < num_cmds - 1)
-	{
-		close(pipe[i][0]);
-		close(pipe[i][1]);
-		i++;
-	}
-	i = 0;
-	while (i < num_cmds)
-	{
-		waitpid(pid[i], &status, 0);
-		i++;
-	}
+	ft_handle_multiple(cmds, num_cmds, data->my_env, pid);
 	free(pid);
 }

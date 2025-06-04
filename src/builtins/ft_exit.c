@@ -6,29 +6,35 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 12:42:05 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/14 16:13:17 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/27 12:20:09 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+static const char	*ft_parse_sign(const char *str, int *sign)
+{
+	*sign = 1;
+	while (*str == 32 || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == '+' || *str == '-')
+	{
+		if (*str == '-')
+			*sign = -1;
+		str++;
+	}
+	return (str);
+}
 
 static int	ft_atol_exit(const char *str, long long *res)
 {
 	int			sign;
 	long long	num;
 
-	sign = 1;
 	num = 0;
 	if (!str || !*str)
 		return (0);
-	while (*str == 32 || (*str >= 9 && *str <= 13))
-		str++;
-	if (*str == '+' || *str == '-')
-	{
-		if (*str == '-')
-			sign = -1;
-		str++;
-	}
+	str = ft_parse_sign(str, &sign);
 	if (!(*str >= '0' && *str <= '9'))
 		return (0);
 	while (*str >= '0' && *str <= '9')
@@ -38,7 +44,7 @@ static int	ft_atol_exit(const char *str, long long *res)
 		num = num * 10 + (*str - '0');
 		str++;
 	}
-	if (*str != '\0')
+	if (*str)
 		return (0);
 	*res = num * sign;
 	return (1);

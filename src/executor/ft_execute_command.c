@@ -6,31 +6,17 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 11:34:38 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/21 14:13:02 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/02 14:09:05 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ft_execute_command(char *cmd, char **cmd_args, t_env *my_env)
+static void	ft_exec_external_cmd(char *full_path, char **cmd_args,
+	t_env *my_env, char *cmd)
 {
-	char	*full_path;
 	char	**env_array;
 
-	full_path = NULL;
-	env_array = NULL;
-	
-	if (ft_is_built_command(cmd))
-	{
-		ft_exec_built_command(cmd_args, my_env);
-		exit(0);
-	}
-	if (ft_strchr(cmd, '/'))
-	{
-		full_path = ft_strdup(cmd);
-	}
-	else
-		full_path = ft_find_full_path(cmd, my_env);
 	env_array = ft_env_to_array(my_env);
 	if (!full_path)
 	{
@@ -44,4 +30,23 @@ void	ft_execute_command(char *cmd, char **cmd_args, t_env *my_env)
 	ft_free_array(env_array);
 	free(full_path);
 	exit(126);
+}
+
+void	ft_execute_command(char *cmd, char **cmd_args, t_env *my_env)
+{
+	char	*full_path;
+	char	**env_array;
+
+	full_path = NULL;
+	env_array = NULL;
+	if (ft_is_built_command(cmd))
+	{
+		ft_exec_built_command(cmd_args, my_env);
+		exit(0);
+	}
+	if (ft_strchr(cmd, '/'))
+		full_path = ft_strdup(cmd);
+	else
+		full_path = ft_find_full_path(cmd, my_env);
+	ft_exec_external_cmd(full_path, cmd_args, my_env, cmd);
 }

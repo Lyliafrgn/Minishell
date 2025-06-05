@@ -59,11 +59,6 @@ int	main(int argc, char **argv, char **envp)
 		ft_print_tokens(data->tkn_lst);
 		printf("return code %d\n", rcode);
 		printf("exit code %d\n", data->exit_code);
-		if (rcode == OK /* && parsing == OK*/)
-		{
-			data->commands = ft_parse_commands(data->tkn_lst);
-			ft_execute_all(data);
-		}
 	}
 	return (0);
 }

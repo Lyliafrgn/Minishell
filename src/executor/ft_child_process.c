@@ -14,9 +14,9 @@
 
 void	ft_child_process_f(char **cmd_args, int pipe_fd[2], t_env *my_env)
 {
-	int		file_in;
+	//int		file_in;
 
-	file_in = 0; // delete
+	//file_in = 0; // delete
 	//file_in = open_input_file(argv[1]);
 	//dup2(file_in, STDIN_FILENO);
 	//close(file_in);
@@ -30,9 +30,9 @@ void	ft_child_process_f(char **cmd_args, int pipe_fd[2], t_env *my_env)
 
 void	ft_child_process_l(char **cmd_args, int pipe_fd[2], t_env *my_env)
 {
-	int	file_out;
+	//int	file_out;
 
-	file_out = 1; // delete
+	//file_out = 1; // delete
 	//file_out = open_output_file(argv[argc - 1]);
 	if (dup2(pipe_fd[0], STDIN_FILENO) == -1)
 		exit(EXIT_FAILURE);

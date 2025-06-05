@@ -85,6 +85,6 @@ int	ft_tokenizer(t_data *data)
 	}
 	if (check_token_list(data, data->tkn_lst) == KO)
 		return (-1);
-	ft_expandizer(data, &data->tkn_lst);
+	ft_expandizer(&data->tkn_lst, &data->my_env);
 	return (1);
 }

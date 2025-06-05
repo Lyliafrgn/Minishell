@@ -67,6 +67,17 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+typedef struct s_expander 
+{
+    t_token *token;
+    t_env *env_lst;
+    char *expand;
+    int i;
+    char *temp;
+    char *sub_expand;
+    int start;
+} t_expander;
+
 typedef struct s_cmd
 {
 	int					id;
@@ -161,8 +172,10 @@ int		is_operator(char *str);
 void	ft_free_tokens(t_token **tkn_lst);
 
 /*		EXPAND		*/
-void	ft_expandizer(t_data *data, t_token **tkn_lst);
+void	ft_expandizer(t_token **tkn_lst, t_env **env_lst);
 char	*ft_get_expanded_str(t_data *data, char *str);
+char	*ft_grab_next_str(t_data *data, char *str);
+int		ft_get_next_step(char *str, char *new_str);
 
 /*	EXPAND_UTILS	*/
 char	*ft_remove_quotes(char *str);

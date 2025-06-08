@@ -125,7 +125,6 @@ static char *expand_value(t_token *token, t_env **env_lst)
             new_value = expand_value(token, env_lst);
         else
             return;
-        // Libera el valor anterior y actualiza con el nuevo
         free(token->value);
         token->value = new_value;
     }

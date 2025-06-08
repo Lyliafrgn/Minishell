@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:50:29 by lylfergu          #+#    #+#             */
-/*   Updated: 2025/05/20 11:23:14 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/26 20:10:07 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,30 @@
 		cur_token = cur_token->next;
 	return (cur_token);
 }*/
+char	*lex_strndup(char *str, int n)
+{
+	char	*copy;
+    int     i;
+
+	i = 0;
+	while (str[i])
+		i++;
+    if (i == 0)
+		return (NULL);
+	copy = (char *)malloc(sizeof(char) * (n + 1));
+	if (copy == NULL)
+	{
+		return (NULL);
+	}
+	i = 0;
+	while (str[i] && i < n)
+	{
+		copy[i] = str[i];
+		i++;
+	}
+	copy[i] = '\0';
+	return (copy);
+}
 
 t_token	*ft_last_token(t_token *lst)
 {
@@ -78,7 +102,7 @@ char	*extract_str_val(char *line)
 	len = get_token_size(line);
 	if (len == KO)
 		return (NULL);
-	str = ft_strndup(line, len);
+	str = lex_strndup(line, len);
 	if (!str)
 		return (NULL);
 	return (str);

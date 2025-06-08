@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:50:35 by lylfergu          #+#    #+#             */
-/*   Updated: 2025/05/20 11:23:22 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/26 20:35:05 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,6 @@ int	ft_tokenizer(t_data *data)
 	}
 	if (check_token_list(data, data->tkn_lst) == KO)
 		return (-1);
+	ft_expandizer(&data->tkn_lst, &data->my_env);
 	return (1);
 }

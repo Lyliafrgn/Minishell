@@ -14,6 +14,14 @@
 
 void	ft_child_process_f(t_cmd *cmd, int pipe_fd[2], t_env *my_env)
 {
+
+=======
+	//int		file_in;
+
+	//file_in = 0; // delete
+	//file_in = open_input_file(argv[1]);
+	//dup2(file_in, STDIN_FILENO);
+	//close(file_in);
 	if (dup2(pipe_fd[1], STDOUT_FILENO) == -1)
 		exit(EXIT_FAILURE);
 	close(pipe_fd[0]);
@@ -26,6 +34,12 @@ void	ft_child_process_f(t_cmd *cmd, int pipe_fd[2], t_env *my_env)
 
 void	ft_child_process_l(t_cmd *cmd, int pipe_fd[2], t_env *my_env)
 {
+
+=======
+	//int	file_out;
+
+	//file_out = 1; // delete
+	//file_out = open_output_file(argv[argc - 1]);
 	if (dup2(pipe_fd[0], STDIN_FILENO) == -1)
 		exit(EXIT_FAILURE);
 	close(pipe_fd[0]);

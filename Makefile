@@ -3,16 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+         #
+#    By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/20 16:41:15 by vimazuro          #+#    #+#              #
+
 #    Updated: 2025/06/02 15:04:27 by vimazuro         ###   ########.fr        #
+=======
+#    Updated: 2025/05/26 20:39:06 by lylfergu         ###   ########.fr        #
+
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -I -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 LDLIBS = -lreadline
 SRC_DIR = .
 INC_DIR = libft/include
@@ -48,6 +52,8 @@ SRC_FILES = src/main.c \
 			src/executor/ft_create_process.c \
 			src/executor/ft_execute_all.c \
 			src/executor/ft_parse_commands.c \
+=======
+			src/expand/expandveri.c \
 			src/utils/ft_malloc_list.c \
 			src/utils/ft_print_array.c \
 			src/utils/ft_print_list.c \
@@ -64,6 +70,8 @@ SRC_FILES = src/main.c \
 			src/redirection/ft_apply_redirect.c \
 			src/redirection/ft_tmp_utils.c \
 			src/redirection/ft_redirect_utils.c \
+=======
+
 
 OBJS = $(SRC_FILES:.c=.o)
 

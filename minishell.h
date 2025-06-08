@@ -6,7 +6,11 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
+
 /*   Updated: 2025/06/02 16:16:49 by vimazuro         ###   ########.fr       */
+=======
+/*   Updated: 2025/05/26 20:08:55 by lylfergu         ###   ########.fr       */
+
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,20 +73,34 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+
 typedef struct s_redirect
 {
 	int					type;
 	char				*file;
 	struct s_redirect	*next;
 }	t_redirect;
+=======
+typedef struct s_expander 
+{
+    t_token *token;
+    t_env *env_lst;
+    char *expand;
+    int i;
+    char *temp;
+    char *sub_expand;
+    int start;
+} t_expander;
 
 typedef struct s_cmd
 {
 	int					id;
 	int					exit_code;
 	char				**cmd_args;
+
 	t_redirect			*input;
 	t_redirect			*output;
+=======
 	struct s_data		*data;
 }	t_cmd;
 
@@ -173,6 +191,8 @@ char	*extract_str_val(char *line);
 int		get_token_size(char *line);
 int		get_type(char *str);
 t_token	*ft_last_token(t_token *lst);
+char	*lex_strndup(char *str, int n);
+
 /*	TOKEN_CHECK		*/
 int		check_token_list(t_data *data, t_token *lst);
 int		check_quote_error(char *line);
@@ -184,4 +204,19 @@ int		is_invalidop(t_token *tkn);
 int		is_redirop(char *str);
 int		is_operator(char *str);
 void	ft_free_tokens(t_token **tkn_lst);
+
+/*		EXPAND		*/
+void	ft_expandizer(t_token **tkn_lst, t_env **env_lst);
+char	*ft_get_expanded_str(t_data *data, char *str);
+char	*ft_grab_next_str(t_data *data, char *str);
+int		ft_get_next_step(char *str, char *new_str);
+
+/*	EXPAND_UTILS	*/
+char	*ft_remove_quotes(char *str);
+char	*ft_grab_str(char *str, char *limset);
+char	*ft_grab_var_name(char *str);
+char	*ft_get_expand(t_data *data, char *var_name, char *str);
+char	*ft_grab_next_quotes(t_data *data, char *str);
+char	*ft_super_strjoin(char *new_str, char *toadd);
+int		ft_is_in_var(char c);
 #endif

@@ -6,11 +6,23 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 11:23:57 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/02 12:54:46 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/27 13:39:24 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+static void	ft_print_string_export(t_env *node)
+{
+	ft_putstr_fd("declare -x ", 1);
+	ft_putstr_fd(node->key, 1);
+	if (node->value)
+	{
+		ft_putstr_fd("=\"", 1);
+		ft_putstr_fd(node->value, 1);
+		ft_putstr_fd("\"", 1);
+	}
+}
 
 void	ft_print_export(t_env *my_env)
 {
@@ -25,14 +37,7 @@ void	ft_print_export(t_env *my_env)
 	{
 		if (tmp->key && ft_strcmp(tmp->key, "_") != 0)
 		{
-			ft_putstr_fd("declare -x ", 1);
-			ft_putstr_fd(tmp->key, 1);
-			if (tmp->value)
-			{
-				ft_putstr_fd("=\"", 1);
-				ft_putstr_fd(tmp->value, 1);
-				ft_putstr_fd("\"", 1);
-			}
+			ft_print_string_export(tmp);
 			next_valid = tmp->next;
 			while (next_valid && (!next_valid->key
 					|| ft_strcmp(next_valid->key, "_") == 0))
@@ -52,12 +57,38 @@ static void	ft_print_export_error(char *arg)
 	ft_putstr_fd("': not a valid identifier\n", 2);
 }
 
-int	ft_export(char **args, t_env **my_env)
+static int	ft_process_export_arg(char *arg, t_env **my_env)
 {
-	int		i;
 	char	*equal;
 	t_env	*new;
 	t_env	*exist;
+
+	if (!ft_valid_key_env(arg))
+	{
+		ft_print_export_error(arg);
+		return (0);
+	}
+	equal = ft_strchr(arg, '=');
+	if (equal)
+	{
+		new = new_env_node(arg);
+		if (!new)
+			return (1);
+		ft_update_env_add(my_env, new->key, new->value);
+		ft_free_env(new);
+	}
+	else
+	{
+		exist = ft_find_env(*my_env, arg);
+		if (!exist)
+			ft_update_env_add(my_env, arg, NULL);
+	}
+	return (0);
+}
+
+int	ft_export(char **args, t_env **my_env)
+{
+	int		i;
 
 	if (!args[1])
 	{
@@ -68,27 +99,8 @@ int	ft_export(char **args, t_env **my_env)
 	i = 1;
 	while (args[i])
 	{
-		if (!ft_valid_key_env(args[i]))
-		{
-			ft_print_export_error(args[i]);
-			i++;
-			continue ;
-		}
-		equal = ft_strchr(args[i], '=');
-		if (equal)
-		{
-			new = new_env_node(args[i]);
-			if (!new)
-				return (1);
-			ft_update_env_add(my_env, new->key, new->value);
-			ft_free_env(new);
-		}
-		else
-		{
-			exist = ft_find_env(*my_env, args[i]);
-			if (!exist)
-				ft_update_env_add(my_env, args[i], NULL);
-		}
+		if (ft_process_export_arg(args[i], my_env) == 1)
+			return (1);
 		i++;
 	}
 	return (0);

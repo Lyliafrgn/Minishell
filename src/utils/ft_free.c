@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:08:54 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/21 14:10:23 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/05/27 13:55:35 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,61 +27,63 @@ void	ft_free_array(char **array)
 	free(array);
 }
 
-void    ft_free_commands(t_cmd **cmds)
+void	ft_free_commands(t_cmd **cmds)
 {
-    int i;
+	int	i;
 
-    if (!cmds)
-        return ;
-    i = 0;
-    while (cmds[i])
-    {
-        ft_free_array(cmds[i]->cmd_args);
-        free(cmds[i]);
-        i++;
-    }
-    free(cmds);
+	if (!cmds)
+		return ;
+	i = 0;
+	while (cmds[i])
+	{
+		ft_free_array(cmds[i]->cmd_args);
+		ft_free_redirect(cmds[i]->input);
+		ft_free_redirect(cmds[i]->output);
+		free(cmds[i]);
+		i++;
+	}
+	free(cmds);
 }
 
-void    ft_free_data(t_data *data)
+void	ft_free_data(t_data *data)
 {
-    if (!data)
-        return ;
-    if (data->line)
-    {
-        free(data->line);
-    }
-    if (data->commands)
-    {
-        ft_free_commands(data->commands);
-    }
+	if (!data)
+		return ;
+	if (data->line)
+	{
+		free(data->line);
+	}
+	if (data->commands)
+	{
+		ft_free_commands(data->commands);
+	}
 }
 
-void    ft_free_env_malloc(t_data *data)
+void	ft_free_env_malloc(t_data *data)
 {
-    if (!data)
-        return ;
-    if (data->malloc_list)
-    {
-        ft_free_malloc_list(data->malloc_list);
-    }
-    if (data->my_env)
-    {
-        ft_free_env(data->my_env);
-    }
-    free(data);  
+	if (!data)
+		return ;
+	if (data->malloc_list)
+	{
+		ft_free_malloc_list(data->malloc_list);
+	}
+	if (data->my_env)
+	{
+		ft_free_env(data->my_env);
+	}
+	free(data);
 }
 
-void    ft_free_malloc_list(t_list *malloc_list)
+void	ft_free_malloc_list(t_list *malloc_list)
 {
-    t_list  *tmp;
+	t_list	*tmp;
 
-    while (malloc_list)
-    {
-        tmp = malloc_list;
-        if (malloc_list->content)
-            free(malloc_list->content);
-        malloc_list = malloc_list->next;
-        free(tmp);
-    }
+	while (malloc_list)
+	{
+		tmp = malloc_list;
+		if (malloc_list->content)
+			free(malloc_list->content);
+		malloc_list = malloc_list->next;
+		free(tmp);
+	}
 }

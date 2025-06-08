@@ -6,7 +6,11 @@
 #    By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/20 16:41:15 by vimazuro          #+#    #+#              #
+
+#    Updated: 2025/06/02 15:04:27 by vimazuro         ###   ########.fr        #
+=======
 #    Updated: 2025/05/26 20:39:06 by lylfergu         ###   ########.fr        #
+
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +44,15 @@ SRC_FILES = src/main.c \
 			src/env/ft_delete_env_node.c \
 			src/env/ft_get_env.c \
 			src/env/ft_env_to_array.c \
+			src/executor/ft_execute_command.c \
+			src/executor/ft_find_full_path.c \
+			src/executor/ft_child_process.c \
+			src/executor/ft_count.c \
+			src/executor/ft_pipes_utils.c \
+			src/executor/ft_create_process.c \
+			src/executor/ft_execute_all.c \
+			src/executor/ft_parse_commands.c \
+=======
 			src/expand/expandveri.c \
 			src/utils/ft_malloc_list.c \
 			src/utils/ft_print_array.c \
@@ -51,6 +64,13 @@ SRC_FILES = src/main.c \
 			src/tokenization/token_utils.c \
 			src/tokenization/tokenization.c \
 			src/tokenization/syntax_utils.c \
+			src/redirection/ft_add_redirect.c \
+			src/redirection/ft_free_redirect.c \
+			src/redirection/ft_print_redirect.c \
+			src/redirection/ft_apply_redirect.c \
+			src/redirection/ft_tmp_utils.c \
+			src/redirection/ft_redirect_utils.c \
+=======
 
 
 OBJS = $(SRC_FILES:.c=.o)

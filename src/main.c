@@ -6,7 +6,11 @@
 /*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:11:46 by vimazuro          #+#    #+#             */
+
+/*   Updated: 2025/06/02 15:23:48 by vimazuro         ###   ########.fr       */
+=======
 /*   Updated: 2025/05/26 20:02:49 by lylfergu         ###   ########.fr       */
+
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +59,17 @@ int	main(int argc, char **argv, char **envp)
 		{
 			add_history(data->line);
 		}
+
+		if (ft_tokenizer(data) != -1)
+		{
+//			ft_print_tokens(data->tkn_lst);
+			data->commands = ft_parse_commands(data->tkn_lst);
+//			ft_print_commands(data);
+//			ft_print_redirect(data->commands[0]->input, "input");
+			ft_execute_all(data);
+		}
+		ft_free_data(data);
+=======
 		rcode = ft_tokenizer(data);
 		ft_print_tokens(data->tkn_lst);
 		printf("return code %d\n", rcode);

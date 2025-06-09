@@ -35,10 +35,10 @@ static void	ft_exec_external_cmd(char *full_path, char **cmd_args,
 void	ft_execute_command(char *cmd, char **cmd_args, t_env *my_env)
 {
 	char	*full_path;
-	char	**env_array;
+	//char	**env_array;
 
 	full_path = NULL;
-	env_array = NULL;
+	//env_array = NULL;
 	if (ft_is_built_command(cmd))
 	{
 		ft_exec_built_command(cmd_args, my_env);

@@ -8,7 +8,7 @@
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
 
 /*   Updated: 2025/06/02 16:16:49 by vimazuro         ###   ########.fr       */
-=======
+
 /*   Updated: 2025/05/26 20:08:55 by lylfergu         ###   ########.fr       */
 
 /*                                                                            */
@@ -60,6 +60,7 @@ typedef struct s_token
 {
 	char			*content; // value of the token (ex : ls", "|", "file.txt"))
 	t_type			type;
+	int				qtype;//SQUOTE, DQUOTE or 0
 	struct s_token	*prev;
 	struct s_token	*next;
 }	t_token;
@@ -80,7 +81,7 @@ typedef struct s_redirect
 	char				*file;
 	struct s_redirect	*next;
 }	t_redirect;
-=======
+
 typedef struct s_expander 
 {
     t_token *token;
@@ -100,7 +101,6 @@ typedef struct s_cmd
 
 	t_redirect			*input;
 	t_redirect			*output;
-=======
 	struct s_data		*data;
 }	t_cmd;
 

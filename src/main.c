@@ -8,7 +8,6 @@
 /*   Created: 2025/04/15 12:11:46 by vimazuro          #+#    #+#             */
 
 /*   Updated: 2025/06/02 15:23:48 by vimazuro         ###   ########.fr       */
-=======
 /*   Updated: 2025/05/26 20:02:49 by lylfergu         ###   ########.fr       */
 
 /*                                                                            */
@@ -37,12 +36,12 @@ t_data	*ft_init_data(char **envp)
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
-	int rcode;
+	//int rcode;
 	
 	(void)argc;
 	(void)argv;
 	data = ft_init_data(envp);
-	rcode = 4;
+	//rcode = 4;
 	if (!data)
 		return (1);
 	ft_update_env_shlvl(data->my_env);
@@ -69,11 +68,10 @@ int	main(int argc, char **argv, char **envp)
 			ft_execute_all(data);
 		}
 		ft_free_data(data);
-=======
-		rcode = ft_tokenizer(data);
-		ft_print_tokens(data->tkn_lst);
-		printf("return code %d\n", rcode);
-		printf("exit code %d\n", data->exit_code);
+		//rcode = ft_tokenizer(data);
+		//ft_print_tokens(data->tkn_lst);
+		//printf("return code %d\n", rcode);
+		//printf("exit code %d\n", data->exit_code);
 	}
 	return (0);
 }

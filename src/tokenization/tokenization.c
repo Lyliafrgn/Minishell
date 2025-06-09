@@ -61,6 +61,12 @@ t_token	*create_token_list(char *line)
 			new_tkn = init_token_list(str, get_type(str));
 			if (!new_tkn)
 				return (free(str), ft_free_tokens(&tkn_lst), NULL);
+				if (str[0] == '\'' && str[ft_strlen(str) - 1] == '\'')
+				new_tkn->qtype = SQUOTE;
+			else if (str[0] == '"' && str[ft_strlen(str) - 1] == '"')
+				new_tkn->qtype = DQUOTE;
+			else
+				new_tkn->qtype = 0;
 			add_last_token(&tkn_lst, new_tkn);
 			line += ft_strlen(str);
 		}

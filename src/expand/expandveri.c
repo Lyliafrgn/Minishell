@@ -29,6 +29,13 @@ static void handle_variable_expansion(t_expander *args)
         free(args->temp);
         return;
     }
+    // NOUVEAU : gérer $"" ou $'' comme chaîne vide (skip quotes)
+    if ((args->token->content[args->i] == '"' || args->token->content[args->i] == '\'') &&
+        (args->token->content[args->i + 1] == args->token->content[args->i]))
+    {
+        args->i += 2;  // on saute les deux quotes
+        return;        // on n'ajoute rien à la chaîne finale (équivaut à chaîne vide)
+    }
     if (args->token->content[0] == DQUOTE && (!args->token->content[args->i] || args->token->content[args->i] == ' ' || !is_valid_env_char(args->token->content[args->i])))
     {
         args->temp = ft_strdup("$");
@@ -54,14 +61,14 @@ static void handle_variable_expansion(t_expander *args)
     args->expand = ft_strjoin_free(args->expand, args->sub_expand);
 }
 
-static void handle_literal_text(t_expander *args)
+static void handle_literal_text(t_expander *arg)
 {
-    args->start = args->i;
-    while (args->token->content[args->i] && args->token->content[args->i] != '$')
-        args->i++;
-    args->temp = ft_strndup(&args->token->content[args->start], args->i - args->start);
-    args->expand = ft_strjoin_free(args->expand, args->temp);
-    free(args->temp);
+    arg->start = arg->i;
+    while (arg->token->content[arg->i] && arg->token->content[arg->i] != '$')
+        arg->i++;
+    arg->temp = ft_strndup(&arg->token->content[arg->start], arg->i - arg->start);
+    arg->expand = ft_strjoin_free(arg->expand, arg->temp);
+    free(arg->temp);
 }
 
 /*char	*ft_get_expanded_str(t_data *data, char *str)
@@ -93,8 +100,8 @@ static char *expand_value(t_token *token, t_env **env_lst)
 {
     t_expander value;
 
-    //if (token->prev && token->prev->value && ft_strncmp(token->prev->value, "<<", 2) == 0)
-    //   return (ft_strdup(token->value));
+    if (token->qtype == SQUOTE)
+        return ft_strdup(token->content);
 
     value.token = token;
     value.env_lst = *env_lst;
@@ -184,12 +191,10 @@ void	ft_expandizer(t_token **tkn_lst, t_env **env_lst) // essaye sans le **
 		{
 			new_str = expand_value(token, env_lst);
 			free(token->content);
-			token->content = new_str;
+            token->content = ft_remove_quotes(new_str);
 		}
 		else if (token->type == IN_FILE && token->prev && token->prev->type == T_HEREDOC)
 		{
-			//if (ft_strchr(token->content, '\'') != NULL || ft_strchr(token->content, '\"') != NULL)
-			//	token->to_expand = false;
 			new_str = ft_remove_quotes(token->content);
 			free(token->content);
 			token->content = new_str;

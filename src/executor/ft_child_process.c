@@ -15,7 +15,6 @@
 void	ft_child_process_f(t_cmd *cmd, int pipe_fd[2], t_env *my_env)
 {
 
-=======
 	//int		file_in;
 
 	//file_in = 0; // delete
@@ -35,7 +34,6 @@ void	ft_child_process_f(t_cmd *cmd, int pipe_fd[2], t_env *my_env)
 void	ft_child_process_l(t_cmd *cmd, int pipe_fd[2], t_env *my_env)
 {
 
-=======
 	//int	file_out;
 
 	//file_out = 1; // delete

@@ -27,10 +27,10 @@ static void handle_variable_expansion(t_expander *args)
     //    args->temp = ft_itoa(get_status(0, 100));  CHECKER PLUS TARD SI PAS UN PB DE LE SUPP
         args->expand = ft_strjoin_free(args->expand, args->temp);
         free(args->temp);
-        return;
+        return (ft_itoa(data->exit_status));
     }
     // NOUVEAU : gérer $"" ou $'' comme chaîne vide (skip quotes)
-    if ((args->token->content[args->i] == '"' || args->token->content[args->i] == '\'') &&
+    if ((args->token->content[args->i] == DQUOTE || args->token->content[args->i] == SQUOTE) &&
         (args->token->content[args->i + 1] == args->token->content[args->i]))
     {
         args->i += 2;  // on saute les deux quotes
@@ -192,12 +192,14 @@ void	ft_expandizer(t_token **tkn_lst, t_env **env_lst) // essaye sans le **
 			new_str = expand_value(token, env_lst);
 			free(token->content);
             token->content = ft_remove_quotes(new_str);
+            free(new_str);
 		}
 		else if (token->type == IN_FILE && token->prev && token->prev->type == T_HEREDOC)
 		{
 			new_str = ft_remove_quotes(token->content);
 			free(token->content);
 			token->content = new_str;
+            free(new_str);
 		}
 		token = token->next;
 	}

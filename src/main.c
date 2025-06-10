@@ -33,7 +33,7 @@ t_data	*ft_init_data(char **envp)
 	return (data);
 }
 
-int	main(int argc, char **argv, char **envp)
+/*int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
 	//int rcode;
@@ -72,6 +72,53 @@ int	main(int argc, char **argv, char **envp)
 		//ft_print_tokens(data->tkn_lst);
 		//printf("return code %d\n", rcode);
 		//printf("exit code %d\n", data->exit_code);
+	}
+	return (0);
+}
+*/
+
+static void print_token_list(t_token *list)
+{
+    t_token *tmp = list;
+    while (tmp)
+    {
+        printf("Token is: %s\n", tmp->content); // ou autre champ pertinent
+		
+		printf("Type is: %u\n", tmp->type); // ou autre champ pertinent
+        tmp = tmp->next;
+    }
+}
+int	main(int argc, char **argv, char **envp)
+{
+	t_data	*data;
+	int rcode;
+	
+	(void)argc;
+	(void)argv;
+	data = ft_init_data(envp);
+	rcode = 4;
+	if (!data)
+		return (1);
+	ft_update_env_shlvl(data->my_env);
+	while (1)
+	{
+		data->exit_code = 0;
+		data->line = readline(MINIMSG);
+		if (!data->line)
+		{
+			perror("Error: readline\n");
+			break ;
+		}
+		if (data->line[0])
+		{
+			add_history(data->line);
+		}
+		rcode = ft_tokenizer(data);
+		print_token_list(data->tkn_lst);
+		//rcode = ft_tokenizer(data);
+		//ft_print_tokens(data->tkn_lst);
+		printf("return code %d\n", rcode);
+		printf("exit code %d\n", data->exit_code);
 	}
 	return (0);
 }

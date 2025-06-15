@@ -36,7 +36,7 @@ char	*ft_grab_next_quotes(t_data *data, char *str)
 			return (ft_strdup(""));
 	}
 	else
-		return (ft_strdup("")); // ou NULL selon ta logique, mais il faut que ce soit cohérent
+		return (ft_strdup(""));
 	return (res);
 }
 
@@ -100,7 +100,7 @@ char	*ft_get_expanded_str(t_data *data, char *str)
 	next_str = NULL;
 	if (ft_strncmp(str, "~/", 2) == 0 || ft_strcmp(str, "~") == 0)
 	{
-		next_str = ft_get_env(data->my_env, "HOME"); // besoin de plus d exp
+		next_str = ft_get_env(data->my_env, "HOME");
 		str++;
 		tmp = ft_super_strjoin(res, next_str);
 		res = tmp;
@@ -126,13 +126,14 @@ void	ft_expandizer(t_data *data, t_token **tkn_lst)
 	{
 		if (token->type == T_WORD)
 		{
-			new_str = ft_get_expanded_str(data, token->content); // changer nom
+			new_str = ft_get_expanded_str(data, token->content);
 			free(token->content);
 			token->content = new_str;
 		}
 		else if (token->type == IN_FILE && token->prev->type == T_HEREDOC)
 		{
-			if (ft_strchr(token->content, SQUOTE) != NULL || ft_strchr(token->content,
+			if (ft_strchr(token->content, SQUOTE) != NULL
+				|| ft_strchr(token->content,
 					DQUOTE) != NULL)
 				token->to_expand = false;
 			new_str = ft_remove_quotes(token->content);

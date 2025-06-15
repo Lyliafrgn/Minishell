@@ -65,7 +65,6 @@ int	get_token_size(char *line)
 {
 	int		type;
 	int		len;
-	char	quote;
 
 	if (!line)
 		return (KO);
@@ -75,20 +74,11 @@ int	get_token_size(char *line)
 	if (type == T_PIPE || type == T_REDIRIN || type == T_REDIROUT)
 		return (1);
 	len = 0;
-	quote = 0;
 	while (line[len] && !is_space(line[len]) && !is_redirop(&line[len])
 		&& line[len] != '|' && line[len] != '<' && line[len] != '>')
 	{
-		if (!quote && is_quote(line[len]))
-		{
-			quote = line[len];
-			len++;
-			while (line[len] && line[len] != quote)
-				len++;
-			if (line[len] == quote)
-				len++;
-			quote = 0;
-		}
+		if (is_quote(line[len]) && line[len + 1] != '\0')
+			len += (ft_strchr(&line[len + 1], line[len]) - &line[len]) + 1;
 		else
 			len++;
 	}

@@ -64,8 +64,8 @@ char	*ft_grab_var_name(char *str)
 		return (ft_strdup("?"));
 	if (ft_isdigit(*str))
 		return (ft_substr(str, 0, 1));
-	if (!ft_is_in_var(*str))  // <-- ici, cas comme $" (double quote juste après $)
-		return (ft_strdup("")); // renvoyer chaine vide pour éviter crash
+	if (!ft_is_in_var(*str))
+		return (ft_strdup(""));
 	i = 0;
 	while (str[i] && ft_is_in_var(str[i]))
 		i++;
@@ -110,7 +110,7 @@ char	*ft_next_str_in_double_quotes(t_data *data, char *str)
 		{
 			var_name = ft_grab_var_name(str);
 			if (!var_name)
-          	  var_name = ft_strdup("");
+				var_name = ft_strdup("");
 			toadd = ft_get_expand(data, var_name, str);
 			str += ft_strlen(var_name) + 1;
 			free(var_name);
@@ -119,7 +119,7 @@ char	*ft_next_str_in_double_quotes(t_data *data, char *str)
 		{
 			toadd = ft_grab_str(str, "$\"");
 			if (!toadd)
-          	  break; 
+				break ;
 			str += ft_strlen(toadd);
 		}
 		tmp = ft_super_strjoin(new_str, toadd);

@@ -15,7 +15,7 @@
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 LDLIBS = -lreadline
 SRC_DIR = .
 INC_DIR = libft/include
@@ -59,7 +59,6 @@ SRC_FILES = src/main.c \
 			src/utils/ft_print_list.c \
 			src/utils/ft_free.c \
 			src/tokenization/errors.c \
-			src/tokenization/free.c \
 			src/tokenization/syntax_checker.c \
 			src/tokenization/token_utils.c \
 			src/tokenization/tokenization.c \
@@ -71,7 +70,6 @@ SRC_FILES = src/main.c \
 			src/redirection/ft_apply_redirect.c \
 			src/redirection/ft_tmp_utils.c \
 			src/redirection/ft_redirect_utils.c \
-
 
 
 OBJS = $(SRC_FILES:.c=.o)

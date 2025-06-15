@@ -75,7 +75,6 @@ static char	*handle_literal(char *str)
 
 char	*ft_next_str_in_double_quotes(t_data *data, char *str)
 {
-	char	*var_name;
 	char	*new_str;
 	char	*toadd;
 	char	*tmp;
@@ -86,11 +85,11 @@ char	*ft_next_str_in_double_quotes(t_data *data, char *str)
 	{
 		if (*str == '$')
 		{
-			toadd = handle_dollar(data, &str);
+			toadd = handle_dollar(data, str);
 		}
 		else
 		{
-			toadd = handle_literal(&str);
+			toadd = handle_literal(str);
 			if (!toadd)
 				break ;
 		}

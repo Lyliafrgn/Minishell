@@ -22,6 +22,7 @@ t_token	*init_token_list(char *value, int type)
 	new_tkn->content = value;
 	new_tkn->type = type;
 	new_tkn->next = NULL;
+	new_tkn->prev = NULL;
 	return (new_tkn);
 }
 
@@ -39,6 +40,7 @@ static void	add_last_token(t_token **tkn_lst, t_token *new_tkn)
 		while (lst->next != NULL)
 			lst = lst->next;
 		lst->next = new_tkn;
+		new_tkn->prev = lst;
 	}
 }
 
@@ -61,12 +63,6 @@ t_token	*create_token_list(char *line)
 			new_tkn = init_token_list(str, get_type(str));
 			if (!new_tkn)
 				return (free(str), ft_free_tokens(&tkn_lst), NULL);
-				if (str[0] == '\'' && str[ft_strlen(str) - 1] == '\'')
-				new_tkn->qtype = SQUOTE;
-			else if (str[0] == '"' && str[ft_strlen(str) - 1] == '"')
-				new_tkn->qtype = DQUOTE;
-			else
-				new_tkn->qtype = 0;
 			add_last_token(&tkn_lst, new_tkn);
 			line += ft_strlen(str);
 		}
@@ -91,6 +87,6 @@ int	ft_tokenizer(t_data *data)
 	}
 	if (check_token_list(data, data->tkn_lst) == KO)
 		return (-1);
-	ft_expandizer(&data->tkn_lst, &data->my_env);
+	ft_expandizer(data, &data->tkn_lst);
 	return (1);
 }

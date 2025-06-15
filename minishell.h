@@ -28,6 +28,7 @@
 # include <limits.h>
 # include <unistd.h>
 # include <stdio.h>
+# include <stdbool.h>
 # include <stdlib.h>
 # include <fcntl.h>
 
@@ -39,8 +40,8 @@
 # define OK 1
 # define KO -1
 
-# define SQUOTE '\''
-# define DQUOTE '"'
+# define SQUOTE '\'' // 39
+# define DQUOTE '"' // 34
 
 # define MINIMSG "\001\e[1;36;5;141m\002minishell\001\e[1;33m\002 > \001\033[0m\002"
 
@@ -60,12 +61,12 @@ typedef struct s_token
 {
 	char			*content; // value of the token (ex : ls", "|", "file.txt"))
 	t_type			type;
-	int				qtype;//SQUOTE, DQUOTE or 0
+	bool			to_expand;
 	struct s_token	*prev;
 	struct s_token	*next;
 }	t_token;
 
-struct	s_env;
+struct	s_env;				
 
 typedef struct s_env
 {
@@ -205,18 +206,22 @@ int		is_redirop(char *str);
 int		is_operator(char *str);
 void	ft_free_tokens(t_token **tkn_lst);
 
-/*		EXPAND		*/
-void	ft_expandizer(t_token **tkn_lst, t_env **env_lst);
+/*		EXPANSION		*/
+void	ft_expandizer(t_data *data, t_token **tkn_lst);
 char	*ft_get_expanded_str(t_data *data, char *str);
 char	*ft_grab_next_str(t_data *data, char *str);
 int		ft_get_next_step(char *str, char *new_str);
-
-/*	EXPAND_UTILS	*/
+char	*ft_next_str_in_double_quotes(t_data *data, char *str);
 char	*ft_remove_quotes(char *str);
 char	*ft_grab_str(char *str, char *limset);
 char	*ft_grab_var_name(char *str);
 char	*ft_get_expand(t_data *data, char *var_name, char *str);
 char	*ft_grab_next_quotes(t_data *data, char *str);
-char	*ft_super_strjoin(char *new_str, char *toadd);
+
+/* UTILS*/
+void	add_redir_type(t_token *cur);
 int		ft_is_in_var(char c);
+char	*ft_super_strjoin(char *first_str, char *last_str);
+int		ft_count_quotes(char *str);
+
 #endif

@@ -89,20 +89,6 @@ static int	is_error_detected(t_data *data, t_token *lst, t_token *tkn)
 	return (0);
 }
 
-static void	add_redir_type(t_token *cur)
-{
-	if (!cur->next)
-		return;
-	if ((cur->type == T_APPEND || cur->type == T_REDIROUT) && cur->next && cur->next->type == T_WORD)
-	{
-		cur->next->type = OUT_FILE;
-	}
-	if ((cur->type == T_HEREDOC || cur->type == T_REDIRIN) && cur->next && cur->next->type == T_WORD)
-	{
-		cur->next->type = IN_FILE;
-	}
-}
-
 int	check_token_list(t_data *data, t_token *lst)
 {
 	t_token	*curr_token;

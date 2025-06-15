@@ -51,7 +51,8 @@ SRC_FILES = src/main.c \
 			src/executor/ft_create_process.c \
 			src/executor/ft_execute_all.c \
 			src/executor/ft_parse_commands.c \
-			src/expand/expandveri.c \
+			src/expand/expand.c \
+			src/expand/expand2.c \
 			src/utils/ft_malloc_list.c \
 			src/utils/ft_print_array.c \
 			src/utils/ft_print_list.c \
@@ -62,6 +63,7 @@ SRC_FILES = src/main.c \
 			src/tokenization/token_utils.c \
 			src/tokenization/tokenization.c \
 			src/tokenization/syntax_utils.c \
+			src/tokenization/utils.c \
 			src/redirection/ft_add_redirect.c \
 			src/redirection/ft_free_redirect.c \
 			src/redirection/ft_print_redirect.c \

@@ -48,28 +48,32 @@ char	*ft_get_expand(t_data *data, char *var_name, char *str)
 	return (var_content);
 }
 
-static char	*handle_dollar(t_data *data, char *str)
+static char	*handle_dollar(t_data *data, char **str)
 {
 	char	*var_name;
 	char	*toadd;
+	char	*s;
 
-	var_name = ft_grab_var_name(str);
+	s = *str;
+	var_name = ft_grab_var_name(s);
 	if (!var_name)
 		var_name = ft_strdup("");
-	toadd = ft_get_expand(data, var_name, str);
-	str += ft_strlen(var_name) + 1;
+	toadd = ft_get_expand(data, var_name, s);
+	*str += ft_strlen(var_name) + 1;
 	free(var_name);
 	return (toadd);
 }
 
-static char	*handle_literal(char *str)
+static char	*handle_literal(char **str)
 {
 	char	*toadd;
+	char	*s;
 
-	toadd = ft_grab_str(str, "$\"");
+	s = *str;
+	toadd = ft_grab_str(s, "$\"");
 	if (!toadd)
 		return (NULL);
-	str += ft_strlen(toadd);
+	*str += ft_strlen(toadd);
 	return (toadd);
 }
 
@@ -85,13 +89,11 @@ char	*ft_next_str_in_double_quotes(t_data *data, char *str)
 	{
 		if (*str == '$')
 		{
-			toadd = handle_dollar(data, str);
+			toadd = handle_dollar(data, &str);
 		}
 		else
 		{
-			toadd = handle_literal(str);
-			if (!toadd)
-				break ;
+			toadd = handle_literal(&str);
 		}
 		tmp = ft_super_strjoin(new_str, toadd);
 		new_str = tmp;

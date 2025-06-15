@@ -122,3 +122,32 @@ int	main(int argc, char **argv, char **envp)
 	}
 	return (0);
 }
+
+/*int	main(int argc, char **argv, char **envp)
+{
+	t_data	*data;
+	int rcode;
+	
+	(void)argc;
+	(void)argv;
+	data = ft_init_data(envp);
+	rcode = 4;
+	while (1)
+	{
+ 	   data->exit_code = 0;
+ 	   data->line = readline(MINIMSG);
+ 	   if (!data->line)
+  	  {
+ 	       perror("Error: readline\n");
+  	      break ;
+  	  }
+  	  if (data->line[0])
+  	      add_history(data->line);
+    printf("Before tokenizer\n");
+    rcode = ft_tokenizer(data);
+    printf("After tokenizer, rcode = %d\n", rcode);
+	print_token_list(data->tkn_lst);
+    printf("exit code %d\n", data->exit_code);
+	}
+	return(0);
+}*/

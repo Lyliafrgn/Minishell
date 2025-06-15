@@ -28,15 +28,11 @@ char	*ft_grab_next_quotes(t_data *data, char *str)
 	else if (str && *str == DQUOTE && *(str + 1) != '\0')
 	{
 		grab = ft_grab_str(str + 1, "\"");
-		if (!grab)
-			return (ft_strdup(""));
 		res = ft_next_str_in_double_quotes(data, grab);
 		free(grab);
-		if (!res)
-			return (ft_strdup(""));
 	}
 	else
-		return (ft_strdup(""));
+		return (NULL);
 	return (res);
 }
 
@@ -59,10 +55,6 @@ int	ft_get_next_step(char *str, char *new_str)
 	return (ft_strlen(new_str));
 }
 
-/*Elle découpe la chaîne str en petites portions à traiter, en distinguant :
-les portions entre quotes,
-les variables d’environnement,
-ou les mots simples.*/
 char	*ft_grab_next_str(t_data *data, char *str)
 {
 	char	*grab;
@@ -87,9 +79,6 @@ char	*ft_grab_next_str(t_data *data, char *str)
 	return (res);
 }
 
-/*On extrait des petits bouts transformés un par un,
-On avance le pointeur pour ne pas retravailler la même portion,
-On construit une nouvelle chaîne finale en concaténant ces bouts.*/
 char	*ft_get_expanded_str(t_data *data, char *str)
 {
 	char	*res;
@@ -132,10 +121,6 @@ void	ft_expandizer(t_data *data, t_token **tkn_lst)
 		}
 		else if (token->type == IN_FILE && token->prev->type == T_HEREDOC)
 		{
-			if (ft_strchr(token->content, SQUOTE) != NULL
-				|| ft_strchr(token->content,
-					DQUOTE) != NULL)
-				token->to_expand = false;
 			new_str = ft_remove_quotes(token->content);
 			free(token->content);
 			token->content = new_str;

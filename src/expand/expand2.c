@@ -12,30 +12,6 @@
 
 #include "../../minishell.h"
 
-char	*ft_remove_quotes(char *str)
-{
-	char	*new_str;
-	int		i;
-	int		quotes;
-
-	i = 0;
-	quotes = ft_count_quotes(str);
-	new_str = (char *)malloc(sizeof(char) * (ft_strlen(str) - quotes + 1));
-	if (!new_str)
-		return (NULL);
-	while (str && *str)
-	{
-		if (*str != SQUOTE && *str != DQUOTE)
-		{
-			new_str[i] = *str;
-			i++;
-		}
-		str++;
-	}
-	new_str[i] = '\0';
-	return (new_str);
-}
-
 char	*ft_grab_str(char *str, char *limset)
 {
 	char	*grab;
@@ -50,29 +26,6 @@ char	*ft_grab_str(char *str, char *limset)
 		return (NULL);
 	grab = ft_substr(str, 0, i);
 	return (grab);
-}
-
-char	*ft_grab_var_name(char *str)
-{
-	int		i;
-	char	*var_name;
-
-	if (!str || *str != '$')
-		return (NULL);
-	str++;
-	if (str && *str == '?')
-		return (ft_strdup("?"));
-	if (ft_isdigit(*str))
-		return (ft_substr(str, 0, 1));
-	if (!ft_is_in_var(*str))
-		return (ft_strdup(""));
-	i = 0;
-	while (str[i] && ft_is_in_var(str[i]))
-		i++;
-	if (i == 0)
-		return (NULL);
-	var_name = ft_substr(str, 0, i);
-	return (var_name);
 }
 
 char	*ft_get_expand(t_data *data, char *var_name, char *str)
@@ -95,6 +48,31 @@ char	*ft_get_expand(t_data *data, char *var_name, char *str)
 	return (var_content);
 }
 
+static char	*handle_dollar(t_data *data, char *str)
+{
+	char	*var_name;
+	char	*toadd;
+
+	var_name = ft_grab_var_name(str);
+	if (!var_name)
+		var_name = ft_strdup("");
+	toadd = ft_get_expand(data, var_name, str);
+	str += ft_strlen(var_name) + 1;
+	free(var_name);
+	return (toadd);
+}
+
+static char	*handle_literal(char *str)
+{
+	char	*toadd;
+
+	toadd = ft_grab_str(str, "$\"");
+	if (!toadd)
+		return (NULL);
+	str += ft_strlen(toadd);
+	return (toadd);
+}
+
 char	*ft_next_str_in_double_quotes(t_data *data, char *str)
 {
 	char	*var_name;
@@ -106,21 +84,15 @@ char	*ft_next_str_in_double_quotes(t_data *data, char *str)
 	toadd = NULL;
 	while (str != NULL && *str != '\0')
 	{
-		if (str && *str == '$')
+		if (*str == '$')
 		{
-			var_name = ft_grab_var_name(str);
-			if (!var_name)
-				var_name = ft_strdup("");
-			toadd = ft_get_expand(data, var_name, str);
-			str += ft_strlen(var_name) + 1;
-			free(var_name);
+			toadd = handle_dollar(data, &str);
 		}
 		else
 		{
-			toadd = ft_grab_str(str, "$\"");
+			toadd = handle_literal(&str);
 			if (!toadd)
 				break ;
-			str += ft_strlen(toadd);
 		}
 		tmp = ft_super_strjoin(new_str, toadd);
 		free(toadd);

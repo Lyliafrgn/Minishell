@@ -29,56 +29,21 @@ void	add_redir_type(t_token *cur)
 	}
 }
 
-//for expansion
-int	ft_is_in_var(char c)
+void	ft_free_tokens(t_token **tkn_lst)
 {
-	if (ft_isalnum(c) || c == '_')
-		return (TRUE);
-	return (FALSE);
-}
+	t_token	*curr_token;
+	t_token	*next;
 
-/*Used for expansion*/
-char	*ft_super_strjoin(char *first_str, char *last_str)
-{
-	int		first_str_len;
-	int		last_str_len;
-	char	*join;
-
-	first_str_len = 0;
-	last_str_len = 0;
-	if (first_str == NULL && last_str == NULL)
-		return (NULL);
-	if (first_str != NULL)
-		first_str_len = ft_strlen(first_str);
-	if (last_str != NULL)
-		last_str_len = ft_strlen(last_str);
-	join = malloc(sizeof(char) * (first_str_len + last_str_len + 1));
-	if (!join)
-		return (NULL);
-	if (first_str != NULL)
-		ft_strlcpy(join, first_str, first_str_len + 1);
-	if (last_str != NULL)
-		ft_strlcpy(join + first_str_len, last_str, last_str_len + 1);
-	join[first_str_len + last_str_len] = '\0';
-	if (first_str != NULL)
-		free(first_str);
-	if (last_str != NULL)
-		free(last_str);
-	return (join);
-}
-
-int	ft_count_quotes(char *str)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (str[i])
+	if (*tkn_lst == NULL)
+		return ;
+	curr_token = *tkn_lst;
+	while (curr_token != NULL)
 	{
-		if (str[i] == SQUOTE || str[i] == DQUOTE)
-			count++;
-		i++;
+		next = curr_token->next;
+		if (curr_token->content)
+			free(curr_token->content);
+		free(curr_token);
+		curr_token = next;
 	}
-	return (count);
+	*tkn_lst = NULL;
 }

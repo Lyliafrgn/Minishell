@@ -53,6 +53,7 @@ SRC_FILES = src/main.c \
 			src/executor/ft_parse_commands.c \
 			src/expand/expand.c \
 			src/expand/expand2.c \
+			src/expand/expand_utils.c \
 			src/utils/ft_malloc_list.c \
 			src/utils/ft_print_array.c \
 			src/utils/ft_print_list.c \

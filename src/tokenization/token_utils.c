@@ -12,24 +12,15 @@
 
 #include "../../minishell.h"
 
-/*t_token	*ft_token_before_last(t_token *list)
-{
-	t_token	*cur_token;
-
-	cur_token = list;
-	while (cur_token->next->next != NULL)
-		cur_token = cur_token->next;
-	return (cur_token);
-}*/
 char	*lex_strndup(char *str, int n)
 {
 	char	*copy;
-    int     i;
+	int		i;
 
 	i = 0;
 	while (str[i])
 		i++;
-    if (i == 0)
+	if (i == 0)
 		return (NULL);
 	copy = (char *)malloc(sizeof(char) * (n + 1));
 	if (copy == NULL)
@@ -72,8 +63,8 @@ int	get_type(char *str)
 
 int	get_token_size(char *line)
 {
-	int	type;
-	int	len;
+	int		type;
+	int		len;
 
 	if (!line)
 		return (KO);

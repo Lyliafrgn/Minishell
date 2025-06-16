@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 12:23:18 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/02 11:22:51 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/16 16:37:35 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,32 @@
 
 static int	ft_read_write_lines(int fd, const char *full_limitador)
 {
-	char	*line;
+	char			*line;
+	int				len;
 
+	ft_set_sigint_heredoc();
+	ft_disable_echoctl();
 	while (1)
 	{
-		ft_putstr_fd("> ", 1);
+		ft_putstr_fd("> ", 2);
 		line = get_next_line(0);
+		if (g_sigint_heredoc == 1)
+		{
+			signal(SIGINT, SIG_IGN);
+			free(line);
+			ft_enable_echoctl();
+			return (130);
+		}
 		if (!line)
+		{
+			ft_putstr_fd("warning: .heredoc_tmp delimited "
+				"by end-of-file (wanted `", 2);
+			len = ft_strlen(full_limitador);
+			if (len > 0)
+				write(2, full_limitador, len - 1);
+			ft_putstr_fd("')\n", 2);
 			break ;
+		}
 		if (ft_strcmp(line, full_limitador) == 0)
 		{
 			free(line);
@@ -30,14 +48,18 @@ static int	ft_read_write_lines(int fd, const char *full_limitador)
 		write(fd, line, ft_strlen(line));
 		free(line);
 	}
+	ft_enable_echoctl();
+	signal(SIGINT, SIG_IGN);
 	return (0);
 }
 
 int	ft_tmp_write(const char *limitador, const char *tmp_file)
 {
 	int		fd;
+	int		status;
 	char	*full_limitador;
 
+	g_sigint_heredoc = 0;
 	fd = open(tmp_file, O_WRONLY | O_CREAT | O_TRUNC, 0600);
 	if (fd == -1)
 	{
@@ -50,9 +72,14 @@ int	ft_tmp_write(const char *limitador, const char *tmp_file)
 		close(fd);
 		return (1);
 	}
-	ft_read_write_lines(fd, full_limitador);
+	status = ft_read_write_lines(fd, full_limitador);
 	close(fd);
 	free(full_limitador);
+	if (status == 130)
+	{
+		unlink(tmp_file);
+		return (130);
+	}
 	return (0);
 }
 

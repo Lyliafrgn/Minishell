@@ -6,11 +6,13 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:11:46 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/02 15:23:48 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/16 16:40:06 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	g_sigint_heredoc = 0;
 
 t_data	*ft_init_data(char **envp)
 {
@@ -40,24 +42,26 @@ int	main(int argc, char **argv, char **envp)
 	if (!data)
 		return (1);
 	ft_update_env_shlvl(data->my_env);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, ft_sigint_change);
 	while (1)
 	{
+		signal(SIGINT, ft_sigint_change);
 		data->line = readline("minishell:$ ");
 		if (!data->line)
 		{
-			perror("Error: readline\n");
-			break ;
+			write(1, "exit\n", 5);
+			ft_free_env_malloc(data);
+			exit(0);
 		}
 		if (data->line[0])
 		{
 			add_history(data->line);
 		}
+		signal(SIGINT, ft_sigint_change_line);
 		if (ft_tokenizer(data) != -1)
 		{
-//			ft_print_tokens(data->tkn_lst);
 			data->commands = ft_parse_commands(data->tkn_lst);
-//			ft_print_commands(data);
-//			ft_print_redirect(data->commands[0]->input, "input");
 			ft_execute_all(data);
 		}
 		ft_free_data(data);

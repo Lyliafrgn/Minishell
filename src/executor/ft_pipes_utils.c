@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 15:03:29 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/02 15:20:54 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/16 16:21:32 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,27 @@ void	ft_close_pipes(int **pipe, int num_pipes)
 void	ft_wait_and_free_pipes(pid_t *pid, int **pipe, int num_cmds)
 {
 	int	i;
+	int	status;
+	int	print_newline;
 
 	i = 0;
+	print_newline = 0;
 	while (i < num_cmds)
 	{
-		waitpid(pid[i], NULL, 0);
+		waitpid(pid[i], &status, 0);
+		if (WIFSIGNALED(status))
+		{
+			if (WTERMSIG(status) == SIGINT && !print_newline)
+			{
+				write(1, "\n", 1);
+				print_newline = 1;
+			}
+			else if (WTERMSIG(status) == SIGQUIT)
+			{
+				if (i == num_cmds - 1)
+					write(2, "Quit (core dumped)\n", 19);
+			}
+		}
 		i++;
 	}
 	i = 0;

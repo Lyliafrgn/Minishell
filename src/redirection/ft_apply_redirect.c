@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 12:22:20 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/02 11:30:56 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/11 17:11:39 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,30 +32,25 @@ int	ft_open_redirect(const char *file, int flags, int std_fd)
 	return (0);
 }
 
-static int	ft_apply_input_redirect(t_redirect *input)
+static int	ft_apply_input_redirect(t_cmd *cmd, t_redirect *input)
 {
-	const char	*tmp_file;
 	t_redirect	*last_input;
 	t_redirect	*heredoc_last;
-	int			heredoc_count;
 	char		*missing_file;
+	int			heredoc_count;
 
-	tmp_file = ".heredoc_tmp";
 	last_input = NULL;
 	heredoc_last = NULL;
 	heredoc_count = 0;
-	missing_file = NULL;
 	ft_find_last_and_heredoc(input, &last_input, &heredoc_last, &heredoc_count);
 	missing_file = ft_check_missing_file(input);
-	if (ft_process_heredoc(heredoc_count, heredoc_last, tmp_file))
-		return (1);
 	if (missing_file)
 	{
 		perror(missing_file);
 		return (1);
 	}
 	if (last_input)
-		if (ft_process_last_input(last_input, tmp_file))
+		if (ft_process_last_input(last_input, cmd->tmp_file))
 			return (1);
 	return (0);
 }
@@ -82,11 +77,11 @@ static int	ft_apply_output_redirect(t_redirect *output)
 	return (0);
 }
 
-int	ft_apply_redirect(t_redirect *input, t_redirect *output)
+int	ft_apply_redirect(t_cmd *cmd, t_redirect *input, t_redirect *output)
 {
-	if (ft_apply_input_redirect(input) != 0)
+	if (input && ft_apply_input_redirect(cmd, input) != 0)
 		return (1);
-	if (ft_apply_output_redirect(output) != 0)
+	if (output && ft_apply_output_redirect(output) != 0)
 		return (1);
 	return (0);
 }

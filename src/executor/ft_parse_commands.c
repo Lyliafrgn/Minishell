@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:41:26 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/02 12:40:44 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/11 15:14:19 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static t_cmd	*ft_create_cmd(int arg_count)
 		return (NULL);
 	cmd->input = NULL;
 	cmd->output = NULL;
+	cmd->tmp_file = NULL;
 	return (cmd);
 }
 

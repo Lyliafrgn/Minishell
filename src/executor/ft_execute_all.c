@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:45:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/02 15:21:15 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/16 16:20:49 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	ft_handle_single_builtin(t_cmd *cmd, t_env *my_env, pid_t *pid)
 
 	stdin_backup = dup(STDIN_FILENO);
 	stdout_backup = dup(STDOUT_FILENO);
-	if (ft_apply_redirect(cmd->input, cmd->output))
+	if (ft_apply_redirect(cmd, cmd->input, cmd->output))
 	{
 		dup2(stdin_backup, STDIN_FILENO);
 		dup2(stdout_backup, STDOUT_FILENO);
@@ -38,6 +38,8 @@ static void	ft_handle_single_builtin(t_cmd *cmd, t_env *my_env, pid_t *pid)
 
 static void	ft_handle_single_external(t_cmd *cmd, t_env *my_env, pid_t *pid)
 {
+	int	status;
+
 	pid[0] = fork();
 	if (pid[0] == -1)
 	{
@@ -47,12 +49,21 @@ static void	ft_handle_single_external(t_cmd *cmd, t_env *my_env, pid_t *pid)
 	}
 	if (pid[0] == 0)
 	{
-		if (ft_apply_redirect(cmd->input, cmd->output))
+		signal(SIGINT, SIG_DFL);
+		if (ft_apply_redirect(cmd, cmd->input, cmd->output))
 			exit(EXIT_FAILURE);
+		signal(SIGQUIT, SIG_DFL);
 		ft_execute_command(cmd->cmd_args[0], cmd->cmd_args, my_env);
 	}
 	else
-		waitpid(pid[0], NULL, 0);
+	{
+		waitpid(pid[0], &status, 0);
+		if (WIFSIGNALED(status))
+		{
+			if (WTERMSIG(status) == SIGQUIT)
+				write(2, "Quit (core dumped)\n", 19);
+		}
+	}
 	free(pid);
 }
 
@@ -68,6 +79,7 @@ static void	ft_handle_multiple(t_cmd **cmds, int num_cmds,
 		free(pid);
 		return ;
 	}
+	i = 0;
 	pid[0] = ft_create_f_process(cmds[0], pipe[0], my_env);
 	i = 1;
 	while (i < num_cmds - 1)
@@ -93,6 +105,12 @@ void	ft_execute_all(t_data *data)
 	pid = malloc(sizeof(pid_t) * num_cmds);
 	if (!pid)
 		return ;
+	if (ft_prepare_heredocs(data->commands) == 130)
+	{
+		free(pid);
+		data->exit_code = 130;
+		return ;
+	}
 	if (num_cmds == 1)
 	{
 		if (cmds[0]->cmd_args[0] && ft_is_built_command(cmds[0]->cmd_args[0]))

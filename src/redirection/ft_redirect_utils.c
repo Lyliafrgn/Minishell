@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 11:17:06 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/02 11:32:50 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/16 16:20:11 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,12 @@ void	ft_find_last_and_heredoc(t_redirect *input, t_redirect **last_input,
 	*heredoc_count = count;
 }
 
-int	ft_process_heredoc(int heredoc_count, t_redirect *heredoc_last,
-	const char *tmp_file)
+int	ft_process_heredoc(t_redirect *heredoc_last, const char *tmp_file)
 {
-	if (heredoc_count > 0)
-	{
-		if (heredoc_count > 1)
-			ft_putstr_fd("Multiple HEREDOC detected, "
-				"only the last one will be processed\n", 1);
-		if (ft_tmp_write(heredoc_last->file, tmp_file))
-			return (1);
-	}
-	return (0);
+	int	result;
+
+	result = ft_tmp_write(heredoc_last->file, tmp_file);
+	return (result);
 }
 
 int	ft_process_last_input(t_redirect *last, const char *tmp_file)

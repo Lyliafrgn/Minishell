@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/02 16:16:49 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/16 16:23:09 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <signal.h>
+# include <termios.h>
+
+/*# ifndef ECHOCTL
+# define ECHOCTL 0001000
+# endif */
 
 # define MINIMSG "\001\e[1;36;5;141m\002minishell\001\e[1;33m\002 > \001\033[0m\002"
 
@@ -39,6 +45,8 @@
 # define DQUOTE '"'
 
 # define MINIMSG "\001\e[1;36;5;141m\002minishell\001\e[1;33m\002 > \001\033[0m\002"
+
+extern int	g_sigint_heredoc;
 
 typedef enum e_type
 {
@@ -83,6 +91,7 @@ typedef struct s_cmd
 	char				**cmd_args;
 	t_redirect			*input;
 	t_redirect			*output;
+	char				*tmp_file;
 	struct s_data		*data;
 }	t_cmd;
 
@@ -110,13 +119,13 @@ int		ft_count_pipes(t_token *tokens);
 int		**ft_create_pipes(int num_pipes);
 int		ft_count_cmds(t_token *tkn_lst);
 int		ft_count_args(t_token *start);
-int		ft_apply_redirect(t_redirect *input, t_redirect *output);
+int		ft_apply_redirect(t_cmd *cmd, t_redirect *input, t_redirect *output);
 int		ft_tmp_write(const char *limitador, const char *tmp_file);
 int		ft_tmp_open_redirect(const char *tmp_file);
 int		ft_open_redirect(const char *file, int flags, int std_fd);
-int		ft_process_heredoc(int heredoc_count, t_redirect *heredoc_last,
-			const char *tmp_file);
+int		ft_process_heredoc(t_redirect *heredoc_last, const char *tmp_file);
 int		ft_process_last_input(t_redirect *last, const char *tmp_file);
+int		ft_prepare_heredocs(t_cmd **cmds);
 char	*ft_get_env(t_env *env, char *key);
 char	**ft_env_to_array(t_env *my_env);
 char	*ft_find_full_path(const char *command, t_env *my_env);
@@ -152,6 +161,12 @@ void	ft_find_last_and_heredoc(t_redirect *input, t_redirect **last_input,
 			t_redirect **heredoc_last, int	*heredoc_count);
 void	ft_close_pipes(int **pipe, int num_pipes);
 void	ft_wait_and_free_pipes(pid_t *pid, int **pipe, int num_cmds);
+void    ft_disable_echoctl(void);
+void    ft_enable_echoctl(void);
+void    ft_sigint_change(int sig);
+void    ft_sigint_change_line(int sig);
+void    ft_sigint_heredoc(int sig);
+void    ft_set_sigint_heredoc(void);
 pid_t	ft_create_f_process(t_cmd *cmd, int pipe_fd[2],
 			t_env *my_env);
 pid_t	ft_create_m_process(t_cmd *cmd, int prev_pipe[2],

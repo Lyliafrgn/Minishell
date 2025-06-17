@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:08:54 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/27 13:55:35 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/11 17:12:19 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	ft_free_commands(t_cmd **cmds)
 		ft_free_array(cmds[i]->cmd_args);
 		ft_free_redirect(cmds[i]->input);
 		ft_free_redirect(cmds[i]->output);
+		if (cmds[i]->tmp_file)
+			free(cmds[i]->tmp_file);
 		free(cmds[i]);
 		i++;
 	}

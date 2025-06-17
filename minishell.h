@@ -69,7 +69,6 @@ typedef struct s_token
 {
 	char			*content; // value of the token (ex : ls", "|", "file.txt"))
 	t_type			type;
-	bool			to_expand;
 	struct s_token	*prev;
 	struct s_token	*next;
 }	t_token;

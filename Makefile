@@ -6,10 +6,14 @@
 #    By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/20 16:41:15 by vimazuro          #+#    #+#              #
+<<<<<<< HEAD
 
 #    Updated: 2025/06/02 15:04:27 by vimazuro         ###   ########.fr        #
 #    Updated: 2025/05/26 20:39:06 by lylfergu         ###   ########.fr        #
 
+=======
+#    Updated: 2025/06/16 16:31:01 by vimazuro         ###   ########.fr        #
+>>>>>>> Victoria-Develop1_3
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +74,9 @@ SRC_FILES = src/main.c \
 			src/redirection/ft_apply_redirect.c \
 			src/redirection/ft_tmp_utils.c \
 			src/redirection/ft_redirect_utils.c \
+			src/redirection/ft_heredoc_utils.c \
+			src/signals/ft_signals_utils1.c \
+			src/signals/ft_signals_utils2.c \
 
 
 OBJS = $(SRC_FILES:.c=.o)

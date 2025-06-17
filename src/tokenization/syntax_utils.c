@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ly <ly@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:50:24 by lylfergu          #+#    #+#             */
-/*   Updated: 2025/05/22 20:14:08 by lylfergu         ###   ########.fr       */
+/*   Updated: 2025/06/18 00:51:28 by ly               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	is_operator(char *str)
 	len = ft_strlen (str);
 	if (!str)
 		return (FALSE);
-	if ((ft_strncmp(str, ">>", len) == 0 && str[2] == '\0') ||
-	(ft_strncmp(str, "<<", len) == 0 && str[2] == '\0'))
+	if ((ft_strncmp(str, ">>", len) == 0 && str[2] == '\0')
+		|| (ft_strncmp(str, "<<", len) == 0 && str[2] == '\0'))
 		return (2);
 	if (ft_strchr("|><", *str) != NULL && str[1] == '\0')
 		return (1);
@@ -54,11 +54,11 @@ int	is_invalidop(t_token *tkn)
 		i = 0;
 		while (str[i])
 		{
-			if (str[i] == 59 || str[i] == 92 
-			|| (str[i] >= 40 && str[i] <=  41) || str[i] == 38)
+			if (str[i] == 59 || str[i] == 92
+				|| (str[i] >= 40 && str[i] <= 41) || str[i] == 38)
 			{
-					printf("Syntax error: unsupported character '%c'\n", str[i]);
-					return (TRUE);
+				printf("Syntax error: unsupported character '%c'\n", str[i]);
+				return (TRUE);
 			}
 			i++;
 		}
@@ -71,9 +71,9 @@ int	is_redirop(char *str)
 {
 	int	len;
 
-	len = ft_strlen(str);
 	if (!str)
 		return (FALSE);
+	len = ft_strlen(str);
 	if (ft_strncmp(str, ">>", len) == 0)
 		return (TRUE);
 	if (ft_strncmp(str, "<<", len) == 0)

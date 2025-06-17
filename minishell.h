@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ly <ly@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/16 16:23:09 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/18 00:54:48 by ly               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,11 +183,14 @@ t_cmd	**ft_parse_commands(t_token *tkn_list);
 int		ft_tokenizer(t_data *data);
 t_token	*init_token_list(char *value, int type);
 t_token	*create_token_list(char *line);
+
 /*		TOKEN UTILS	*/
 char	*extract_str_val(char *line);
 int		get_token_size(char *line);
 int		get_type(char *str);
 t_token	*ft_last_token(t_token *lst);
+char	*lex_strndup(char *str, int n);
+
 /*	TOKEN_CHECK		*/
 int		check_token_list(t_data *data, t_token *lst);
 int		check_quote_error(char *line);
@@ -199,4 +202,22 @@ int		is_invalidop(t_token *tkn);
 int		is_redirop(char *str);
 int		is_operator(char *str);
 void	ft_free_tokens(t_token **tkn_lst);
+
+/*		EXPANSION		*/
+void	ft_expandizer(t_data *data, t_token **tkn_lst);
+char	*ft_get_expanded_str(t_data *data, char *str);
+char	*ft_grab_next_str(t_data *data, char *str);
+int		ft_get_next_step(char *str, char *new_str);
+char	*ft_next_str_in_double_quotes(t_data *data, char *str);
+char	*ft_remove_quotes(char *str);
+char	*ft_grab_str(char *str, char *limset);
+char	*ft_grab_var_name(char *str);
+char	*ft_get_expand(t_data *data, char *var_name, char *str);
+char	*ft_grab_next_quotes(t_data *data, char *str);
+
+/* UTILS*/
+void	add_redir_type(t_token *cur);
+int		ft_is_in_var(char c);
+char	*ft_super_strjoin(char *first_str, char *last_str);
+int		ft_count_quotes(char *str);
 #endif

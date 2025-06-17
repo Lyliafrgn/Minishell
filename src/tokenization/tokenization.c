@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ly <ly@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:50:35 by lylfergu          #+#    #+#             */
-/*   Updated: 2025/05/20 11:23:22 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/18 00:52:29 by ly               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_token	*init_token_list(char *value, int type)
 	new_tkn->content = value;
 	new_tkn->type = type;
 	new_tkn->next = NULL;
+	new_tkn->prev = NULL;
 	return (new_tkn);
 }
 
@@ -39,6 +40,7 @@ static void	add_last_token(t_token **tkn_lst, t_token *new_tkn)
 		while (lst->next != NULL)
 			lst = lst->next;
 		lst->next = new_tkn;
+		new_tkn->prev = lst;
 	}
 }
 
@@ -85,5 +87,6 @@ int	ft_tokenizer(t_data *data)
 	}
 	if (check_token_list(data, data->tkn_lst) == KO)
 		return (-1);
+	ft_expandizer(data, &data->tkn_lst);
 	return (1);
 }

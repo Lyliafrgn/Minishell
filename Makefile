@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+         #
+#    By: ly <ly@student.42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/20 16:41:15 by vimazuro          #+#    #+#              #
-#    Updated: 2025/06/16 16:31:01 by vimazuro         ###   ########.fr        #
+#    Updated: 2025/06/18 00:49:10 by ly               ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,16 +48,19 @@ SRC_FILES = src/main.c \
 			src/executor/ft_create_process.c \
 			src/executor/ft_execute_all.c \
 			src/executor/ft_parse_commands.c \
+			src/expand/expand.c \
+			src/expand/expand2.c \
+			src/expand/expand_utils.c \
 			src/utils/ft_malloc_list.c \
 			src/utils/ft_print_array.c \
 			src/utils/ft_print_list.c \
 			src/utils/ft_free.c \
 			src/tokenization/errors.c \
-			src/tokenization/free.c \
 			src/tokenization/syntax_checker.c \
 			src/tokenization/token_utils.c \
 			src/tokenization/tokenization.c \
 			src/tokenization/syntax_utils.c \
+			src/tokenization/utils.c \
 			src/redirection/ft_add_redirect.c \
 			src/redirection/ft_free_redirect.c \
 			src/redirection/ft_print_redirect.c \

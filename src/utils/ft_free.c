@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:08:54 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/11 17:12:19 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/18 16:27:10 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	ft_free_array(char **array)
 	int	i;
 
 	if (!array)
+	{
 		return ;
+	}
 	i = 0;
 	while (array[i])
 	{
@@ -32,16 +34,23 @@ void	ft_free_commands(t_cmd **cmds)
 	int	i;
 
 	if (!cmds)
+	{
 		return ;
+	}
 	i = 0;
 	while (cmds[i])
 	{
-		ft_free_array(cmds[i]->cmd_args);
-		ft_free_redirect(cmds[i]->input);
-		ft_free_redirect(cmds[i]->output);
-		if (cmds[i]->tmp_file)
-			free(cmds[i]->tmp_file);
-		free(cmds[i]);
+		if (cmds[i])
+		{
+			ft_free_array(cmds[i]->cmd_args);
+			ft_free_redirect(cmds[i]->input);
+			ft_free_redirect(cmds[i]->output);
+			if (cmds[i]->tmp_file)
+			{
+				free(cmds[i]->tmp_file);
+			}
+			free(cmds[i]);
+		}
 		i++;
 	}
 	free(cmds);
@@ -50,7 +59,9 @@ void	ft_free_commands(t_cmd **cmds)
 void	ft_free_data(t_data *data)
 {
 	if (!data)
+	{
 		return ;
+	}
 	if (data->line)
 	{
 		free(data->line);
@@ -58,6 +69,7 @@ void	ft_free_data(t_data *data)
 	if (data->commands)
 	{
 		ft_free_commands(data->commands);
+		data->commands = NULL;
 	}
 }
 

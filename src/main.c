@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:11:46 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/16 16:40:06 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/18 17:30:28 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,10 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_tokenizer(data) != -1)
 		{
 			data->commands = ft_parse_commands(data->tkn_lst);
-			ft_execute_all(data);
+			if (data->commands)
+			{
+				ft_execute_all(data);
+			}
 		}
 		ft_free_data(data);
 	}

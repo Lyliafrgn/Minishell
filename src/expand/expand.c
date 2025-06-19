@@ -6,7 +6,7 @@
 /*   By: ly <ly@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:50:35 by lylfergu          #+#    #+#             */
-/*   Updated: 2025/06/18 00:47:06 by ly               ###   ########.fr       */
+/*   Updated: 2025/06/19 23:14:25 by ly               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_get_next_step(char *str, char *new_str)
 
 	if (!str || *str == '\0')
 		return (0);
-	if ((*str == DQUOTE || *str == SQUOTE) && (str + 1))
+	if ((*str == DQUOTE || *str == SQUOTE) && *(str + 1) != '\0')
 		return (ft_strchr(str + 1, *str) - str + 1);
 	if (*str == '$')
 	{
@@ -68,7 +68,7 @@ char	*ft_grab_next_str(t_data *data, char *str)
 		if (!res)
 			return (ft_strdup("\0"));
 	}
-	else if (str && *str == '$' && (str + 1))
+	else if (str && *str == '$' && *(str + 1) != '\0')
 	{
 		grab = ft_grab_var_name(str);
 		res = ft_get_expand(data, grab, str);

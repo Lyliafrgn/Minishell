@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ly <ly@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/18 00:54:48 by ly               ###   ########.fr       */
+/*   Updated: 2025/06/19 15:57:57 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-struct	s_env;
-
 typedef struct s_env
 {
 	char			*key;
@@ -126,11 +124,11 @@ int		ft_open_redirect(const char *file, int flags, int std_fd);
 int		ft_process_heredoc(t_redirect *heredoc_last, const char *tmp_file);
 int		ft_process_last_input(t_redirect *last, const char *tmp_file);
 int		ft_prepare_heredocs(t_cmd **cmds);
+int		ft_exec_built_command(char **args, t_env *my_env);
 char	*ft_get_env(t_env *env, char *key);
 char	**ft_env_to_array(t_env *my_env);
 char	*ft_find_full_path(const char *command, t_env *my_env);
 char	*ft_check_missing_file(t_redirect *input);
-void	ft_exec_built_command(char **args, t_env *my_env);
 void	ft_print_env(t_env *env);
 void	ft_sort_env(t_env *env);
 void	ft_print_export(t_env *my_env);
@@ -160,13 +158,14 @@ void	ft_print_redirect(t_redirect *redir, const char *label);
 void	ft_find_last_and_heredoc(t_redirect *input, t_redirect **last_input,
 			t_redirect **heredoc_last, int	*heredoc_count);
 void	ft_close_pipes(int **pipe, int num_pipes);
-void	ft_wait_and_free_pipes(pid_t *pid, int **pipe, int num_cmds);
-void    ft_disable_echoctl(void);
-void    ft_enable_echoctl(void);
-void    ft_sigint_change(int sig);
-void    ft_sigint_change_line(int sig);
-void    ft_sigint_heredoc(int sig);
-void    ft_set_sigint_heredoc(void);
+void	ft_wait_and_free_pipes(pid_t *pid, int **pipe, int num_cmds,
+			t_data *data);
+void	ft_disable_echoctl(void);
+void	ft_enable_echoctl(void);
+void	ft_sigint_change(int sig);
+void	ft_sigint_change_line(int sig);
+void	ft_sigint_heredoc(int sig);
+void	ft_set_sigint_heredoc(void);
 pid_t	ft_create_f_process(t_cmd *cmd, int pipe_fd[2],
 			t_env *my_env);
 pid_t	ft_create_m_process(t_cmd *cmd, int prev_pipe[2],

@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 11:23:57 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/27 13:39:24 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/19 14:29:37 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	ft_process_export_arg(char *arg, t_env **my_env)
 	if (!ft_valid_key_env(arg))
 	{
 		ft_print_export_error(arg);
-		return (0);
+		return (-1);
 	}
 	equal = ft_strchr(arg, '=');
 	if (equal)
@@ -89,6 +89,8 @@ static int	ft_process_export_arg(char *arg, t_env **my_env)
 int	ft_export(char **args, t_env **my_env)
 {
 	int		i;
+	int		error;
+	int		res_export;
 
 	if (!args[1])
 	{
@@ -97,11 +99,15 @@ int	ft_export(char **args, t_env **my_env)
 		return (0);
 	}
 	i = 1;
+	error = 0;
 	while (args[i])
 	{
-		if (ft_process_export_arg(args[i], my_env) == 1)
+		res_export = ft_process_export_arg(args[i], my_env);
+		if (res_export == 1)
 			return (1);
+		else if (res_export == -1)
+			error = 1;
 		i++;
 	}
-	return (0);
+	return (error);
 }

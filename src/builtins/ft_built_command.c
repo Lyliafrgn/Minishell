@@ -6,29 +6,29 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:06:40 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/14 16:14:45 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/19 13:51:53 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ft_exec_built_command(char **args, t_env *my_env)
+int	ft_exec_built_command(char **args, t_env *my_env)
 {
-	(void)args;
 	if (ft_strcmp(args[0], "echo") == 0)
-		ft_echo(args);
+		return (ft_echo(args));
 	else if (ft_strcmp(args[0], "cd") == 0)
-		ft_cd(args, &my_env);
+		return (ft_cd(args, &my_env));
 	else if (ft_strcmp(args[0], "pwd") == 0)
-		ft_pwd(args);
+		return (ft_pwd(args));
 	else if (ft_strcmp(args[0], "export") == 0)
-		ft_export(args, &my_env);
+		return (ft_export(args, &my_env));
 	else if (ft_strcmp(args[0], "unset") == 0)
-		ft_unset(args, my_env);
+		return (ft_unset(args, my_env));
 	else if (ft_strcmp(args[0], "env") == 0)
-		ft_env(args, my_env);
+		return (ft_env(args, my_env));
 	else if (ft_strcmp(args[0], "exit") == 0)
-		ft_exit(args);
+		return (ft_exit(args));
+	return (1);
 }
 
 int	ft_is_built_command(char *command)

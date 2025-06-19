@@ -6,16 +6,27 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 12:23:18 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/16 16:37:35 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/19 16:44:22 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
+static void	ft_check_heredoc_eof(const char *full_limitador)
+{
+	int	len;
+
+	ft_putstr_fd("warning: .heredoc_tmp delimited "
+		"by end-of-file (wanted `", 2);
+	len = ft_strlen(full_limitador);
+	if (len > 0)
+		write(2, full_limitador, len - 1);
+	ft_putstr_fd("')\n", 2);
+}
+
 static int	ft_read_write_lines(int fd, const char *full_limitador)
 {
 	char			*line;
-	int				len;
 
 	ft_set_sigint_heredoc();
 	ft_disable_echoctl();
@@ -32,12 +43,7 @@ static int	ft_read_write_lines(int fd, const char *full_limitador)
 		}
 		if (!line)
 		{
-			ft_putstr_fd("warning: .heredoc_tmp delimited "
-				"by end-of-file (wanted `", 2);
-			len = ft_strlen(full_limitador);
-			if (len > 0)
-				write(2, full_limitador, len - 1);
-			ft_putstr_fd("')\n", 2);
+			ft_check_heredoc_eof(full_limitador);
 			break ;
 		}
 		if (ft_strcmp(line, full_limitador) == 0)

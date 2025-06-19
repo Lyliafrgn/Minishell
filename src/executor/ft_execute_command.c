@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 11:34:38 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/02 14:09:05 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/19 12:22:30 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,8 @@ static void	ft_exec_external_cmd(char *full_path, char **cmd_args,
 void	ft_execute_command(char *cmd, char **cmd_args, t_env *my_env)
 {
 	char	*full_path;
-	char	**env_array;
 
 	full_path = NULL;
-	env_array = NULL;
 	if (ft_is_built_command(cmd))
 	{
 		ft_exec_built_command(cmd_args, my_env);

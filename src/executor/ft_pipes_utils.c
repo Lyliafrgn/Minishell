@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 15:03:29 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/16 16:21:32 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/19 15:41:36 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,27 @@ void	ft_close_pipes(int **pipe, int num_pipes)
 	}
 }
 
-void	ft_wait_and_free_pipes(pid_t *pid, int **pipe, int num_cmds)
+void	ft_wait_and_free_pipes(pid_t *pid, int **pipe,
+	int num_cmds, t_data *data)
 {
 	int	i;
 	int	status;
 	int	print_newline;
+	int	last_exit;
 
 	i = 0;
 	print_newline = 0;
+	last_exit = 0;
 	while (i < num_cmds)
 	{
 		waitpid(pid[i], &status, 0);
+		if (i == num_cmds - 1)
+		{
+			if (WIFSIGNALED(status))
+				last_exit = 128 + WTERMSIG(status);
+			else if (WIFEXITED(status))
+				last_exit = WEXITSTATUS(status);
+		}
 		if (WIFSIGNALED(status))
 		{
 			if (WTERMSIG(status) == SIGINT && !print_newline)
@@ -75,6 +85,7 @@ void	ft_wait_and_free_pipes(pid_t *pid, int **pipe, int num_cmds)
 		}
 		i++;
 	}
+	data->exit_code = last_exit;
 	i = 0;
 	while (i < num_cmds - 1)
 	{

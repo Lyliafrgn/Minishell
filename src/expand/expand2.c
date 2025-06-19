@@ -45,7 +45,7 @@ char	*ft_get_expand(t_data *data, char *var_name, char *str)
 	var_content = ft_get_env(data->my_env, var_name);
 	if (!var_content)
 		return (NULL);
-	return (var_content);
+	return (ft_strdup(var_content));
 }
 
 static char	*handle_dollar(t_data *data, char **str)

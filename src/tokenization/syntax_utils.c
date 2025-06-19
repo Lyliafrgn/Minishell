@@ -6,7 +6,7 @@
 /*   By: ly <ly@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:50:24 by lylfergu          #+#    #+#             */
-/*   Updated: 2025/06/18 00:51:28 by ly               ###   ########.fr       */
+/*   Updated: 2025/06/20 01:50:19 by ly               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 int	is_operator(char *str)
 {
 	int	len;
-
-	len = ft_strlen (str);
+	
 	if (!str)
 		return (FALSE);
-	if ((ft_strncmp(str, ">>", len) == 0 && str[2] == '\0')
-		|| (ft_strncmp(str, "<<", len) == 0 && str[2] == '\0'))
+	len = ft_strlen (str);
+	if (len == 2 && (ft_strncmp(str, ">>", 2) == 0 || ft_strncmp(str, "<<", 2) == 0))
 		return (2);
-	if (ft_strchr("|><", *str) != NULL && str[1] == '\0')
+	if (len == 1 && ft_strchr("|><", *str) != NULL)
 		return (1);
 	return (FALSE);
 }

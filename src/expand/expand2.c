@@ -44,7 +44,7 @@ char	*ft_get_expand(t_data *data, char *var_name, char *str)
 		return (ft_itoa(data->exit_code));
 	var_content = ft_get_env(data->my_env, var_name);
 	if (!var_content)
-		return (NULL);
+		return (ft_strdup(""));
 	return (ft_strdup(var_content));
 }
 

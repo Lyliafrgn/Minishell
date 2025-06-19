@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ly <ly@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:11:46 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/19 14:08:06 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/19 23:15:41 by ly               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		signal(SIGINT, ft_sigint_change);
-		data->line = readline("minishell:$ ");
+		data->line = readline(MINIMSG);
 		if (!data->line)
 		{
 			write(1, "exit\n", 5);

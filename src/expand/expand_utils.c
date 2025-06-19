@@ -6,7 +6,7 @@
 /*   By: ly <ly@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:50:18 by lylfergu          #+#    #+#             */
-/*   Updated: 2025/06/18 00:46:59 by ly               ###   ########.fr       */
+/*   Updated: 2025/06/20 00:15:12 by ly               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,6 @@ char	*ft_super_strjoin(char *first_str, char *last_str)
 	if (last_str != NULL)
 		ft_strlcpy(join + first_str_len, last_str, last_str_len + 1);
 	join[first_str_len + last_str_len] = '\0';
-	if (first_str != NULL)
-		free(first_str);
-	if (last_str != NULL)
-		free(last_str);
 	return (join);
 }
 

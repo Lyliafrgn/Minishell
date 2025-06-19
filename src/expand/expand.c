@@ -6,7 +6,7 @@
 /*   By: ly <ly@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:50:35 by lylfergu          #+#    #+#             */
-/*   Updated: 2025/06/19 23:14:25 by ly               ###   ########.fr       */
+/*   Updated: 2025/06/20 00:25:27 by ly               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ char	*ft_get_expanded_str(t_data *data, char *str)
 		next_str = ft_grab_next_str(data, str);
 		str += ft_get_next_step(str, next_str);
 		tmp = ft_super_strjoin(res, next_str);
+		free(res);
+		free(next_str);
 		res = tmp;
 	}
 	return (res);

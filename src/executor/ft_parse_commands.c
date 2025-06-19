@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_commands.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ly <ly@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:41:26 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/11 15:14:19 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/20 01:09:34 by ly               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	ft_fill_one_cmd(t_token **cur, t_cmd *cmd, int *arg_index)
 	if (tok->type == T_WORD)
 	{
 		i = *arg_index;
-		cmd->cmd_args[i] = tok->content;
+		cmd->cmd_args[i] = ft_strdup(tok->content);
 		i++;
 		*arg_index = i;
 	}

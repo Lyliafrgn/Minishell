@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ly <ly@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:08:54 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/18 16:27:10 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/20 01:06:31 by ly               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	ft_free_data(t_data *data)
 	{
 		free(data->line);
 	}
+	if (data->tkn_lst)
+		ft_free_tokens(&data->tkn_lst);
 	if (data->commands)
 	{
 		ft_free_commands(data->commands);

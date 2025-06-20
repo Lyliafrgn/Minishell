@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 11:34:38 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/19 12:22:30 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/20 11:33:50 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	ft_execute_command(char *cmd, char **cmd_args, t_env *my_env)
 	if (ft_strchr(cmd, '/'))
 		full_path = ft_strdup(cmd);
 	else
+	{
 		full_path = ft_find_full_path(cmd, my_env);
+	}
 	ft_exec_external_cmd(full_path, cmd_args, my_env, cmd);
 }

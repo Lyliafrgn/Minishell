@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ly <ly@student.42.fr>                      +#+  +:+       +#+         #
+#    By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/20 16:41:15 by vimazuro          #+#    #+#              #
-#    Updated: 2025/06/20 01:34:52 by ly               ###   ########.fr        #
+#    Updated: 2025/06/20 11:35:17 by vimazuro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -I -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -I #-fsanitize=address
 LDLIBS = -lreadline
 SRC_DIR = .
 INC_DIR = libft/include

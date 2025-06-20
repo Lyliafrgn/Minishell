@@ -6,7 +6,7 @@
 /*   By: ly <ly@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:11:46 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/20 00:55:36 by ly               ###   ########.fr       */
+/*   Updated: 2025/06/20 02:35:39 by ly               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			write(1, "exit\n", 5);
 			ft_free_env_malloc(data);
+			clear_history();
 			exit(0);
 		}
 		if (data->line[0])

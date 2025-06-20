@@ -96,6 +96,7 @@ char	*ft_next_str_in_double_quotes(t_data *data, char *str)
 			toadd = handle_literal(&str);
 		}
 		tmp = ft_super_strjoin(new_str, toadd);
+		free(toadd);
 		new_str = tmp;
 	}
 	return (new_str);

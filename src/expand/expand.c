@@ -6,7 +6,7 @@
 /*   By: ly <ly@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 18:50:35 by lylfergu          #+#    #+#             */
-/*   Updated: 2025/06/20 01:00:34 by ly               ###   ########.fr       */
+/*   Updated: 2025/06/20 02:07:07 by ly               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,8 @@ void	ft_expandizer(t_data *data, t_token **tkn_lst)
 			free(token->content);
 			token->content = new_str;
 		}
-		else if (token->type == IN_FILE && token->prev->type == T_HEREDOC)
+		else if ((token->type == IN_FILE || token->type == OUT_FILE) 
+		         && token->content != NULL)
 		{
 			new_str = ft_remove_quotes(token->content);
 			free(token->content);

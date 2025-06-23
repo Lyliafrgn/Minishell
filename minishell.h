@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/20 17:25:42 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/23 17:17:01 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define ECHOCTL 0001000
 # endif */
 
-# define MINIMSG "\001\e[1;36;5;141m\002minishell\001\e[1;33m\002 > \001\033[0m\002"
+# define MINIMSG "minishell > "
 
 # define TRUE 1
 # define FALSE 0
@@ -44,7 +44,7 @@
 # define SQUOTE '\''
 # define DQUOTE '"'
 
-# define MINIMSG "\001\e[1;36;5;141m\002minishell\001\e[1;33m\002 > \001\033[0m\002"
+# define MINIMSG "minishell > "
 
 extern int	g_sigint_heredoc;
 
@@ -137,9 +137,12 @@ void	ft_update_env_add(t_env **my_env, char *key, char *value);
 void	ft_delete_env_node(t_env **my_env, char *key);
 void	ft_execute_command(char *cmd, char **cmd_args, t_env *my_env);
 void	ft_execute_all(t_data *data);
-void	ft_child_process_f(t_cmd *cmd, int pipe_fd[2], t_env *my_env);
-void	ft_child_process_l(t_cmd *cmd, int pipe_fd[2], t_env *my_env);
-void	ft_child_process_m(t_cmd *cmd, int prev_pipe[2], int next_pipe[2], t_env *my_env);
+void	ft_child_process_f(t_cmd *cmd, int pipe_fd[2],
+			t_env *my_env);
+void	ft_child_process_l(t_cmd *cmd, int pipe_fd[2],
+			t_env *my_env);
+void	ft_child_process_m(t_cmd *cmd, int prev_pipe[2],
+			int next_pipe[2], t_env *my_env);
 void	ft_add_malloc_list(void *ptr, t_list **malloc_list);
 void	ft_print_array(char **array);
 void	ft_print_list(t_list *list);
@@ -165,9 +168,13 @@ void	ft_sigint_change(int sig);
 void	ft_sigint_change_line(int sig);
 void	ft_sigint_heredoc(int sig);
 void	ft_set_sigint_heredoc(void);
-void	ft_close_unused_pipes(int **pipes, int num_pipes, int read_index, int write_index);
+void	ft_handle_single_builtin(t_cmd *cmd, t_data *data, pid_t *pid);
+void	ft_handle_single_external(t_cmd *cmd, t_data *data, pid_t *pid);
+void	ft_handle_multiple(t_cmd **cmds, int num_cmds,
+			t_data *data, pid_t *pid);
 pid_t	ft_create_f_process(t_cmd *cmd, int pipe_fd[2], t_env *my_env);
-pid_t	ft_create_m_process(t_cmd *cmd, int prev_pipe[2], int next_pipe[2], t_env *my_env);
+pid_t	ft_create_m_process(t_cmd *cmd, int prev_pipe[2],
+			int next_pipe[2], t_env *my_env);
 pid_t	ft_create_l_process(t_cmd *cmd, int pipe_fd[2], t_env *my_env);
 t_env	*ft_init_env(char **envp);
 t_env	*new_env_node(char *str);

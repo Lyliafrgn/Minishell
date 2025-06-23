@@ -6,111 +6,96 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 11:25:30 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/13 16:15:37 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/23 12:44:18 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "libft.h"
 
-static char	*ft_read_line(char *line)
+char	*ft_free_gnl(char **str)
 {
-	int		i;
-	char	*read_line;
-
-	if (!line || !line[0])
-		return (NULL);
-	i = 0;
-	while (line[i] && line[i] != '\n')
-		i++;
-	read_line = (char *)malloc((i + 2) * sizeof(char));
-	if (!read_line)
-		return (NULL);
-	i = 0;
-	while (line[i] && line[i] != '\n')
-	{
-		read_line[i] = line[i];
-		i++;
-	}
-	if (line[i] == '\n')
-	{
-		read_line[i] = '\n';
-		i++;
-	}
-	read_line[i] = '\0';
-	return (read_line);
+	free(*str);
+	*str = NULL;
+	return (NULL);
 }
 
-static char	*ft_move_start(char *line)
+char	*new_stash(char *stash)
 {
-	int		i;
-	int		j;
-	char	*new_line;
+	int		len;
+	char	*nstash;
+	char	*ptr;
 
-	i = 0;
-	while (line && line[i] && line[i] != '\n')
-		i++;
-	if (line[i] == '\0')
+	ptr = ft_strchr(stash, '\n');
+	if (!ptr)
 	{
-		free(line);
-		return (NULL);
+		nstash = NULL;
+		return (ft_free_gnl(&stash));
 	}
-	new_line = (char *)malloc((ft_strlen(line) - i) * sizeof(char));
-	if (!new_line)
+	else
+		len = (ptr - stash) + 1;
+	if (!stash[len])
+		return (ft_free_gnl(&stash));
+	nstash = ft_substr(stash, len, ft_strlen(stash) - len);
+	ft_free_gnl(&stash);
+	if (!nstash)
 		return (NULL);
-	i++;
-	j = 0;
-	while (line[i + j])
-	{
-		new_line[j] = line[i + j];
-		j++;
-	}
-	new_line[j] = '\0';
-	free(line);
-	return (new_line);
+	return (nstash);
 }
 
-static char	*ft_read_join(int fd, char *line, char *tmp)
+char	*make_line(char *stash)
 {
-	int	fd_read;
+	char	*line;
+	char	*ptr;
+	int		len;
 
-	fd_read = 1;
-	while (!(ft_strchr(line, '\n')) && fd_read != 0)
-	{
-		fd_read = read(fd, tmp, BUFFER_SIZE);
-		if (fd_read == -1)
-		{
-			free(line);
-			return (NULL);
-		}
-		tmp[fd_read] = '\0';
-		line = ft_strjoin(line, tmp);
-	}
+	ptr = ft_strchr(stash, '\n');
+	len = (ptr - stash) + 1;
+	line = ft_substr(stash, 0, len);
+	if (!line)
+		return (NULL);
 	return (line);
+}
+
+char	*read_buf(int fd, char *stash)
+{
+	int		rb;
+	char	*buffer;
+
+	rb = 1;
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer || BUFFER_SIZE < 1)
+		return (ft_free_gnl(&stash));
+	buffer[0] = '\0';
+	while (rb > 0 && !ft_strchr(buffer, '\n'))
+	{
+		rb = read(fd, buffer, BUFFER_SIZE);
+		if (rb > 0)
+		{
+			buffer[rb] = '\0';
+			stash = ft_strjoin_free(stash, buffer);
+		}
+	}
+	free(buffer);
+	if (rb == -1)
+		return (ft_free_gnl(&stash));
+	return (stash);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*line[FOPEN_MAX];
-	char		*tmp;
-	char		*result;
+	static char	*stash = {0};
+	char		*line;
 
-	if (fd < 0 || fd >= FOPEN_MAX || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
-	if (!line[fd])
-	{
-		line[fd] = (char *)malloc(1);
-		if (!line[fd])
-			return (NULL);
-		line[fd][0] = '\0';
-	}
-	tmp = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!tmp)
+	if ((stash && !ft_strchr(stash, '\n')) || !stash)
+		stash = read_buf(fd, stash);
+	if (!stash)
 		return (NULL);
-	line[fd] = ft_read_join(fd, line[fd], tmp);
-	free(tmp);
-	if (!line[fd])
-		return (NULL);
-	result = ft_read_line(line[fd]);
-	line[fd] = ft_move_start(line[fd]);
-	return (result);
+	line = make_line(stash);
+	if (!line)
+		return (ft_free_gnl(&stash));
+	stash = new_stash(stash);
+	return (line);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ly <ly@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:11:46 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/20 02:35:39 by ly               ###   ########.fr       */
+/*   Updated: 2025/06/23 17:05:43 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	g_sigint_heredoc = 0;
 
-t_data	*ft_init_data(char **envp)
+static t_data	*ft_init_data(char **envp)
 {
 	t_data	*data;
 
@@ -32,41 +32,47 @@ t_data	*ft_init_data(char **envp)
 	return (data);
 }
 
+static int	ft_setup_signals_env(t_data **data, char **envp)
+{
+	*data = ft_init_data(envp);
+	if (!*data)
+		return (1);
+	ft_update_env_shlvl((*data)->my_env);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, ft_sigint_change);
+	return (0);
+}
+
+static void	ft_cleanup_on_exit(t_data *data)
+{
+	write(1, "exit\n", 5);
+	ft_free_env_malloc(data);
+	clear_history();
+	exit(0);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
 
 	(void)argc;
 	(void)argv;
-	data = ft_init_data(envp);
-	if (!data)
+	if (ft_setup_signals_env(&data, envp))
 		return (1);
-	ft_update_env_shlvl(data->my_env);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, ft_sigint_change);
 	while (1)
 	{
 		signal(SIGINT, ft_sigint_change);
 		data->line = readline(MINIMSG);
 		if (!data->line)
-		{
-			write(1, "exit\n", 5);
-			ft_free_env_malloc(data);
-			clear_history();
-			exit(0);
-		}
+			ft_cleanup_on_exit(data);
 		if (data->line[0])
-		{
 			add_history(data->line);
-		}
 		signal(SIGINT, ft_sigint_change_line);
 		if (ft_tokenizer(data) != -1)
 		{
 			data->commands = ft_parse_commands(data->tkn_lst);
 			if (data->commands)
-			{
 				ft_execute_all(data);
-			}
 		}
 		ft_free_data(data);
 	}

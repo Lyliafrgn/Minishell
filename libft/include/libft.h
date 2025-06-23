@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 13:00:03 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/29 13:04:43 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/23 12:31:22 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin_free(char *s1, char *s2);
 char	*ft_strjoin_3(const char *s1, const char *s2, const char *s3);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);

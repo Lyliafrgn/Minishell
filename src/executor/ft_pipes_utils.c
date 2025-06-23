@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 15:03:29 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/19 15:41:36 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/20 16:53:52 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,21 @@ void	ft_close_pipes(int **pipe, int num_pipes)
 	{
 		close(pipe[i][0]);
 		close(pipe[i][1]);
+		i++;
+	}
+}
+
+void	ft_close_unused_pipes(int **pipes, int num_pipes, int read_index, int write_index)
+{
+	int	i;
+
+	i = 0;
+	while (i < num_pipes)
+	{
+		if (i != read_index)
+			close(pipes[i][0]);
+		if (i != write_index)
+			close(pipes[i][1]);
 		i++;
 	}
 }

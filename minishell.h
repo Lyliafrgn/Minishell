@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/19 15:57:57 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:25:42 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,8 +139,7 @@ void	ft_execute_command(char *cmd, char **cmd_args, t_env *my_env);
 void	ft_execute_all(t_data *data);
 void	ft_child_process_f(t_cmd *cmd, int pipe_fd[2], t_env *my_env);
 void	ft_child_process_l(t_cmd *cmd, int pipe_fd[2], t_env *my_env);
-void	ft_child_process_m(t_cmd *cmd, int prev_pipe[2],
-			int next_pipe[2], t_env *my_env);
+void	ft_child_process_m(t_cmd *cmd, int prev_pipe[2], int next_pipe[2], t_env *my_env);
 void	ft_add_malloc_list(void *ptr, t_list **malloc_list);
 void	ft_print_array(char **array);
 void	ft_print_list(t_list *list);
@@ -166,10 +165,9 @@ void	ft_sigint_change(int sig);
 void	ft_sigint_change_line(int sig);
 void	ft_sigint_heredoc(int sig);
 void	ft_set_sigint_heredoc(void);
-pid_t	ft_create_f_process(t_cmd *cmd, int pipe_fd[2],
-			t_env *my_env);
-pid_t	ft_create_m_process(t_cmd *cmd, int prev_pipe[2],
-			int next_pipe[2], t_env *my_env);
+void	ft_close_unused_pipes(int **pipes, int num_pipes, int read_index, int write_index);
+pid_t	ft_create_f_process(t_cmd *cmd, int pipe_fd[2], t_env *my_env);
+pid_t	ft_create_m_process(t_cmd *cmd, int prev_pipe[2], int next_pipe[2], t_env *my_env);
 pid_t	ft_create_l_process(t_cmd *cmd, int pipe_fd[2], t_env *my_env);
 t_env	*ft_init_env(char **envp);
 t_env	*new_env_node(char *str);

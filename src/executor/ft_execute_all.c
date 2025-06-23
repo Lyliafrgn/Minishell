@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 11:45:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/19 15:42:14 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:15:13 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	ft_handle_single_builtin(t_cmd *cmd, t_data *data, pid_t *pid)
 	int	stdin_backup;
 	int	stdout_backup;
 	int	code;
+	int	real_exit_code;
 
 	stdin_backup = dup(STDIN_FILENO);
 	stdout_backup = dup(STDOUT_FILENO);
@@ -30,6 +31,16 @@ static void	ft_handle_single_builtin(t_cmd *cmd, t_data *data, pid_t *pid)
 		return ;
 	}
 	code = ft_exec_built_command(cmd->cmd_args, data->my_env);
+	if (code <= -1000)
+	{
+		real_exit_code = -(code + 1000);
+		dup2(stdin_backup, STDIN_FILENO);
+		dup2(stdout_backup, STDOUT_FILENO);
+		close(stdin_backup);
+		close(stdout_backup);
+		free(pid);
+		exit(real_exit_code);
+	}
 	data->exit_code = code;
 	dup2(stdin_backup, STDIN_FILENO);
 	dup2(stdout_backup, STDOUT_FILENO);
@@ -53,7 +64,9 @@ static void	ft_handle_single_external(t_cmd *cmd, t_data *data, pid_t *pid)
 	{
 		signal(SIGINT, SIG_DFL);
 		if (ft_apply_redirect(cmd, cmd->input, cmd->output))
+		{
 			exit(EXIT_FAILURE);
+		}
 		signal(SIGQUIT, SIG_DFL);
 		ft_execute_command(cmd->cmd_args[0], cmd->cmd_args, data->my_env);
 	}
@@ -77,8 +90,8 @@ static void	ft_handle_single_external(t_cmd *cmd, t_data *data, pid_t *pid)
 static void	ft_handle_multiple(t_cmd **cmds, int num_cmds,
 	t_data *data, pid_t *pid)
 {
-	int	i;
-	int	**pipe;
+	int				i;
+	int				**pipe;
 
 	pipe = ft_create_pipes(num_cmds - 1);
 	if (!pipe)
@@ -91,8 +104,7 @@ static void	ft_handle_multiple(t_cmd **cmds, int num_cmds,
 	i = 1;
 	while (i < num_cmds - 1)
 	{
-		pid[i] = ft_create_m_process(cmds[i], pipe[i - 1], pipe[i],
-				data->my_env);
+		pid[i] = ft_create_m_process(cmds[i], pipe[i - 1], pipe[i], data->my_env);
 		i++;
 	}
 	pid[i] = ft_create_l_process(cmds[i], pipe[i - 1], data->my_env);
@@ -121,6 +133,11 @@ void	ft_execute_all(t_data *data)
 	}
 	if (num_cmds == 1)
 	{
+		if (!cmds[0]->cmd_args || !cmds[0]->cmd_args[0])
+		{
+			free(pid);
+			return ;
+		}
 		if (cmds[0]->cmd_args[0] && ft_is_built_command(cmds[0]->cmd_args[0]))
 			ft_handle_single_builtin(cmds[0], data, pid);
 		else

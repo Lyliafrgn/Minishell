@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 12:42:05 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/27 12:20:09 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/20 14:05:46 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,14 @@ int	ft_exit(char **args)
 	long long	num;
 
 	write(1, "exit\n", 5);
-	if (!args[1])
-		exit(0);
-	if (args[1] && !args[2] && ft_strcmp(args[1], "-9223372036854775808") == 0)
-		exit (0);
+	if (!args[1] || (args[1] && !args[2] && ft_strcmp(args[1], "-9223372036854775808") == 0))
+		return (-1000);
 	if (!ft_atol_exit(args[1], &num))
 	{
 		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(args[1], 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
-		exit(2);
+		return(-1002);
 	}
 	if (args[2])
 	{
@@ -73,5 +71,5 @@ int	ft_exit(char **args)
 		return (1);
 	}
 	exit_code = (unsigned char)num;
-	exit(exit_code);
+	return(-1000 - exit_code);
 }

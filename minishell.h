@@ -6,7 +6,7 @@
 /*   By: ly <ly@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/24 23:25:18 by ly               ###   ########.fr       */
+/*   Updated: 2025/06/24 23:40:27 by ly               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@
 # define SQUOTE '\''
 # define DQUOTE '"'
 
-# define MINIMSG "minishell"
+# define CYAN "\001\e[1;36;5;141m\002"
+# define YELLOW "\001\e[1;33m\002"
+# define RESET "\001\033[0m\002"
 
 extern int	g_sigint_heredoc;
 

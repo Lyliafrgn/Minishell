@@ -6,7 +6,7 @@
 /*   By: ly <ly@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:11:46 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/24 23:24:38 by ly               ###   ########.fr       */
+/*   Updated: 2025/06/24 23:40:56 by ly               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		signal(SIGINT, ft_sigint_change);
-		data->line = readline("\001\e[1;36;5;141m\002"MINIMSG
-                      "\001\e[1;33m\002 > "
-                      "\001\033[0m\002");
+		data->line = readline(CYAN"minishell"YELLOW " > "RESET);
 		if (!data->line)
 			ft_cleanup_on_exit(data);
 		if (data->line[0])

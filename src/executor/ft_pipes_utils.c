@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 15:03:29 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/20 16:53:52 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/23 15:14:46 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,29 @@ void	ft_close_pipes(int **pipe, int num_pipes)
 	}
 }
 
-void	ft_close_unused_pipes(int **pipes, int num_pipes, int read_index, int write_index)
+static void	ft_set_last_exit(int i, int num_cmds, int status, int *last_exit)
 {
-	int	i;
-
-	i = 0;
-	while (i < num_pipes)
+	if (i == num_cmds - 1)
 	{
-		if (i != read_index)
-			close(pipes[i][0]);
-		if (i != write_index)
-			close(pipes[i][1]);
-		i++;
+		if (WIFSIGNALED(status))
+			*last_exit = 128 + WTERMSIG(status);
+		else if (WIFEXITED(status))
+			*last_exit = WEXITSTATUS(status);
+	}
+}
+
+static void	ft_print_signal_messages(int i, int num_cmds,
+	int status, int *print_newline)
+{
+	if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == SIGINT && !(*print_newline))
+		{
+			write(1, "\n", 1);
+			*print_newline = 1;
+		}
+		else if (WTERMSIG(status) == SIGQUIT && i == num_cmds - 1)
+			write(2, "Quit (core dumped)\n", 19);
 	}
 }
 
@@ -78,26 +89,8 @@ void	ft_wait_and_free_pipes(pid_t *pid, int **pipe,
 	while (i < num_cmds)
 	{
 		waitpid(pid[i], &status, 0);
-		if (i == num_cmds - 1)
-		{
-			if (WIFSIGNALED(status))
-				last_exit = 128 + WTERMSIG(status);
-			else if (WIFEXITED(status))
-				last_exit = WEXITSTATUS(status);
-		}
-		if (WIFSIGNALED(status))
-		{
-			if (WTERMSIG(status) == SIGINT && !print_newline)
-			{
-				write(1, "\n", 1);
-				print_newline = 1;
-			}
-			else if (WTERMSIG(status) == SIGQUIT)
-			{
-				if (i == num_cmds - 1)
-					write(2, "Quit (core dumped)\n", 19);
-			}
-		}
+		ft_set_last_exit(i, num_cmds, status, &last_exit);
+		ft_print_signal_messages(i, num_cmds, status, &print_newline);
 		i++;
 	}
 	data->exit_code = last_exit;

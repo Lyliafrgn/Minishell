@@ -6,7 +6,7 @@
 #    By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/20 16:41:15 by vimazuro          #+#    #+#              #
-#    Updated: 2025/06/20 11:35:17 by vimazuro         ###   ########.fr        #
+#    Updated: 2025/06/23 16:37:05 by vimazuro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,9 @@ SRC_FILES = src/main.c \
 			src/executor/ft_create_process.c \
 			src/executor/ft_execute_all.c \
 			src/executor/ft_parse_commands.c \
+			src/executor/ft_handle_single_builtin.c \
+			src/executor/ft_handle_single_external.c \
+			src/executor/ft_handle_multiple.c \
 			src/expand/expand.c \
 			src/expand/expand2.c \
 			src/expand/expand_utils.c \

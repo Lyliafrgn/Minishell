@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 12:23:18 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/20 14:16:20 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/23 14:30:02 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,23 @@ static void	ft_check_heredoc_eof(const char *full_limitador)
 	if (len > 0)
 		write(2, full_limitador, len - 1);
 	ft_putstr_fd("')\n", 2);
+}
+
+static int	ft_handle_heredoc_line(char *line, const char *limitador, int fd)
+{
+	if (!line)
+	{
+		ft_check_heredoc_eof(limitador);
+		return (1);
+	}
+	if (ft_strcmp(line, limitador) == 0)
+	{
+		free(line);
+		return (1);
+	}
+	write(fd, line, ft_strlen(line));
+	free(line);
+	return (0);
 }
 
 static int	ft_read_write_lines(int fd, const char *full_limitador)
@@ -41,18 +58,8 @@ static int	ft_read_write_lines(int fd, const char *full_limitador)
 			ft_enable_echoctl();
 			return (130);
 		}
-		if (!line)
-		{
-			ft_check_heredoc_eof(full_limitador);
+		if (ft_handle_heredoc_line(line, full_limitador, fd))
 			break ;
-		}
-		if (ft_strcmp(line, full_limitador) == 0)
-		{
-			free(line);
-			break ;
-		}
-		write(fd, line, ft_strlen(line));
-		free(line);
 	}
 	ft_enable_echoctl();
 	signal(SIGINT, SIG_IGN);
@@ -68,10 +75,7 @@ int	ft_tmp_write(const char *limitador, const char *tmp_file)
 	g_sigint_heredoc = 0;
 	fd = open(tmp_file, O_WRONLY | O_CREAT | O_TRUNC, 0600);
 	if (fd == -1)
-	{
-		perror("open heredoc tmp");
 		return (1);
-	}
 	full_limitador = ft_strjoin(limitador, "\n");
 	if (!full_limitador)
 	{

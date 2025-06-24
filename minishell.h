@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ly <ly@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/23 17:17:01 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/24 23:25:18 by ly               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@
 # define ECHOCTL 0001000
 # endif */
 
-# define MINIMSG "minishell > "
-
 # define TRUE 1
 # define FALSE 0
 
@@ -44,7 +42,7 @@
 # define SQUOTE '\''
 # define DQUOTE '"'
 
-# define MINIMSG "minishell > "
+# define MINIMSG "minishell"
 
 extern int	g_sigint_heredoc;
 

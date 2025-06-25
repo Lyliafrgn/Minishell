@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/05 11:34:38 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/20 11:33:50 by vimazuro         ###   ########.fr       */
+/*   Created: 2025/06/24 17:18:22 by vimazuro          #+#    #+#             */
+/*   Updated: 2025/06/25 10:20:33 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,17 @@ static void	ft_exec_external_cmd(char *full_path, char **cmd_args,
 	t_env *my_env, char *cmd)
 {
 	char	**env_array;
+	char	*error_msg;
 
 	env_array = ft_env_to_array(my_env);
 	if (!full_path)
 	{
-		ft_putstr_fd(cmd, 2);
-		ft_putstr_fd(": command not found\n", 2);
+		error_msg = ft_strjoin(cmd, ": command not found\n");
+		if (error_msg)
+		{
+			write(2, error_msg, ft_strlen(error_msg));
+			free(error_msg);
+		}
 		ft_free_array(env_array);
 		exit(127);
 	}

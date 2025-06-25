@@ -1,53 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipes_utils.c                                   :+:      :+:    :+:   */
+/*   ft_pipes_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/02 15:03:29 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/23 15:14:46 by vimazuro         ###   ########.fr       */
+/*   Created: 2025/06/25 11:54:49 by vimazuro          #+#    #+#             */
+/*   Updated: 2025/06/25 13:41:21 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-int	**ft_create_pipes(int num_pipes)
-{
-	int	**pipe_fd;
-	int	i;
-
-	pipe_fd = malloc(num_pipes * sizeof(int *));
-	if (!pipe_fd)
-		return (NULL);
-	i = 0;
-	while (i < num_pipes)
-	{
-		pipe_fd[i] = malloc(2 * sizeof(int));
-		if (!pipe_fd[i])
-			return (NULL);
-		if (pipe(pipe_fd[i]) == -1)
-		{
-			perror("pipe");
-			return (NULL);
-		}
-		i++;
-	}
-	return (pipe_fd);
-}
-
-void	ft_close_pipes(int **pipe, int num_pipes)
-{
-	int	i;
-
-	i = 0;
-	while (i < num_pipes)
-	{
-		close(pipe[i][0]);
-		close(pipe[i][1]);
-		i++;
-	}
-}
 
 static void	ft_set_last_exit(int i, int num_cmds, int status, int *last_exit)
 {
@@ -76,7 +39,7 @@ static void	ft_print_signal_messages(int i, int num_cmds,
 }
 
 void	ft_wait_and_free_pipes(pid_t *pid, int **pipe,
-	int num_cmds, t_data *data)
+							int num_cmds, t_data *data)
 {
 	int	i;
 	int	status;
@@ -94,11 +57,7 @@ void	ft_wait_and_free_pipes(pid_t *pid, int **pipe,
 		i++;
 	}
 	data->exit_code = last_exit;
-	i = 0;
-	while (i < num_cmds - 1)
-	{
-		free(pipe[i]);
-		i++;
-	}
-	free(pipe);
+	ft_free_pipes(pipe, num_cmds - 1);
+	data->all_pipes = NULL;
+	data->num_pipes = 0;
 }

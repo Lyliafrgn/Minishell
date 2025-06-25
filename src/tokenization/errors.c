@@ -3,30 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ly <ly@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/19 18:50:06 by lylfergu          #+#    #+#             */
-/*   Updated: 2025/06/18 00:50:52 by ly               ###   ########.fr       */
+/*   Created: 2025/06/24 17:19:49 by vimazuro          #+#    #+#             */
+/*   Updated: 2025/06/25 10:15:24 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	print_syntax_error(int errno)
+void	print_syntax_error(int error_type)
 {
-	if (errno == T_PIPE)
+	if (error_type == T_PIPE)
 		printf("Syntax error near unexpected token '|'\n");
-	else if (errno == T_REDIRIN)
+	else if (error_type == T_REDIRIN)
 		printf("Syntax error near unexpected token '<'\n");
-	else if (errno == T_HEREDOC)
+	else if (error_type == T_HEREDOC)
 		printf("Syntax error near unexpected token '<<'\n");
-	else if (errno == T_REDIROUT)
+	else if (error_type == T_REDIROUT)
 		printf("Syntax error near unexpected token '>'\n");
-	else if (errno == T_APPEND)
+	else if (error_type == T_APPEND)
 		printf("Syntax error near unexpected token '>>'\n");
-	else if (errno == 10)
+	else if (error_type == 10)
 		printf("Syntax error near unexpected token 'newline'\n");
-	else if (errno == 11)
+	else if (error_type == 11)
 		printf("Syntax error: unclosed single or double quote\n");
 }
 /*// else if (errno == 12)
@@ -34,7 +34,7 @@ void	print_syntax_error(int errno)
 
 /*int main(void)
 {
-    print_syntax_error(12);
-    print_syntax_error(11);
-    return (0);
+	print_syntax_error(12);
+	print_syntax_error(11);
+	return (0);
 }*/

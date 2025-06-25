@@ -6,7 +6,7 @@
 #    By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/20 16:41:15 by vimazuro          #+#    #+#              #
-#    Updated: 2025/06/23 16:37:05 by vimazuro         ###   ########.fr        #
+#    Updated: 2025/06/25 11:55:56 by vimazuro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,8 @@ SRC_FILES = src/main.c \
 			src/executor/ft_find_full_path.c \
 			src/executor/ft_child_process.c \
 			src/executor/ft_count.c \
-			src/executor/ft_pipes_utils.c \
+			src/executor/ft_pipes_utils1.c \
+			src/executor/ft_pipes_utils2.c \
 			src/executor/ft_create_process.c \
 			src/executor/ft_execute_all.c \
 			src/executor/ft_parse_commands.c \

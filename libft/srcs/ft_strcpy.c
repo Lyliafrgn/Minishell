@@ -1,41 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin_free.c                                  :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/24 17:20:09 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/24 17:20:14 by vimazuro         ###   ########.fr       */
+/*   Created: 2025/06/24 17:16:35 by vimazuro          #+#    #+#             */
+/*   Updated: 2025/06/25 10:17:29 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "get_next_line.h"
 
-char	*ft_strjoin_free(char *s1, char *s2)
+char	*ft_strcpy(char *dest, const char *src)
 {
-	char	*str;
-	size_t	i;
-	size_t	c;
+	int	i;
 
-	if (!s1)
+	i = 0;
+	while (src[i])
 	{
-		s1 = malloc(sizeof(char) + 1);
-		if (!s1)
-			return (0);
-		s1[0] = 0;
+		dest[i] = src[i];
+		i++;
 	}
-	str = (char *)malloc(sizeof(char) * ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!str)
-		return (ft_free_gnl(&s1));
-	i = -1;
-	while (s1[++i])
-		str[i] = s1[i];
-	c = -1;
-	while (s2[++c])
-		str[i + c] = s2[c];
-	str[i + c] = '\0';
-	free(s1);
-	return (str);
+	dest[i] = '\0';
+	return (dest);
 }

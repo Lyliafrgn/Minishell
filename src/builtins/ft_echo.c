@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/17 12:58:26 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/16 14:09:26 by vimazuro         ###   ########.fr       */
+/*   Created: 2025/06/24 17:17:14 by vimazuro          #+#    #+#             */
+/*   Updated: 2025/06/25 11:48:27 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,47 @@ static int	ft_is_n_flag(const char *str)
 	return (1);
 }
 
+static int	ft_calc_total_len(char **args, int i, int newline)
+{
+	int	len;
+
+	len = 0;
+	while (args[i])
+	{
+		len += ft_strlen(args[i]);
+		if (args[i + 1])
+			len++;
+		i++;
+	}
+	if (newline)
+		len++;
+	return (len);
+}
+
+static void	ft_build_output(char *output, char **args, int i, int newline)
+{
+	char	*ptr;
+
+	ptr = output;
+	while (args[i])
+	{
+		ft_strcpy(ptr, args[i]);
+		ptr += ft_strlen(args[i]);
+		if (args[i + 1])
+			*ptr++ = ' ';
+		i++;
+	}
+	if (newline)
+		*ptr++ = '\n';
+	*ptr = '\0';
+}
+
 int	ft_echo(char **args)
 {
-	int	i;
-	int	newline;
+	int		i;
+	int		len;
+	int		newline;
+	char	*output;
 
 	i = 1;
 	newline = 1;
@@ -40,14 +77,12 @@ int	ft_echo(char **args)
 		newline = 0;
 		i++;
 	}
-	while (args[i])
-	{
-		ft_putstr_fd(args[i], 1);
-		if (args[i + 1])
-			write(1, " ", 1);
-		i++;
-	}
-	if (newline)
-		write(1, "\n", 1);
+	len = ft_calc_total_len(args, i, newline);
+	output = malloc(len + 1);
+	if (!output)
+		return (1);
+	ft_build_output(output, args, i, newline);
+	write(1, output, len);
+	free(output);
 	return (0);
 }

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/05 11:35:44 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/05/16 11:45:36 by vimazuro         ###   ########.fr       */
+/*   Created: 2025/06/24 17:18:37 by vimazuro          #+#    #+#             */
+/*   Updated: 2025/06/24 17:18:42 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,10 @@ static char	**ft_get_paths(t_env *my_env)
 
 	all_path = ft_get_env(my_env, "PATH");
 	if (!all_path)
-	{
-		perror("Error: PATH not found\n");
 		return (NULL);
-	}
 	paths = ft_split(all_path, ':');
 	if (!paths)
-		perror("Error with memory allocation for paths\n");
+		write(2, "Error with memory allocation for paths\n", 39);
 	return (paths);
 }
 

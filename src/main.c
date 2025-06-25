@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:11:46 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/23 17:05:43 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/25 12:46:08 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static t_data	*ft_init_data(char **envp)
 	data->commands = NULL;
 	data->malloc_list = NULL;
 	data->my_env = ft_init_env(envp);
+	data->all_pipes = NULL;
+	data->num_pipes = 0;
 	return (data);
 }
 
@@ -62,7 +64,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		signal(SIGINT, ft_sigint_change);
-		data->line = readline(MINIMSG);
+		data->line = readline(CYAN"minishell"YELLOW " > "RESET);
 		if (!data->line)
 			ft_cleanup_on_exit(data);
 		if (data->line[0])

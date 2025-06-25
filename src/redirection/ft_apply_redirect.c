@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/26 12:22:20 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/11 17:11:39 by vimazuro         ###   ########.fr       */
+/*   Created: 2025/06/24 17:19:35 by vimazuro          #+#    #+#             */
+/*   Updated: 2025/06/25 11:30:31 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,26 @@
 
 int	ft_open_redirect(const char *file, int flags, int std_fd)
 {
-	int	fd;
+	char	*error_msg;
+	int		fd;
 
 	fd = open(file, flags, 0644);
 	if (fd < 0)
 	{
-		perror(file);
+		error_msg = ft_strjoin_3(file, ": ", strerror(errno));
+		if (error_msg)
+		{
+			write(2, error_msg, ft_strlen(error_msg));
+			write(2, "\n", 1);
+			free(error_msg);
+		}
 		return (1);
 	}
 	if (dup2(fd, std_fd) == -1)
 	{
-		perror("dup2");
+		write(2, "dup2: ", 6);
+		write(2, strerror(errno), ft_strlen(strerror(errno)));
+		write(2, "\n", 1);
 		close(fd);
 		return (1);
 	}

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 12:02:39 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/23 17:17:01 by vimazuro         ###   ########.fr       */
+/*   Created: 2025/06/24 17:17:37 by vimazuro          #+#    #+#             */
+/*   Updated: 2025/06/25 13:46:58 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <termios.h>
-
-/*# ifndef ECHOCTL
-# define ECHOCTL 0001000
-# endif */
+# include <errno.h>
 
 # define MINIMSG "minishell > "
 
@@ -44,7 +41,9 @@
 # define SQUOTE '\''
 # define DQUOTE '"'
 
-# define MINIMSG "minishell > "
+# define CYAN "\001\e[1;36;5;141m\002"
+# define YELLOW "\001\e[1;33m\002"
+# define RESET "\001\033[0m\002"
 
 extern int	g_sigint_heredoc;
 
@@ -101,6 +100,8 @@ typedef struct s_data
 	t_env	*my_env;
 	t_list	*malloc_list;
 	int		exit_code;
+	int		**all_pipes;
+	int		num_pipes;
 }	t_data;
 
 int		main(int argc, char **argv, char **envp);
@@ -137,12 +138,10 @@ void	ft_update_env_add(t_env **my_env, char *key, char *value);
 void	ft_delete_env_node(t_env **my_env, char *key);
 void	ft_execute_command(char *cmd, char **cmd_args, t_env *my_env);
 void	ft_execute_all(t_data *data);
-void	ft_child_process_f(t_cmd *cmd, int pipe_fd[2],
-			t_env *my_env);
-void	ft_child_process_l(t_cmd *cmd, int pipe_fd[2],
-			t_env *my_env);
+void	ft_child_process_f(t_cmd *cmd, t_data *data);
+void	ft_child_process_l(t_cmd *cmd, int pipe_fd[2], t_data *data);
 void	ft_child_process_m(t_cmd *cmd, int prev_pipe[2],
-			int next_pipe[2], t_env *my_env);
+			int next_pipe[2], t_data *data);
 void	ft_add_malloc_list(void *ptr, t_list **malloc_list);
 void	ft_print_array(char **array);
 void	ft_print_list(t_list *list);
@@ -172,10 +171,11 @@ void	ft_handle_single_builtin(t_cmd *cmd, t_data *data, pid_t *pid);
 void	ft_handle_single_external(t_cmd *cmd, t_data *data, pid_t *pid);
 void	ft_handle_multiple(t_cmd **cmds, int num_cmds,
 			t_data *data, pid_t *pid);
-pid_t	ft_create_f_process(t_cmd *cmd, int pipe_fd[2], t_env *my_env);
+void	ft_free_pipes(int **pipe, int num_pipes);
+pid_t	ft_create_f_process(t_cmd *cmd, t_data *data);
 pid_t	ft_create_m_process(t_cmd *cmd, int prev_pipe[2],
-			int next_pipe[2], t_env *my_env);
-pid_t	ft_create_l_process(t_cmd *cmd, int pipe_fd[2], t_env *my_env);
+			int next_pipe[2], t_data *data);
+pid_t	ft_create_l_process(t_cmd *cmd, int pipe_fd[2], t_data *data);
 t_env	*ft_init_env(char **envp);
 t_env	*new_env_node(char *str);
 t_env	*ft_env_copy(t_env *env);
@@ -198,7 +198,7 @@ char	*lex_strndup(char *str, int n);
 /*	TOKEN_CHECK		*/
 int		check_token_list(t_data *data, t_token *lst);
 int		check_quote_error(char *line);
-void	print_syntax_error(int errno);
+void	print_syntax_error(int error_type);
 /*	TOKEN CHECK UTILS	*/
 int		is_space(char c);
 int		is_quote(char c);

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 13:00:03 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/23 12:31:22 by vimazuro         ###   ########.fr       */
+/*   Created: 2025/06/24 17:14:40 by vimazuro          #+#    #+#             */
+/*   Updated: 2025/06/24 17:14:45 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*ft_strndup(char *str, int n);
 char	*ft_strndup_shift(const char *s, size_t start, size_t len);
+char	*ft_strcpy(char *dest, const char *src);
 int		ft_atoi(const char *nptr);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);

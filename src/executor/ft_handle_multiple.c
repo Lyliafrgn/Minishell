@@ -5,35 +5,51 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/23 16:35:10 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/23 16:42:35 by vimazuro         ###   ########.fr       */
+/*   Created: 2025/06/24 17:18:50 by vimazuro          #+#    #+#             */
+/*   Updated: 2025/06/25 13:56:23 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ft_handle_multiple(t_cmd **cmds, int num_cmds,
-	t_data *data, pid_t *pid)
+static int	ft_init_pipes(t_data *data, pid_t *pid, int num_cmds)
 {
-	int	i;
-	int	**pipe;
-
-	pipe = ft_create_pipes(num_cmds - 1);
-	if (!pipe)
+	data->num_pipes = num_cmds - 1;
+	data->all_pipes = ft_create_pipes(data->num_pipes);
+	if (!data->all_pipes)
 	{
 		free(pid);
-		return ;
+		return (0);
 	}
+	return (1);
+}
+
+void	ft_handle_multiple(t_cmd **cmds, int num_cmds,
+						t_data *data, pid_t *pid)
+{
+	int	i;
+
+	if (!ft_init_pipes(data, pid, num_cmds))
+		return ;
 	i = 0;
-	pid[0] = ft_create_f_process(cmds[0], pipe[0], data->my_env);
-	i = 1;
-	while (i < num_cmds - 1)
+	while (i < num_cmds)
 	{
-		pid[i] = ft_create_m_process(cmds[i], pipe[i - 1],
-				pipe[i], data->my_env);
+		if (i == 0)
+			pid[i] = ft_create_f_process(cmds[0], data);
+		else if (i == num_cmds - 1)
+			pid[i] = ft_create_l_process(cmds[i], data->all_pipes[i - 1], data);
+		else
+			pid[i] = ft_create_m_process(cmds[i], data->all_pipes[i - 1],
+					data->all_pipes[i], data);
+		if (pid[i] == -1)
+		{
+			ft_close_pipes(data->all_pipes, data->num_pipes);
+			ft_free_pipes(data->all_pipes, data->num_pipes);
+			free(pid);
+			return ;
+		}
 		i++;
 	}
-	pid[i] = ft_create_l_process(cmds[i], pipe[i - 1], data->my_env);
-	ft_close_pipes(pipe, num_cmds - 1);
-	ft_wait_and_free_pipes(pid, pipe, num_cmds, data);
+	ft_close_pipes(data->all_pipes, data->num_pipes);
+	ft_wait_and_free_pipes(pid, data->all_pipes, num_cmds, data);
 }

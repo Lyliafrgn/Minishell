@@ -6,7 +6,7 @@
 /*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 17:17:37 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/25 13:46:58 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:46:54 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define SQUOTE '\''
 # define DQUOTE '"'
 
-# define CYAN "\001\e[1;36;5;141m\002"
+# define CYAN "\001\e[1;36;141m\002"
 # define YELLOW "\001\e[1;33m\002"
 # define RESET "\001\033[0m\002"
 

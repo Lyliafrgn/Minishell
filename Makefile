@@ -6,7 +6,7 @@
 #    By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/20 16:41:15 by vimazuro          #+#    #+#              #
-#    Updated: 2025/06/25 11:55:56 by vimazuro         ###   ########.fr        #
+#    Updated: 2025/06/25 15:28:31 by vimazuro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,7 @@ SRC_FILES = src/main.c \
 			src/tokenization/token_utils.c \
 			src/tokenization/tokenization.c \
 			src/tokenization/syntax_utils.c \
+			src/tokenization/syntax_utils2.c \
 			src/tokenization/utils.c \
 			src/redirection/ft_add_redirect.c \
 			src/redirection/ft_free_redirect.c \

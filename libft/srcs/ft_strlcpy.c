@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vimazuro <vimazuro@student.42barcelon      +#+  +:+       +#+        */
+/*   By: lylfergu <lylfergu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 12:52:35 by vimazuro          #+#    #+#             */
-/*   Updated: 2024/10/08 12:52:43 by vimazuro         ###   ########.fr       */
+/*   Updated: 2025/06/26 13:42:34 by lylfergu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	size_t	result;
 
 	result = ft_strlen(src);
+	if (src == NULL || dst == NULL)
+		return (0);
 	if (size == 0)
 		return (result);
 	i = 0;

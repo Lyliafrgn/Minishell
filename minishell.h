@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ly <ly@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 17:17:37 by vimazuro          #+#    #+#             */
 /*   Updated: 2025/06/25 15:46:54 by vimazuro         ###   ########.fr       */
@@ -29,8 +29,6 @@
 # include <signal.h>
 # include <termios.h>
 # include <errno.h>
-
-# define MINIMSG "minishell > "
 
 # define TRUE 1
 # define FALSE 0

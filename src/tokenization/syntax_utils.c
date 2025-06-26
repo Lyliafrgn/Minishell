@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ly <ly@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: vimazuro <vimazuro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 18:50:24 by lylfergu          #+#    #+#             */
-/*   Updated: 2025/06/20 02:27:24 by ly               ###   ########.fr       */
+/*   Updated: 2025/06/25 15:28:39 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,31 +40,6 @@ int	is_space(char c)
 		return (TRUE);
 	else
 		return (FALSE);
-}
-
-// checks for [& \ ; () ]
-int	is_invalidop(t_token *tkn)
-{
-	char	*str;
-	int		i;
-
-	while (tkn)
-	{
-		str = tkn->content;
-		i = 0;
-		while (str[i])
-		{
-			if (str[i] == 59 || str[i] == 92
-				|| (str[i] >= 40 && str[i] <= 41) || str[i] == 38)
-			{
-				printf("Syntax error: unsupported character '%c'\n", str[i]);
-				return (TRUE);
-			}
-			i++;
-		}
-		tkn = tkn->next;
-	}
-	return (FALSE);
 }
 
 int	is_redirop(char *str)

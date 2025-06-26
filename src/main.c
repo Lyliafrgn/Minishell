@@ -6,7 +6,7 @@
 /*   By: ly <ly@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 12:11:46 by vimazuro          #+#    #+#             */
-/*   Updated: 2025/06/24 23:40:56 by ly               ###   ########.fr       */
+/*   Updated: 2025/06/25 12:46:08 by vimazuro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static t_data	*ft_init_data(char **envp)
 	data->commands = NULL;
 	data->malloc_list = NULL;
 	data->my_env = ft_init_env(envp);
+	data->all_pipes = NULL;
+	data->num_pipes = 0;
 	return (data);
 }
 
